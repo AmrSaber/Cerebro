@@ -1,4 +1,5 @@
 from FaceDetector import FaceDetector
+from HOG import sk_get_hog
 
 def detect_faces(image):
 	"""
@@ -15,7 +16,8 @@ def get_features(image):
 	:param: image: np.Mat
 	:returns: (landmarks, HOG)
 	"""
-	# HOG is ready and will be uploaded soon
+	# here we used the HOG function provided by skimage
+	# hog = sk_get_hog(image)
 	# face land marks should be ready soon
 	raise NotImplementedError("this function logic is not implemented yet")
 
