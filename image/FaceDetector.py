@@ -9,7 +9,8 @@ class FaceDetector:
 	it should return a set of locations for faces inside that image
 	"""
 	# DNN parameters
-	net = cv2.dnn.readNetFromCaffe('deploy.prototxt.txt', 'res10_300x300_ssd_iter_140000.caffemodel')
+	folder_path = '../saved-models/image-dnn/'
+	net = cv2.dnn.readNetFromCaffe(folder_path + 'deploy.prototxt.txt', folder_path + 'res10_300x300_ssd_iter_140000.caffemodel')
 
 	# significance lvl
 	alpha = 0.75
