@@ -1,6 +1,7 @@
 from FaceDetector import FaceDetector
 from HOG import sk_get_hog
 
+
 def detect_faces(image):
 	"""
 	:param: image: np.Mat
@@ -10,6 +11,7 @@ def detect_faces(image):
 	2 - gray image
 	"""
 	return FaceDetector.get_faces(image)
+
 
 def get_features(image):
 	"""
@@ -21,12 +23,13 @@ def get_features(image):
 	# face land marks should be ready soon
 	raise NotImplementedError("this function logic is not implemented yet")
 
+
 def is_face(image):
 	"""
 	:param: np.Mat
 	:returns : bool if only 1 face is in the image
 	"""
-	return len(detect_faces(image)) == 1
+	return FaceDetector.is_one_face(image)
 
 
 def normalise_face(image):

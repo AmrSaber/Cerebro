@@ -1,5 +1,6 @@
 import numpy as np
 import cv2
+import imutils
 
 
 class FaceDetector:
@@ -13,7 +14,7 @@ class FaceDetector:
 	net = cv2.dnn.readNetFromCaffe(folder_path + 'deploy.prototxt.txt', folder_path + 'res10_300x300_ssd_iter_140000.caffemodel')
 
 	# significance lvl
-	alpha = 0.75
+	alpha = 0.85
 
 	def __init__(self):
 		raise Exception("you can't make an object of this class")
@@ -40,7 +41,11 @@ class FaceDetector:
 		for i in range(0, detections.shape[2]):
 			confidence = detections[0, 0, i, 2]
 			if confidence > FaceDetector.alpha:
-				locations.append((detections[0, 0, i, 3:7] * np.array([w, h, w, h])).astype("int"))
+				box = (detections[0, 0, i, 3:7] * np.array([w, h, w, h])).astype("int")
+				(startX, startY, endX, endY) = box
+				# make sure the size of detected face is not 0
+				if startX != endX and startY != endY:
+					locations.append(box)
 
 		# display the detected faces marked on the image
 		# FaceDetector.display(img, locations)
@@ -51,8 +56,10 @@ class FaceDetector:
 		faces = []
 		for box in locations:
 			(startX, startY, endX, endY) = box
-			face = img[startY:endY, startX:endX]
-			face = cv2.resize(face, (48, 48))
+			face = img[startY:endY, startX:endX].copy()
+			print(face.shape)
+			# face = cv2.resize(face, (48, 48))
+			face = imutils.resize(face, height=48, width=48)
 			face = cv2.cvtColor(face, cv2.COLOR_BGR2GRAY)
 			faces.append(face)
 		return faces
@@ -73,9 +80,13 @@ class FaceDetector:
 	def get_faces(img):
 		return FaceDetector.extract_faces(img, FaceDetector.detect(img))
 
+	@staticmethod
+	def is_one_face(img):
+		return len(FaceDetector.detect(img)) == 1
+
 
 if __name__ == '__main__':
-	im = cv2.imread('iron_chic.jpg')
+	im = cv2.imread('img.png')
 	faces = FaceDetector.get_faces(im)
 	for i in faces:
 		cv2.imshow("face", i)
