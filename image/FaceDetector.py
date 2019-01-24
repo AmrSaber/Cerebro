@@ -14,7 +14,7 @@ class FaceDetector:
 	net = cv2.dnn.readNetFromCaffe(folder_path + 'deploy.prototxt.txt', folder_path + 'res10_300x300_ssd_iter_140000.caffemodel')
 
 	# significance lvl
-	alpha = 0.85
+	alpha = 0.15
 
 	def __init__(self):
 		raise Exception("you can't make an object of this class")
@@ -48,7 +48,7 @@ class FaceDetector:
 					locations.append(box)
 
 		# display the detected faces marked on the image
-		# FaceDetector.display(img, locations)
+		FaceDetector.display(img, locations)
 		return locations
 
 	@staticmethod
@@ -78,6 +78,8 @@ class FaceDetector:
 
 	@staticmethod
 	def get_faces(img):
+		if img.shape[2] == 1:
+			img = cv2.cvtColor(img, cv2.COLOR_GRAY2RGB)
 		return FaceDetector.extract_faces(img, FaceDetector.detect(img))
 
 	@staticmethod
@@ -86,7 +88,7 @@ class FaceDetector:
 
 
 if __name__ == '__main__':
-	im = cv2.imread('img.png')
+	im = cv2.imread('FacesOfDarbya.jpg')
 	faces = FaceDetector.get_faces(im)
 	for i in faces:
 		cv2.imshow("face", i)

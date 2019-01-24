@@ -1,5 +1,5 @@
 from FaceDetector import FaceDetector
-from HOG import sk_get_hog
+# from HOG import sk_get_hog
 
 
 def detect_faces(image):
