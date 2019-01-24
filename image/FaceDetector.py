@@ -79,11 +79,13 @@ class FaceDetector:
 	@staticmethod
 	def get_faces(img):
 		if img.shape[2] == 1:
-			img = cv2.cvtColor(img, cv2.COLOR_GRAY2RGB)
+			img = img.repeat(3, axis=-1)
 		return FaceDetector.extract_faces(img, FaceDetector.detect(img))
 
 	@staticmethod
 	def is_one_face(img):
+		if img.shape[2] == 1:
+			img = img.repeat(3, axis=-1)
 		return len(FaceDetector.detect(img)) == 1
 
 
