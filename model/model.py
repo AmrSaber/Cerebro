@@ -3,6 +3,7 @@
 import keras
 from keras.layers import Input, Conv2D, MaxPooling2D, Flatten, Dense, BatchNormalization
 from keras.models import Model
+from image import image_processing
 
 
 def create_model():
@@ -30,9 +31,28 @@ def create_model():
 
 	x = Flatten()(x)
 
-	x = Dense(units=2048, activation=dense_activation)(x)
+	outputCNN = Dense(units=2048, activation=dense_activation)(x)
+	
+	landmarks, HOG = image_processing.get_features(input_image)
+	inputHOG = Input(batch_shape=(None, 8), dtype='float32', name='input_HOG')
+	inputLandmarks = Input(batch_shape=(None, 8), dtype='float32', name='input_landmarks')
 
-	output = Dense(units=5, activation='softmax')(x)
+	mergeImage = keras.layers.concatenate([inputHOG , inputLandmarks])
+
+	outputImage = Dense(units=128, activation=dense_activation)(mergeImage)
+
+	finalMerge = keras.layers.concatenate([outputCNN, outputImage])
+
+	finalInput = Dense(units=1024, activation= dense_activation)(finalMerge)
+
+	output = Dense(units=5, activation='softmax')(finalInput)
+
+
+
+
+
+
+
 
 	model = Model(inputs=[input_image], outputs=[output])
 	model.compile(optimizer='adam', loss='mean_squared_error', metrics=['accuracy'])
