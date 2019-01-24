@@ -1,28 +1,53 @@
 #! /user/bin/env python3
 
+import sys; sys.path.insert(1, '../image')
+from image_processing import *
 import numpy as np
+
+data_all = 'dataset/fer2013.csv'
+data_test = 'dataset/fer2013_testing.csv'
+data_training = 'dataset/fer2013_train.csv'
 
 # old_emotions = ["Angry", "Disgust", "Fear", "Happy", "Sad", "Surprise", "Neutral"]
 # new_emotions = ["Fear", "Neutral", "Satisfied", "Surprise", "Unsatisfied"]
 emotions_map = [4, 4, 0, 2, 4, 3, 1]
 
-def read_data(file_name = 'dataset/fer2013.csv', limit = 1000):
-	x_train, y_train, x_test, y_test = [], [], [], []
-	with open(file_name) as file:
-		for i, line in enumerate(file):
-			if i == 0: continue
-			emotion, pxls, usage = line.split(',')
-			emotion = int(emotion)
-			pxls = [int(e) for e in pxls.split(' ')]
-			image = np.reshape(pxls, (48, 48, 1))
+def read_testing():
+	return read_from_file(data_test)
 
-			emotion = emotions_map[emotion]
+def read_training(limit=-1):
+	return read_from_file(data_training, limit)
 
-			if 'training' in usage.lower():
-				x_train.append(image)
-				y_train.append(emotion)
-			elif 'test' in usage.lower():
-				x_test.append(image)
-				y_test.append(emotion)
+def read_from_file(path, limit=-1):
+	xs, ys = [], []
+	with open(path) as file:
+		count = 0
+		for line in file:
+			if limit != -1 and count >= limit: break
+			count += 1
+			emotion, image = parse_line(line)
+			xs.append(image)
+			ys.append(emotion)
+	return np.array(xs), np.array(ys)
 
-	return ((np.array(x_train[:limit]), np.array(y_train[:limit])), (np.array(x_test[:limit]), np.array(y_test[:limit])))
+def parse_line(line):
+	emotion, pxls, usage = line.split(',')
+	emotion, pxls = int(emotion), list(map(int, pxls.split()))
+
+	image = np.reshape(pxls, (48, 48, 1))
+	emotion = emotions_map[emotion]
+
+	return emotion, image
+
+def split_data():
+	tests, trains = [], []
+	with open(data_all) as input:
+		for line in input:
+			if line[0].isalpha(): continue
+			# TODO: filter non-face images here
+			if 'test' in line.lower(): tests.append(line)
+			if 'train' in line.lower(): trains.append(line)
+	with open(data_test, 'w') as f: f.writelines(tests)
+	with open(data_training, 'w') as f: f.writelines(trains)
+
+if __name__ == '__main__': split_data()
