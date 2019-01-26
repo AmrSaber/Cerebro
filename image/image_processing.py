@@ -1,6 +1,11 @@
-from haar_FaceDetector import FaceDetector
+"""
+missing work:
+1 - landmark detection module
+2 - enhancement to the image
+"""
+
+from cascade_FaceDetector import FaceDetector
 from HOG import sk_get_hog
-import cv2
 
 
 def detect_faces(image):
