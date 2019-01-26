@@ -1,14 +1,38 @@
 import cv2
 
+# haarcascade_frontalface_alt.xml scale-factor = 1.00849, min-neighbours = 5
+# scale factor of 1.03 - 1.05 for haar seems to give good results
+
+
+class CascadeClassifier:
+	def __init__(self, classifier_type):
+		if classifier_type == 'haar':
+			self.classifier = cv2.CascadeClassifier('../saved-models/face-detection/haarcascade_frontalface_alt.xml')
+			self.scale_factor = 1.0303035
+			self.min_neighbours = 5
+		elif classifier_type == 'lbp':
+			self.classifier = cv2.CascadeClassifier('../saved-models/face-detection/lbpcascade_frontalface_improved.xml')
+			self.scale_factor = 1.2
+			self.min_neighbours = 5
+		elif classifier_type == "none":
+			self.classifier = cv2.CascadeClassifier()
+			self.scale_factor = -1
+			self.min_neighbours = -1
+		else:
+			raise Exception("unknown classifier type")
+
 
 class FaceDetector:
-	classifier = cv2.CascadeClassifier('../saved-models/image-dnn/haarcascade_frontalface_alt.xml')
-	#cv2.CascadeClassifier('../saved-models/image-dnn/haarcascade_frontalface_alt.xml')
+	cascade_classifier = CascadeClassifier("none")
 
 	def __init__(self):
 		raise Exception("you can't make an object of this class")
 
 	# public functions
+	@staticmethod
+	def set_classifier(classifier_type='haar'):
+		FaceDetector.cascade_classifier = CascadeClassifier(classifier_type)
+
 	@staticmethod
 	def get_faces(img):
 		"""
@@ -20,7 +44,7 @@ class FaceDetector:
 		and each box is a tuple of two points the upper-left-corner and lower-right-corner
 		"""
 		boxes = FaceDetector.__get_faces_locations(img)
-		FaceDetector.__display(img.copy(), boxes)
+		# FaceDetector.__display(img.copy(), boxes)
 		faces = FaceDetector.__extract_faces(img, boxes)
 		faces = FaceDetector.__enhance_faces(faces)
 		res = []
@@ -56,7 +80,13 @@ class FaceDetector:
 		where each box contains a tuple of two points
 		the upper left corner and the lower right corner
 		"""
-		faces = FaceDetector.classifier.detectMultiScale(img, scaleFactor=1.00849, minNeighbors=5)
+		if FaceDetector.cascade_classifier.scale_factor < 0:
+			raise Exception("you should initialize the classifier first")
+		faces = FaceDetector.cascade_classifier.classifier.detectMultiScale(
+			img,
+			scaleFactor=FaceDetector.cascade_classifier.scale_factor,
+			minNeighbors=FaceDetector.cascade_classifier.min_neighbours
+		)
 		boxes = []
 		for face in faces:
 			p1 = (face[0], face[1])
@@ -102,12 +132,10 @@ class FaceDetector:
 
 
 if __name__ == '__main__':
-	im = cv2.imread("examples/FacesOfDarbya.jpg")
+	im = cv2.imread("examples/example_01.jpg")
+	FaceDetector.set_classifier("haar")
 	fs = FaceDetector.get_faces(im)
-	print("accurcy : %f" %(len(fs)/40))
-	"""
 	for i in fs:
 		print(i[1])
 		cv2.imshow("face", i[0])
 		cv2.waitKey(0)
-	"""

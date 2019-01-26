@@ -8,6 +8,20 @@ from cascade_FaceDetector import FaceDetector
 from HOG import sk_get_hog
 
 
+def set_detection_method(method="haar"):
+	"""
+	this method is sed to specify the detection method
+	:param method: string
+	possible values {
+		"haar" > for haar classifier
+		"lbp"  > for lbp classifier
+	}
+	:return: nothing
+	:raise Exception "unknown type" if another type is entered
+	"""
+	FaceDetector.set_classifier(method)
+
+
 def detect_faces(image):
 	"""
 	:param: image: np.Mat
