@@ -126,13 +126,13 @@ class FaceDetector:
 	@staticmethod
 	def __display(img, boxes):
 		for box in boxes:
-			cv2.rectangle(img, box[0], box[1], (255, 0, 0), 1)
+			cv2.rectangle(img, box[0], box[1], (0, 255, 0), 1)
 		cv2.imshow("detected faces", img)
 		cv2.waitKey(0)
 
 
 if __name__ == '__main__':
-	im = cv2.imread("examples/example_01.jpg")
+	im = cv2.imread("examples/FacesOfDarbya.jpg")
 	FaceDetector.set_classifier("haar")
 	fs = FaceDetector.get_faces(im)
 	for i in fs:

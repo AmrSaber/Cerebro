@@ -2,24 +2,31 @@
 missing work:
 1 - landmark detection module
 2 - enhancement to the image
+
+dnn_FaceDetector to use DNN based face detection
+cascade_FaceDetector to use cascade classifiers like haar and lbp
+dlib_FaceDetector to use dlib face detector HOG + SVM
+
+next step will be creating a general interface for all face detection methods
+to allow changing throw them all via programming function
 """
 
-from cascade_FaceDetector import FaceDetector
+from dlib_FaceDetector import FaceDetector
 from HOG import sk_get_hog
 
-
-def set_detection_method(method="haar"):
-	"""
-	this method is sed to specify the detection method
-	:param method: string
-	possible values {
-		"haar" > for haar classifier
-		"lbp"  > for lbp classifier
-	}
-	:return: nothing
-	:raise Exception "unknown type" if another type is entered
-	"""
-	FaceDetector.set_classifier(method)
+# uncomment this function when using cascade_FaceDetector
+# def set_detection_method(method="haar"):
+# 	"""
+# 	this method is sed to specify the detection method
+# 	:param method: string
+# 	possible values {
+# 		"haar" > for haar classifier
+# 		"lbp"  > for lbp classifier
+# 	}
+# 	:return: nothing
+# 	:raise Exception "unknown type" if another type is entered
+# 	"""
+# 	FaceDetector.set_classifier(method)
 
 
 def detect_faces(image):
@@ -37,7 +44,7 @@ def detect_faces(image):
 
 def get_features(image):
 	"""
-	:param: image: np.Mat
+	:param: image: np.Mat (the image must contain only the face extracted)
 	:returns: (landmarks, HOG)
 	"""
 	# here we used the HOG function provided by skimage
