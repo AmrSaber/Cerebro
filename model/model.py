@@ -8,7 +8,7 @@ from keras.models import Model
 class EmotionsModel(object):
 
 	def __init__(self, targets_count, create_new=False):
-		if not create_new and has_saved_model():
+		if not create_new and self.has_saved_model():
 			self.model = self.load_model()
 			self.is_trained = True
 		else:
@@ -16,6 +16,7 @@ class EmotionsModel(object):
 			self.is_trained = False
 
 	def fit(self, xs, ys, should_save_model=True):
+		# try with 13 epochs as the github example
 		history = self.model.fit(xs, ys, epochs=1)
 
 		self.is_trained = True
@@ -86,6 +87,7 @@ class EmotionsModel(object):
 
 
 		model = Model(inputs=[input_image, inputHOG, inputLandmarks], outputs=[output])
-		model.compile(optimizer='adam', loss='mean_squared_error', metrics=['accuracy'])
+		model.compile(optimizer='adam', loss='categorical_crossentropy', learning_rate=0.016, metrics=['accuracy'])
+		# model.compile(optimizer='adam', loss='mean_squared_error', metrics=['accuracy'])
 
 		return model
