@@ -10,7 +10,7 @@ def main():
 
 	print('Reading data...')
 	x_test, y_test = read_testing()
-	x_train, y_train = read_training(1000)
+	x_train, y_train = read_training()
 
 	emotions_count = len(set(emotions_map))
 	y_train = to_categorical(y_train, emotions_count)

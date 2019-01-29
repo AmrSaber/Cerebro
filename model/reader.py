@@ -5,6 +5,7 @@ from image_processing import *
 
 import cv2
 import numpy as np
+import argparse
 
 data_all = 'dataset/fer2013.csv'
 data_test = 'dataset/fer2013_testing.csv'
@@ -42,31 +43,43 @@ def parse_line(line):
 
 	return emotion, image
 
-def split_data(verbose, filter=False):
+def split_data(quite, filter, leave):
 	tests, trains = [], []
 	with open(data_all) as input:
 		for line in input:
 			# ignore header
 			if line[0].isalpha(): continue
-s
+
+			_, image = parse_line(line)
+
+			if not leave: image = normalize_face(image)
+
 			if filter:
 				# filter non-face images
-				_, image = parse_line(line)
 				if is_face(image):
 					if verbose: print('Face')
 				else:
 					if verbose: print('Not Face')
-					# cv2.imshow('', image)
+					cv2.imshow('', image)
+					cv2.waitKey(0)
 					continue
 
 			# add image to its category
 			if 'test' in line.lower(): tests.append(line)
 			if 'train' in line.lower(): trains.append(line)
 
-	print('Training size:', len(trains))
-	print('Testing size:', len(tests))
+	if not quite:
+		print('Training size:', len(trains))
+		print('Testing size:', len(tests))
 
 	with open(data_test, 'w') as f: f.writelines(tests)
 	with open(data_training, 'w') as f: f.writelines(trains)
 
-if __name__ == '__main__': split_data(true)
+if __name__ == '__main__':
+	parser = argparse.ArgumentParser(description='Read, filter and separate the data to testing and training data (filtering is optional)')
+	parser.add_argument('-q', action='store_true', help='Quite mode, no ouput')
+	parser.add_argument('-f', action='store_true', help='Filter non-face images')
+	parser.add_argument('-l', action='store_true', help='Leave image without enhancement')
+	args = parser.parse_args()
+
+	split_data(args.q, args.f, args.l)
