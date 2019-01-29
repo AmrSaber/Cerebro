@@ -4,50 +4,88 @@ import keras
 from keras.layers import Input, Conv2D, MaxPooling2D, Flatten, Dense, BatchNormalization, concatenate
 from keras.models import Model
 
-def create_model():
+#FIXME: pass HOG and LandMarks to the model in fit, test and predict
+class EmotionsModel(object):
 
-	conv_activation = 'relu'
-	dense_activation = 'relu'
+	def __init__(self, targets_count, create_new=False):
+		if not create_new and has_saved_model():
+			self.model = self.load_model()
+			self.is_trained = True
+		else:
+			self.model = self._create_model(targets_count)
+			self.is_trained = False
 
-	# ========================== CNN Part ==========================
-	input_image = Input(batch_shape=(None, 48, 48, 1), dtype='float32', name='input_image')
+	def fit(self, xs, ys, should_save_model=True):
+		history = self.model.fit(xs, ys, epochs=1)
 
-	x = Conv2D(filters=64, kernel_size=(5, 5), padding='same', activation=conv_activation)(input_image)
-	x = MaxPooling2D(pool_size=(2, 2), strides=2, data_format="channels_last")(x)
-	x = BatchNormalization(axis=-1)(x)
+		self.is_trained = True
+		if should_save_model: self.save_model()
 
-	x = Conv2D(filters=96, kernel_size=(5, 5), padding='same', activation=conv_activation)(x)
-	x = MaxPooling2D(pool_size=(2, 2), strides=2, data_format="channels_last")(x)
-	x = BatchNormalization(axis=-1)(x)
+		return history
 
-	x = Conv2D(filters=256, kernel_size=(5, 5), padding='same', activation=conv_activation)(x)
-	x = MaxPooling2D(pool_size=(2, 2), strides=2, data_format="channels_last")(x)
+	def test(self, faces, targets):
+		if not self.is_trained: raise Exception("Model not trained yet")
+		return self.model.evaluate(faces, targets)
 
-	x = Conv2D(filters=256, kernel_size=(5, 5), padding='same', activation=conv_activation)(x)
+	def predict(self, faces):
+		if not self.is_trained: raise Exception("Model not trained yet")
+		pass
 
-	x = Flatten()(x)
+	# TODO
+	def save_model(self):
+		pass
 
-	outputCNN = Dense(units=2048, activation=dense_activation)(x)
+	# TODO
+	def load_model(self):
+		pass
 
-	# ========================== Image features part ==========================
-	inputHOG = Input(batch_shape=(None, 8), dtype='float32', name='input_HOG')
+	# TODO
+	def has_saved_model(self):
+		return False
 
-	#TODO: Edit this shape when LM function is done
-	inputLandmarks = Input(batch_shape=(None, 64, 2), dtype='float32', name='input_landmarks')
-	flatLandmarks = Flatten()(inputLandmarks)
+	def _create_model(self, targets_count):
+		conv_activation = 'relu'
+		dense_activation = 'relu'
 
-	mergeImage = concatenate([inputHOG , flatLandmarks])
+		# ========================== CNN Part ==========================
+		input_image = Input(batch_shape=(None, 48, 48, 1), dtype='float32', name='input_image')
 
-	outputImage = Dense(units=128, activation=dense_activation)(mergeImage)
+		x = Conv2D(filters=64, kernel_size=(5, 5), padding='same', activation=conv_activation)(input_image)
+		x = MaxPooling2D(pool_size=(2, 2), strides=2, data_format="channels_last")(x)
+		x = BatchNormalization(axis=-1)(x)
 
-	finalMerge = concatenate([outputCNN, outputImage])
+		x = Conv2D(filters=96, kernel_size=(5, 5), padding='same', activation=conv_activation)(x)
+		x = MaxPooling2D(pool_size=(2, 2), strides=2, data_format="channels_last")(x)
+		x = BatchNormalization(axis=-1)(x)
 
-	finalDense = Dense(units=1024, activation= dense_activation)(finalMerge)
+		x = Conv2D(filters=256, kernel_size=(5, 5), padding='same', activation=conv_activation)(x)
+		x = MaxPooling2D(pool_size=(2, 2), strides=2, data_format="channels_last")(x)
 
-	output = Dense(units=5, activation='softmax')(finalDense)
+		x = Conv2D(filters=256, kernel_size=(5, 5), padding='same', activation=conv_activation)(x)
+
+		x = Flatten()(x)
+
+		outputCNN = Dense(units=2048, activation=dense_activation)(x)
+
+		# ========================== Image features part ==========================
+		inputHOG = Input(batch_shape=(None, 8), dtype='float32', name='input_HOG')
+
+		#TODO: Edit this shape when LM function is done
+		inputLandmarks = Input(batch_shape=(None, 64, 2), dtype='float32', name='input_landmarks')
+		flatLandmarks = Flatten()(inputLandmarks)
+
+		mergeImage = concatenate([inputHOG , flatLandmarks])
+
+		outputImage = Dense(units=128, activation=dense_activation)(mergeImage)
+
+		finalMerge = concatenate([outputCNN, outputImage])
+
+		finalDense = Dense(units=1024, activation= dense_activation)(finalMerge)
+
+		output = Dense(units=targets_count, activation='softmax')(finalDense)
 
 
-	model = Model(inputs=[input_image, inputHOG, inputLandmarks], outputs=[output])
-	model.compile(optimizer='adam', loss='mean_squared_error', metrics=['accuracy'])
+		model = Model(inputs=[input_image, inputHOG, inputLandmarks], outputs=[output])
+		model.compile(optimizer='adam', loss='mean_squared_error', metrics=['accuracy'])
 
-	return model
+		return model
