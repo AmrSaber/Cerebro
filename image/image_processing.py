@@ -62,10 +62,10 @@ def is_face(image):
 	return FaceDetector.is_one_face(image)
 
 
-def normalise_face(image):
+def normalize_face(image):
 	"""
 	:param: np.Mat
 	:return: np.Mat
 	"""
 	# no enhancement done yet
-	return image 
+	return image

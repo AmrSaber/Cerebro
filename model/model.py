@@ -1,10 +1,14 @@
 #! /user/bin/env python3
 
+import sys; sys.path.insert(1, '../image')
+from image_processing import get_features
+
+import numpy as np
+
 import keras
 from keras.layers import Input, Conv2D, MaxPooling2D, Flatten, Dense, BatchNormalization, concatenate
 from keras.models import Model
 
-#FIXME: pass HOG and LandMarks to the model in fit, test and predict
 class EmotionsModel(object):
 
 	def __init__(self, targets_count, create_new=False):
@@ -16,6 +20,8 @@ class EmotionsModel(object):
 			self.is_trained = False
 
 	def fit(self, xs, ys, should_save_model=True):
+		xs = self.transform_input(xs)
+
 		# try with 13 epochs as the github example
 		history = self.model.fit(xs, ys, epochs=1)
 
@@ -26,11 +32,22 @@ class EmotionsModel(object):
 
 	def test(self, faces, targets):
 		if not self.is_trained: raise Exception("Model not trained yet")
+		faces = self.transform_input(faces)
 		return self.model.evaluate(faces, targets)
 
 	def predict(self, faces):
 		if not self.is_trained: raise Exception("Model not trained yet")
+		faces = slef.transform_input(faces)
 		pass
+
+	def transform_input(self, images):
+		lms, hogs = [], []
+		for i, image in enumerate(images):
+			landmarks, hog = get_features(image)
+			lms.append(landmarks)
+			hogs.append(hog)
+		return [np.array(images), np.array(hogs), np.array(lms)]
+
 
 	# TODO
 	def save_model(self):
@@ -69,10 +86,9 @@ class EmotionsModel(object):
 		outputCNN = Dense(units=2048, activation=dense_activation)(x)
 
 		# ========================== Image features part ==========================
-		inputHOG = Input(batch_shape=(None, 8), dtype='float32', name='input_HOG')
+		inputHOG = Input(batch_shape=(None, 128), dtype='float32', name='input_HOG')
 
-		#TODO: Edit this shape when LM function is done
-		inputLandmarks = Input(batch_shape=(None, 64, 2), dtype='float32', name='input_landmarks')
+		inputLandmarks = Input(batch_shape=(None, 68, 2), dtype='float32', name='input_landmarks')
 		flatLandmarks = Flatten()(inputLandmarks)
 
 		mergeImage = concatenate([inputHOG , flatLandmarks])
@@ -87,7 +103,6 @@ class EmotionsModel(object):
 
 
 		model = Model(inputs=[input_image, inputHOG, inputLandmarks], outputs=[output])
-		model.compile(optimizer='adam', loss='categorical_crossentropy', learning_rate=0.016, metrics=['accuracy'])
-		# model.compile(optimizer='adam', loss='mean_squared_error', metrics=['accuracy'])
+		model.compile(optimizer='adam', loss='mean_squared_error', metrics=['accuracy'])
 
 		return model

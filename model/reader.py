@@ -57,11 +57,11 @@ def split_data(quite, filter, leave):
 			if filter:
 				# filter non-face images
 				if is_face(image):
-					if verbose: print('Face')
+					if not quite: print('Face')
 				else:
-					if verbose: print('Not Face')
-					cv2.imshow('', image)
-					cv2.waitKey(0)
+					if not quite: print('Not Face')
+					# cv2.imshow('', image)
+					# cv2.waitKey(0)
 					continue
 
 			# add image to its category
