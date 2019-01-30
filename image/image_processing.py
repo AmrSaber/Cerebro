@@ -12,7 +12,7 @@ to allow changing throw them all via programming function
 """
 
 from dlib_FaceDetector import FaceDetector
-from HOG import getHOG
+from HOG import sk_get_hog
 
 # uncomment this function when using cascade_FaceDetector
 # def set_detection_method(method="haar"):
@@ -48,7 +48,7 @@ def get_features(image):
 	:returns: (landmarks, HOG)
 	"""
 	# here we used the HOG function provided by skimage
-	hog = getHOG(image)
+	hog = sk_get_hog(image)
 	# face land marks should be ready soon
 	landmarks = FaceDetector.get_face_landmarks(image)
 	return landmarks, hog
