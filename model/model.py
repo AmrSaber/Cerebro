@@ -69,28 +69,28 @@ class EmotionsModel(object):
 
 		# ========================== CNN Part ==========================
 		input_image = Input(batch_shape=(None, 48, 48, 1), dtype='float32', name='input_image')
-		x = Conv2D(filters=64, kernel_size=(3, 3), padding='valid', activation=conv_activation)(input_image)
-		if (Batch_Normalization):
-				x = BatchNormalization(axis=-1)(x)
-
-		x = MaxPooling2D(pool_size=(3, 3), strides=2, data_format="channels_last")(x)
-		x = Conv2D(filters=128, kernel_size=(3, 3), padding='valid', activation=conv_activation)(x)
+		x = Conv2D(filters=64, kernel_size=(3, 3), padding='same', activation=conv_activation)(input_image)
 
 		if (Batch_Normalization):
 				x = BatchNormalization(axis=-1)(x)
 
 		x = MaxPooling2D(pool_size=(3, 3), strides=2, data_format="channels_last")(x)
-		x = Conv2D(filters=256, kernel_size=(3, 3), padding='valid', activation=conv_activation)(x)
+		x = Conv2D(filters=128, kernel_size=(3, 3), padding='same', activation=conv_activation)(x)
 
 		if (Batch_Normalization):
 				x = BatchNormalization(axis=-1)(x)
 
 		x = MaxPooling2D(pool_size=(3, 3), strides=2, data_format="channels_last")(x)
+		x = Conv2D(filters=256, kernel_size=(3, 3), padding='same', activation=conv_activation)(x)
 
+		if (Batch_Normalization):
+				x = BatchNormalization(axis=-1)(x)
+
+		x = MaxPooling2D(pool_size=(3, 3), strides=2, data_format="channels_last")(x)
 		x = Dropout(rate=keep_prob)
 		x=  Dense(units=4096 , activation=dense_activation)
 
-		x = Dropout(rate=keep_prob)(x)
+		x = Dropout(rate=keep_prob)
 		x=  Dense(units=1024 , activation=dense_activation)
 
 		if (Batch_Normalization):
@@ -113,15 +113,15 @@ class EmotionsModel(object):
 
 		outputImage = Dense(units=128, activation= dense_activation)(outputImage)
 		if (Batch_Normalization):
-				outputImage = BatchNormalization(axis=-1)(outputImage)
+				outputImage = BatchNormalization(axis=-1)(outputCNN)
 
 		outputImage = Dense(units=128 ,activation=dense_activation)(outputImage)
-		concat_output = concatenate([outputCNN, outputImage], axis=1)
+		concat_output = concatenate([outputCNN, outputImage])
 
 		output = Dense(units=targets_count, activation='softmax')(concat_output)
 
 
-		model = Model(inputs=[input_image, inputHOG, inputLandmarks], outputs=[output])
-		model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
+		model = Model(inputs=[input_image,inputLandmarks], outputs=[output])
+		model.compile(optimizer='adam', loss='mean_squared_error', metrics=['accuracy'])
 
 		return model
