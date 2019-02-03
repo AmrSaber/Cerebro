@@ -3,8 +3,15 @@
 from model import *
 from reader import read_testing, read_training, emotions_map
 from  keras.utils import  to_categorical
+import argparse
 
 def main():
+
+	parser = argparse.ArgumentParser(description='')
+	parser.add_argument('-t', action='store_true', help='Force train model')
+	args = parser.parse_args()
+	must_train = args.t
+
 	print('Reading data...')
 	x_test, y_test = read_testing()
 	x_train, y_train = read_training()
@@ -17,7 +24,8 @@ def main():
 	print('\nCreated Model.')
 
 	print('Training...')
-	history = model.fit(x_train, y_train)
+	if not model.is_trained or must_train:
+		history = model.fit(x_train, y_train)
 
 	print('\nTesting...')
 	result = model.test(x_test, y_test)

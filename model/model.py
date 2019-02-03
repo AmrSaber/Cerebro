@@ -3,17 +3,23 @@
 import sys; sys.path.insert(1, '../image')
 from image_processing import get_features
 
+from pathlib import Path
+
 import numpy as np
 
 import keras
 from keras.layers import Input, Conv2D, MaxPooling2D, Flatten, Dense, BatchNormalization, concatenate ,Dropout
 from keras.models import Model
+from keras.optimizers import SGD
 
 class EmotionsModel(object):
 
-	def __init__(self, targets_count, create_new=False):
-		if not create_new and self.has_saved_model():
-			self.model = self.load_model()
+	def __init__(self, targets_count, force_train=False):
+		self.model_path = '../saved-models/emotions_model.f5'
+		self.batch_size = 32
+		self.epochs = 13
+		if not force_train and self.has_saved_model():
+			self.load_model()
 			self.is_trained = True
 		else:
 			self.model = self._create_model(targets_count)
@@ -22,8 +28,7 @@ class EmotionsModel(object):
 	def fit(self, xs, ys, should_save_model=True):
 		xs = self.transform_input(xs)
 
-		# try with 13 epochs as the github example
-		history = self.model.fit(xs, ys, epochs=1)
+		history = self.model.fit(xs, ys, batch_size=self.batch_size, epochs=self.epochs)
 
 		self.is_trained = True
 		if should_save_model: self.save_model()
@@ -38,33 +43,30 @@ class EmotionsModel(object):
 	def predict(self, faces):
 		if not self.is_trained: raise Exception("Model not trained yet")
 		faces = slef.transform_input(faces)
-		pass
+		return self.model.predict(faces, batch_size=self.batch_size)
 
 	def transform_input(self, images):
 		lms, hogs = [], []
 		for i, image in enumerate(images):
 			landmarks, hog = get_features(image)
 			lms.append(landmarks)
-			hogs.append(hog)
-		return [np.array(images), np.array(hogs), np.array(lms)]
+			# hogs.append(hog)
+		return [np.array(images), np.array(lms)]
 
-
-	# TODO
 	def save_model(self):
-		pass
+		self.model.save(self.model_path)
 
-	# TODO
 	def load_model(self):
-		pass
+		self.model = keras.models.load_model(self.model_path)
 
-	# TODO
 	def has_saved_model(self):
-		return False
+		model_path = Path(self.model_path)
+		return model_path.is_file()
 
 	def _create_model(self, targets_count):
 		conv_activation = 'relu'
 		dense_activation = 'relu'
-		Batch_Normalization = False #should be True
+		Batch_Normalization = True #should be True
 		keep_prob = 0.956
 
 		# ========================== CNN Part ==========================
@@ -102,9 +104,11 @@ class EmotionsModel(object):
 		# ========================== Image features part ==========================
 		#inputHOG = Input(batch_shape=(None, 128), dtype='float32', name='input_HOG')
 		inputLandmarks = Input(batch_shape=(None, 68, 2), dtype='float32', name='input_landmarks')
-		outputImage = Flatten()(inputLandmarks)
 
-		outputImage = Dense(units=1024, activation=dense_activation)(outputImage)
+		flatLandmarks = Flatten()(inputLandmarks)
+		#outputImage = concatenate([inputHOG, flatLandmarks])
+
+		outputImage = Dense(units=1024, activation=dense_activation)(flatLandmarks)
 		if (Batch_Normalization):
 				outputImage = BatchNormalization(axis=-1)(outputImage)
 
@@ -119,7 +123,9 @@ class EmotionsModel(object):
 		output = Dense(units=targets_count, activation='softmax')(concat_output)
 
 
-		model = Model(inputs=[input_image,inputLandmarks], outputs=[output])
-		model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
+		model = Model(inputs=[input_image, inputLandmarks], outputs=[output])
+
+		sgd = SGD(lr=0.016, decay=0.864, momentum=0.95, nesterov=True)
+		model.compile(optimizer=sgd, loss='categorical_crossentropy', metrics=['accuracy'])
 
 		return model
