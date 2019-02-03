@@ -1,7 +1,7 @@
 #! /user/bin/env python3
 
 import sys; sys.path.insert(1, '../image')
-from image_processing import *
+from face_detector import dlib
 
 import cv2
 import numpy as np
@@ -43,6 +43,9 @@ def parse_line(line):
 
 	return emotion, image
 
+def enhance(image):
+	return image
+
 def split_data(quite, filter, leave):
 	tests, trains = [], []
 	with open(data_all) as input:
@@ -52,11 +55,11 @@ def split_data(quite, filter, leave):
 
 			_, image = parse_line(line)
 
-			if not leave: image = normalize_face(image)
+			if not leave: image = enhance(image)
 
 			if filter:
 				# filter non-face images
-				if is_face(image):
+				if dlib.is_one_face(image):
 					if not quite: print('Face')
 				else:
 					if not quite: print('Not Face')

@@ -1,7 +1,7 @@
 #! /user/bin/env python3
 
 import sys; sys.path.insert(1, '../image')
-from image_processing import get_features
+import feature_extraction
 
 from pathlib import Path
 
@@ -48,9 +48,8 @@ class EmotionsModel(object):
 	def transform_input(self, images):
 		lms, hogs = [], []
 		for i, image in enumerate(images):
-			landmarks, hog = get_features(image)
-			lms.append(landmarks)
-			# hogs.append(hog)
+			lms.append(feature_extraction.get_face_landmarks(image))
+			# hogs.append(feature_extraction.sk_get_hog(image))
 		return [np.array(images), np.array(lms)]
 
 	def save_model(self):
@@ -66,7 +65,7 @@ class EmotionsModel(object):
 	def _create_model(self, targets_count):
 		conv_activation = 'relu'
 		dense_activation = 'relu'
-		Batch_Normalization = True #should be True
+		Batch_Normalization = True
 		keep_prob = 0.956
 
 		# ========================== CNN Part ==========================
@@ -74,19 +73,19 @@ class EmotionsModel(object):
 		x = Conv2D(filters=64, kernel_size=(3, 3), padding='same', activation=conv_activation)(input_image)
 
 		if (Batch_Normalization):
-				x = BatchNormalization(axis=-1)(x)
+			x = BatchNormalization(axis=-1)(x)
 
 		x = MaxPooling2D(pool_size=(3, 3), strides=2, data_format="channels_last")(x)
 		x = Conv2D(filters=128, kernel_size=(3, 3), padding='valid', activation=conv_activation)(x)
 
 		if (Batch_Normalization):
-				x = BatchNormalization(axis=-1)(x)
+			x = BatchNormalization(axis=-1)(x)
 
 		x = MaxPooling2D(pool_size=(3, 3), strides=2, data_format="channels_last")(x)
 		x = Conv2D(filters=256, kernel_size=(3, 3), padding='valid', activation=conv_activation)(x)
 
 		if (Batch_Normalization):
-				x = BatchNormalization(axis=-1)(x)
+			x = BatchNormalization(axis=-1)(x)
 
 		x = MaxPooling2D(pool_size=(3, 3), strides=2, data_format="channels_last")(x)
 		x = Dropout(rate=keep_prob)(x)
@@ -96,7 +95,7 @@ class EmotionsModel(object):
 		x=  Dense(units=1024 , activation=dense_activation)(x)
 
 		if (Batch_Normalization):
-				x = BatchNormalization(axis=-1)(x)
+			x = BatchNormalization(axis=-1)(x)
 
 		x = Flatten()(x)
 		outputCNN = x
@@ -110,11 +109,11 @@ class EmotionsModel(object):
 
 		outputImage = Dense(units=1024, activation=dense_activation)(flatLandmarks)
 		if (Batch_Normalization):
-				outputImage = BatchNormalization(axis=-1)(outputImage)
+			outputImage = BatchNormalization(axis=-1)(outputImage)
 
 		outputImage = Dense(units=128, activation= dense_activation)(outputImage)
 		if (Batch_Normalization):
-				outputImage = BatchNormalization(axis=-1)(outputImage)
+			outputImage = BatchNormalization(axis=-1)(outputImage)
 
 		outputImage = Dense(units=128 ,activation=dense_activation)(outputImage)
 		#outputImage = Flatten()(outputImage)
