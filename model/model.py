@@ -2,6 +2,7 @@
 
 import sys; sys.path.insert(1, '../image')
 import feature_extraction
+from enhancement import filters
 
 from pathlib import Path
 
@@ -26,7 +27,7 @@ class EmotionsModel(object):
 			self.is_trained = False
 
 	def fit(self, xs, ys, should_save_model=True):
-		xs = self.transform_input(xs)
+		xs = self.__transform_input__(xs)
 
 		history = self.model.fit(xs, ys, batch_size=self.batch_size, epochs=self.epochs)
 
@@ -37,20 +38,39 @@ class EmotionsModel(object):
 
 	def test(self, faces, targets):
 		if not self.is_trained: raise Exception("Model not trained yet")
-		faces = self.transform_input(faces)
+		faces = self.__transform_input__(faces)
 		return self.model.evaluate(faces, targets)
 
 	def predict(self, faces):
 		if not self.is_trained: raise Exception("Model not trained yet")
-		faces = slef.transform_input(faces)
+		faces = slef.__transform_input__(faces)
 		return self.model.predict(faces, batch_size=self.batch_size)
 
-	def transform_input(self, images):
-		lms, hogs = [], []
-		for i, image in enumerate(images):
+	def __transform_input__(self, images, add_hog=False):
+		lms, hogs, imgs = [], [], []
+		for image in images:
+			imgs.append(self.__enhance_image__(image))
 			lms.append(feature_extraction.get_face_landmarks(image))
-			# hogs.append(feature_extraction.sk_get_hog(image))
-		return [np.array(images), np.array(lms)]
+			if add_hog: hogs.append(feature_extraction.sk_get_hog(image))
+
+		ret = [np.array(imgs), np.array(lms)]
+		if add_hog: ret.insert(1, hogs)
+
+		return ret
+
+	def __enhance_image__(self, img):
+		# remove salt and peper
+		img = filters.median(img)
+
+		# sharpen images
+		img = filters.laplacian(img)
+
+		# remove noise resulting from laplacian
+		img = filters.median(img)
+
+		img = np.reshape(img, (48, 48, 1))
+
+		return img
 
 	def save_model(self):
 		self.model.save(self.model_path)
@@ -116,7 +136,7 @@ class EmotionsModel(object):
 			outputImage = BatchNormalization(axis=-1)(outputImage)
 
 		outputImage = Dense(units=128 ,activation=dense_activation)(outputImage)
-		#outputImage = Flatten()(outputImage)
+
 		concat_output = concatenate([outputCNN, outputImage])
 
 		output = Dense(units=targets_count, activation='softmax')(concat_output)
