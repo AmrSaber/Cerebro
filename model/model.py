@@ -96,14 +96,15 @@ class EmotionsModel(object):
 		if (Batch_Normalization):
 				x = BatchNormalization(axis=-1)(x)
 
-		#x = Flatten()(x)
+		x = Flatten()(x)
 		outputCNN = x
 
 		# ========================== Image features part ==========================
 		#inputHOG = Input(batch_shape=(None, 128), dtype='float32', name='input_HOG')
 		inputLandmarks = Input(batch_shape=(None, 68, 2), dtype='float32', name='input_landmarks')
+		outputImage = Flatten()(inputLandmarks)
 
-		outputImage = Dense(units=1024, activation=dense_activation)(inputLandmarks)
+		outputImage = Dense(units=1024, activation=dense_activation)(outputImage)
 		if (Batch_Normalization):
 				outputImage = BatchNormalization(axis=-1)(outputImage)
 
@@ -119,6 +120,6 @@ class EmotionsModel(object):
 
 
 		model = Model(inputs=[input_image,inputLandmarks], outputs=[output])
-		model.compile(optimizer='momentum', loss='categorical_crossentropy', metrics=['accuracy'])
+		model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
 
 		return model
