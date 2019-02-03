@@ -18,7 +18,7 @@ class EmotionsModel(object):
 	def __init__(self, targets_count, force_train=False):
 		self.model_path = '../saved-models/emotions_model.f5'
 		self.batch_size = 32
-		self.epochs = 13
+		self.epochs = 15
 		if not force_train and self.has_saved_model():
 			self.load_model()
 			self.is_trained = True
@@ -49,9 +49,10 @@ class EmotionsModel(object):
 	def __transform_input__(self, images, add_hog=False):
 		lms, hogs, imgs = [], [], []
 		for image in images:
-			imgs.append(self.__enhance_image__(image))
-			lms.append(feature_extraction.get_face_landmarks(image))
-			if add_hog: hogs.append(feature_extraction.sk_get_hog(image))
+			img = self.__enhance_image__(image)
+			imgs.append(img)
+			lms.append(feature_extraction.get_face_landmarks(img))
+			if add_hog: hogs.append(feature_extraction.sk_get_hog(img))
 
 		ret = [np.array(imgs), np.array(lms)]
 		if add_hog: ret.insert(1, hogs)
@@ -68,9 +69,7 @@ class EmotionsModel(object):
 		# remove noise resulting from laplacian
 		img = filters.median(img)
 
-		img = np.reshape(img, (48, 48, 1))
-
-		return img
+		return np.reshape(img, (48, 48, 1))
 
 	def save_model(self):
 		self.model.save(self.model_path)
