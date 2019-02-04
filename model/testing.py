@@ -9,6 +9,8 @@ def main():
 
 	parser = argparse.ArgumentParser(description='')
 	parser.add_argument('-t', action='store_true', help='Force train model')
+	parser.add_argument('-g', action='store_true', help='Use HOG for training')
+	parser.add_argument('-n', action='store_true', help='Create new model, reset old weights (if any)')
 	args = parser.parse_args()
 	must_train = args.t
 
@@ -20,11 +22,11 @@ def main():
 	y_train = to_categorical(y_train, emotions_count)
 	y_test = to_categorical(y_test, emotions_count)
 
-	model = EmotionsModel(emotions_count, force_train=args.t)
+	model = EmotionsModel(emotions_count, use_hog=args.g, create_new=args.n)
 	print('\nCreated Model.')
 
 	print('Training...')
-	if not model.is_trained:
+	if not model.is_trained or args.t:
 		history = model.fit(x_train, y_train)
 
 	print('\nTesting...')

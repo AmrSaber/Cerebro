@@ -15,12 +15,12 @@ from keras.optimizers import SGD
 
 class EmotionsModel(object):
 
-	def __init__(self, targets_count, force_train=False, use_hog=False):
+	def __init__(self, targets_count, create_new=False, use_hog=False):
 		self.model_path = '../saved-models/emotions_model.f5'
 		self.use_hog = use_hog
 		self.batch_size = 32
-		self.epochs = 15
-		if not force_train and self.has_saved_model():
+		self.epochs = 6
+		if not create_new and self.has_saved_model():
 			self.load_model()
 			self.is_trained = True
 		else:
