@@ -15,15 +15,16 @@ from keras.optimizers import SGD
 
 class EmotionsModel(object):
 
-	def __init__(self, targets_count, force_train=False):
+	def __init__(self, targets_count, force_train=False, use_hog=False):
 		self.model_path = '../saved-models/emotions_model.f5'
+		self.use_hog = use_hog
 		self.batch_size = 32
 		self.epochs = 15
 		if not force_train and self.has_saved_model():
 			self.load_model()
 			self.is_trained = True
 		else:
-			self.model = self._create_model(targets_count)
+			self.model = self.__create_model__(targets_count)
 			self.is_trained = False
 
 	def fit(self, xs, ys, should_save_model=True):
@@ -46,16 +47,16 @@ class EmotionsModel(object):
 		faces = slef.__transform_input__(faces)
 		return self.model.predict(faces, batch_size=self.batch_size)
 
-	def __transform_input__(self, images, add_hog=False):
+	def __transform_input__(self, images):
 		lms, hogs, imgs = [], [], []
 		for image in images:
 			img = self.__enhance_image__(image)
-			imgs.append(img)
+			imgs.append(np.reshape(img, (48, 48, 1)))
 			lms.append(feature_extraction.get_face_landmarks(img))
-			if add_hog: hogs.append(feature_extraction.sk_get_hog(img))
+			if self.use_hog: hogs.append(feature_extraction.sk_get_hog(img))
 
 		ret = [np.array(imgs), np.array(lms)]
-		if add_hog: ret.insert(1, hogs)
+		if self.use_hog: ret.insert(1, np.array(hogs))
 
 		return ret
 
@@ -69,7 +70,7 @@ class EmotionsModel(object):
 		# remove noise resulting from laplacian
 		img = filters.median(img)
 
-		return np.reshape(img, (48, 48, 1))
+		return img
 
 	def save_model(self):
 		self.model.save(self.model_path)
@@ -81,58 +82,49 @@ class EmotionsModel(object):
 		model_path = Path(self.model_path)
 		return model_path.is_file()
 
-	def _create_model(self, targets_count):
+	def __create_model__(self, targets_count):
 		conv_activation = 'relu'
 		dense_activation = 'relu'
-		Batch_Normalization = True
 		keep_prob = 0.956
 
 		# ========================== CNN Part ==========================
 		input_image = Input(batch_shape=(None, 48, 48, 1), dtype='float32', name='input_image')
+
 		x = Conv2D(filters=64, kernel_size=(3, 3), padding='same', activation=conv_activation)(input_image)
-
-		if (Batch_Normalization):
-			x = BatchNormalization(axis=-1)(x)
-
+		x = BatchNormalization(axis=-1)(x)
 		x = MaxPooling2D(pool_size=(3, 3), strides=2, data_format="channels_last")(x)
+
 		x = Conv2D(filters=128, kernel_size=(3, 3), padding='valid', activation=conv_activation)(x)
-
-		if (Batch_Normalization):
-			x = BatchNormalization(axis=-1)(x)
-
+		x = BatchNormalization(axis=-1)(x)
 		x = MaxPooling2D(pool_size=(3, 3), strides=2, data_format="channels_last")(x)
+
 		x = Conv2D(filters=256, kernel_size=(3, 3), padding='valid', activation=conv_activation)(x)
-
-		if (Batch_Normalization):
-			x = BatchNormalization(axis=-1)(x)
-
+		x = BatchNormalization(axis=-1)(x)
 		x = MaxPooling2D(pool_size=(3, 3), strides=2, data_format="channels_last")(x)
+
 		x = Dropout(rate=keep_prob)(x)
 		x=  Dense(units=4096 , activation=dense_activation)(x)
 
 		x = Dropout(rate=keep_prob)(x)
 		x=  Dense(units=1024 , activation=dense_activation)(x)
 
-		if (Batch_Normalization):
-			x = BatchNormalization(axis=-1)(x)
+		x = BatchNormalization(axis=-1)(x)
 
 		x = Flatten()(x)
 		outputCNN = x
 
 		# ========================== Image features part ==========================
-		#inputHOG = Input(batch_shape=(None, 128), dtype='float32', name='input_HOG')
+		if self.use_hog: inputHOG = Input(batch_shape=(None, 128), dtype='float32', name='input_HOG')
 		inputLandmarks = Input(batch_shape=(None, 68, 2), dtype='float32', name='input_landmarks')
 
-		flatLandmarks = Flatten()(inputLandmarks)
-		#outputImage = concatenate([inputHOG, flatLandmarks])
+		outputImage = Flatten()(inputLandmarks)
+		if self.use_hog: outputImage = concatenate([inputHOG, outputImage])
 
-		outputImage = Dense(units=1024, activation=dense_activation)(flatLandmarks)
-		if (Batch_Normalization):
-			outputImage = BatchNormalization(axis=-1)(outputImage)
+		outputImage = Dense(units=1024, activation=dense_activation)(outputImage)
+		outputImage = BatchNormalization(axis=-1)(outputImage)
 
 		outputImage = Dense(units=128, activation= dense_activation)(outputImage)
-		if (Batch_Normalization):
-			outputImage = BatchNormalization(axis=-1)(outputImage)
+		outputImage = BatchNormalization(axis=-1)(outputImage)
 
 		outputImage = Dense(units=128 ,activation=dense_activation)(outputImage)
 
@@ -140,8 +132,11 @@ class EmotionsModel(object):
 
 		output = Dense(units=targets_count, activation='softmax')(concat_output)
 
+		# ========================== Model creating part ==========================
+		inputs = [input_image, inputLandmarks]
+		if self.use_hog: inputs.insert(1, inputHOG)
 
-		model = Model(inputs=[input_image, inputLandmarks], outputs=[output])
+		model = Model(inputs=inputs, outputs=[output])
 
 		sgd = SGD(lr=0.016, decay=0.864, momentum=0.95, nesterov=True)
 		model.compile(optimizer=sgd, loss='categorical_crossentropy', metrics=['accuracy'])

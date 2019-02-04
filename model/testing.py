@@ -20,11 +20,11 @@ def main():
 	y_train = to_categorical(y_train, emotions_count)
 	y_test = to_categorical(y_test, emotions_count)
 
-	model = EmotionsModel(emotions_count)
+	model = EmotionsModel(emotions_count, force_train=args.t)
 	print('\nCreated Model.')
 
 	print('Training...')
-	if not model.is_trained or must_train:
+	if not model.is_trained:
 		history = model.fit(x_train, y_train)
 
 	print('\nTesting...')
