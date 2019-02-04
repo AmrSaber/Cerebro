@@ -27,10 +27,11 @@ class EmotionsModel(object):
 			self.model = self.__create_model__(targets_count)
 			self.is_trained = False
 
-	def fit(self, xs, ys, should_save_model=True):
+	def fit(self, xs, ys, should_save_model=True, epochs_num=None):
+		if epochs_num == None: epochs_num = self.epochs
 		xs = self.__transform_input__(xs)
 
-		history = self.model.fit(xs, ys, batch_size=self.batch_size, epochs=self.epochs)
+		history = self.model.fit(xs, ys, batch_size=self.batch_size, epochs=epochs_num)
 
 		self.is_trained = True
 		if should_save_model: self.save_model()
@@ -138,7 +139,7 @@ class EmotionsModel(object):
 
 		model = Model(inputs=inputs, outputs=[output])
 
-		sgd = SGD(lr=0.016, decay=0.864, momentum=0.95, nesterov=True)
-		model.compile(optimizer=sgd, loss='categorical_crossentropy', metrics=['accuracy'])
+		# sgd = SGD(lr=0.016, decay=0.864, momentum=0.95, nesterov=True)
+		model.compile(optimizer='adadelta', loss='categorical_crossentropy', metrics=['accuracy'])
 
 		return model
