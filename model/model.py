@@ -90,6 +90,7 @@ class EmotionsModel(object):
 
 		# ========================== CNN Part ==========================
 		input_image = Input(batch_shape=(None, 48, 48, 1), dtype='float32', name='input_image')
+		x = BatchNormalization(axis=-1)(input_image)
 
 		x = Conv2D(filters=64, kernel_size=(3, 3), padding='same', activation=conv_activation)(input_image)
 		x = BatchNormalization(axis=-1)(x)
@@ -103,33 +104,42 @@ class EmotionsModel(object):
 		x = BatchNormalization(axis=-1)(x)
 		x = MaxPooling2D(pool_size=(3, 3), strides=2, data_format="channels_last")(x)
 
-		x = Dropout(rate=keep_prob)(x)
-		x=  Dense(units=4096 , activation=dense_activation)(x)
+		x = Flatten()(x)
 
 		x = Dropout(rate=keep_prob)(x)
-		x=  Dense(units=1024 , activation=dense_activation)(x)
-
+		x = Dense(units=4096 , activation=dense_activation)(x)
 		x = BatchNormalization(axis=-1)(x)
 
-		x = Flatten()(x)
+		x = Dropout(rate=keep_prob)(x)
+		x = Dense(units=1024 , activation=dense_activation)(x)
+		x = BatchNormalization(axis=-1)(x)
+
 		outputCNN = x
 
 		# ========================== Image features part ==========================
-		if self.use_hog: inputHOG = Input(batch_shape=(None, 128), dtype='float32', name='input_HOG')
 		inputLandmarks = Input(batch_shape=(None, 68, 2), dtype='float32', name='input_landmarks')
 
-		outputImage = Flatten()(inputLandmarks)
-		if self.use_hog: outputImage = concatenate([inputHOG, outputImage])
+		if self.use_hog:
+			inputHOG = Input(batch_shape=(None, 128), dtype='float32', name='input_HOG')
+			normalizedHog = BatchNormalization(axis=-1)(inputHOG)
+
+			flatLandmarks = Flatten()(inputLandmarks)
+			normalizedLandmarks = BatchNormalization(axis=-1)(flatLandmarks)
+
+			outputImage = concatenate([normalizedHog, normalizedLandmarks])
+		else:
+			outputImage = Flatten()(inputLandmarks)
+
+		outputImage = BatchNormalization(axis=-1)(outputImage)
 
 		outputImage = Dense(units=1024, activation=dense_activation)(outputImage)
 		outputImage = BatchNormalization(axis=-1)(outputImage)
 
-		outputImage = Dense(units=128, activation= dense_activation)(outputImage)
-		outputImage = BatchNormalization(axis=-1)(outputImage)
-
-		outputImage = Dense(units=128 ,activation=dense_activation)(outputImage)
-
 		concat_output = concatenate([outputCNN, outputImage])
+		concat_output = BatchNormalization(axis=-1)(concat_output)
+
+		output = Dense(units=256 ,activation=dense_activation)(concat_output)
+		output = BatchNormalization(axis=-1)(output)
 
 		output = Dense(units=targets_count, activation='softmax')(concat_output)
 
