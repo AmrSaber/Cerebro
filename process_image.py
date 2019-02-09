@@ -32,8 +32,19 @@ def extract_faces_emotion(image, detector_type):
         item.clear
     return items
 
-def mark_faces_emotions(image):
-    #not implemented yet
-    return new_image
+def mark_faces_emotions(image, detector_type):
+    """
+    detector_type >> ('dlib, haar, lbp')
+    """
+    extracted_emotions = extract_faces_emotion(image, detector_type)
+    for i in range(len(extracted_emotions)):
+        cv2.rectangle(
+            image,
+            extracted_emotions[i][1][0],
+            extracted_emotions[i][1][1],
+            (0,0,255),
+            2)
 
-def select_detector_type(detector_type):
+    #cv2.imshow("detected emotions",image)
+    #cv2.waitKey(0)
+    return image
