@@ -2,33 +2,27 @@
 
 
 # HOG task
-# from skimage import io
 import cv2
 from skimage.feature import hog
 from imutils import face_utils
 import dlib
-# import matplotlib.pyplot as plt
 
 __dlib_landmark_predictor = dlib.shape_predictor("../saved-models/face-landmarks/shape_predictor_68_face_landmarks.dat")
 
-def sk_get_hog(img):
+def sk_get_hog(img, orientations=8, pixels_per_cell=(12, 12)):
 	"""
 	img : 48 * 48 gray scale image
 	"""
 	features, hog_image = hog(
 		img,
-		orientations=8,
-		pixels_per_cell=(12, 12),
+		orientations=orientations,
+		pixels_per_cell=pixels_per_cell,
 		cells_per_block=(4, 4),
 		visualize=True,
 		transform_sqrt=False,
 		feature_vector=True,
 		multichannel=False
 	)
-
-	# to display
-	# io.imshow(hog_image)
-	# plt.show()
 
 	return features
 
@@ -38,7 +32,7 @@ def get_face_landmarks(img):
 	shape = face_utils.shape_to_np(shape)
 	return shape
 
-def hog_with_sliding_window(img, window_step):
+def hog_with_sliding_window(img, window_step=6, orientations=8, pixels_per_cell=(8, 8)):
 	"""
 	window_step = 6
 	img 48*48 gray scale
@@ -58,8 +52,8 @@ def hog_with_sliding_window(img, window_step):
 			window = img[y:y+window_size, x:x+window_size]
 			hog_windows.extend(hog(
 			window,
-			orientations=8,
-			pixels_per_cell=(8, 8),
+			orientations=orientations,
+			pixels_per_cell=pixels_per_cell,
 			cells_per_block=(1, 1),
 			block_norm='L2-Hys',
 			visualize=False
