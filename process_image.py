@@ -42,7 +42,7 @@ def mark_faces_emotions(image, detector_type):
             image,
             extracted_emotions[i][1][0],
             extracted_emotions[i][1][1],
-            (0,0,255),
+            (66,206,244),
             2)
 
     #cv2.imshow("detected emotions",image)
