@@ -1,6 +1,7 @@
 from model import predict
 from reader import emotions_map
 
+
 def extract_faces_emotion(image, detector_type):
     """
     detector_type >> ('dlib, haar, lbp')
@@ -33,18 +34,26 @@ def extract_faces_emotion(image, detector_type):
     return items
 
 def mark_faces_emotions(image, detector_type):
-    """
-    detector_type >> ('dlib, haar, lbp')
-    """
-    extracted_emotions = extract_faces_emotion(image, detector_type)
-    for i in range(len(extracted_emotions)):
+    font = cv2.FONT_HERSHEY_SIMPLEX
+    font_scale = 1
+    font_color = (77, 121, 255)
+    line_type = 2
+
+    extracted_faces_emotions = extract_faces_emotion(image, detector_type)
+    for i in range(len(extracted_faces_emotions)):
         cv2.rectangle(
             image,
-            extracted_emotions[i][1][0],
-            extracted_emotions[i][1][1],
+            extracted_faces_emotions[i][1][0],
+            extracted_faces_emotions[i][1][1],
             (66,206,244),
             2)
+        cv2.putText(img,'Hello World!',
+            extracted_faces_emotions[i][1][0]+2,
+            font,
+            font_scale,
+            font_color,
+            line_type)
 
-    #cv2.imshow("detected emotions",image)
-    #cv2.waitKey(0)
+    cv2.imshow("detected emotions",image)
+    cv2.waitKey(0)
     return image
