@@ -118,25 +118,24 @@ class EmotionsModel(object):
 
 		# ========================== Image features part ==========================
 		inputLandmarks = Input(batch_shape=(None, 68, 2), dtype='float32', name='input_landmarks')
+		flatLandmarks = Flatten()(inputLandmarks)
+		normalizedLandmarks = BatchNormalization(axis=-1)(flatLandmarks)
 
 		if self.use_hog:
 			inputHOG = Input(batch_shape=(None, 128), dtype='float32', name='input_HOG')
 			normalizedHog = BatchNormalization(axis=-1)(inputHOG)
 
-			flatLandmarks = Flatten()(inputLandmarks)
-			normalizedLandmarks = BatchNormalization(axis=-1)(flatLandmarks)
-
 			outputImage = concatenate([normalizedHog, normalizedLandmarks])
 		else:
-			outputImage = Flatten()(inputLandmarks)
+			outputImage = normalizedLandmarks
 
-		outputImage = BatchNormalization(axis=-1)(outputImage)
+		# outputImage = BatchNormalization(axis=-1)(outputImage)
 
 		outputImage = Dense(units=1024, activation=dense_activation)(outputImage)
 		outputImage = BatchNormalization(axis=-1)(outputImage)
 
 		concat_output = concatenate([outputCNN, outputImage])
-		concat_output = BatchNormalization(axis=-1)(concat_output)
+		# concat_output = BatchNormalization(axis=-1)(concat_output)
 
 		output = Dense(units=256 ,activation=dense_activation)(concat_output)
 		output = BatchNormalization(axis=-1)(output)
