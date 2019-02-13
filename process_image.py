@@ -47,7 +47,8 @@ def mark_faces_emotions(image, detector_type):
             extracted_faces_emotions[i][1][1],
             (66,206,244),
             2)
-        cv2.putText(img,'Hello World!',
+        cv2.putText(img,
+            extracted_faces_emotions[i][2],
             extracted_faces_emotions[i][1][0]+2,
             font,
             font_scale,
