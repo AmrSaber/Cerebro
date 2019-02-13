@@ -11,12 +11,14 @@ def main():
 	parser.add_argument('-t', action='store_true', help='Force train model')
 	parser.add_argument('-g', action='store_true', help='Use HOG for training')
 	parser.add_argument('-n', action='store_true', help='Create new model, reset old weights (if any)')
+	parser.add_argument('--tr-count', metavar='int', type=int, default=-1, help='Set the count of the training data')
+	parser.add_argument('--ts-count', metavar='int', type=int, default=-1, help='Set the count of the testing data')
 	args = parser.parse_args()
 	must_train = args.t
 
 	print('Reading data...')
-	x_test, y_test = read_testing()
-	x_train, y_train = read_training()
+	x_test, y_test = read_testing(args.ts_count)
+	x_train, y_train = read_training(args.tr_count)
 
 	emotions_count = len(set(emotions_map))
 	y_train = to_categorical(y_train, emotions_count)
