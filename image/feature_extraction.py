@@ -21,7 +21,8 @@ def sk_get_hog(img, orientations=8, pixels_per_cell=(12, 12)):
 		visualize=True,
 		transform_sqrt=False,
 		feature_vector=True,
-		multichannel=False
+		multichannel=False,
+		block_norm='L2-Hys'
 	)
 
 	return features
@@ -32,7 +33,7 @@ def get_face_landmarks(img):
 	shape = face_utils.shape_to_np(shape)
 	return shape
 
-def hog_with_sliding_window(img, window_step=6, orientations=8, pixels_per_cell=(8, 8)):
+def hog_with_sliding_window(img, window_step=6, orientations=8, pixels_per_cell=(12, 12)):
 	"""
 	window_step = 6
 	img 48*48 gray scale

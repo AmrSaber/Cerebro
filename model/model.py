@@ -19,7 +19,7 @@ class EmotionsModel(object):
 		self.model_path = '../saved-models/emotions_model.f5'
 		self.use_hog = use_hog
 		self.batch_size = 32
-		self.epochs = 6
+		self.epochs = 2
 		if not create_new and self.has_saved_model():
 			self.load_model()
 			self.is_trained = True
@@ -69,7 +69,7 @@ class EmotionsModel(object):
 		img = filters.laplacian(img)
 
 		# remove noise resulting from laplacian
-		img = filters.median(img)
+		# img = filters.median(img)
 
 		return img
 
@@ -107,7 +107,7 @@ class EmotionsModel(object):
 		x = Flatten()(x)
 
 		x = Dropout(rate=keep_prob)(x)
-		x = Dense(units=4096 , activation=dense_activation)(x)
+		x = Dense(units=2048 , activation=dense_activation)(x)
 		x = BatchNormalization(axis=-1)(x)
 
 		x = Dropout(rate=keep_prob)(x)
