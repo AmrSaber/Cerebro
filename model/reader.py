@@ -12,8 +12,15 @@ data_test = 'dataset/fer2013_testing.csv'
 data_training = 'dataset/fer2013_train.csv'
 
 # old_emotions = ["Angry", "Disgust", "Fear", "Happy", "Sad", "Surprise", "Neutral"]
+
 # new_emotions = ["Fear", "Neutral", "Satisfied", "Surprise", "Unsatisfied"]
 emotions_map = [4, 4, 0, 2, 4, 3, 1]
+
+# new_emotions = ["Neutral", "Satisfied", "Unsatisfied"]
+# emotions_map = [2, 2, 0, 1, 2, 0, 0]
+
+# new_emotions = ["Angry", "Disgust", "Fear", "Happy", "Sad", "Surprise", "Neutral"]
+# emotions_map = list(range(7))
 
 def read_testing(limit=-1):
 	return read_from_file(data_test, limit)
