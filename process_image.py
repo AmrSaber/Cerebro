@@ -71,7 +71,9 @@ def mark_faces_emotions(image, detector_type = 'dlib'):
                             font_scale,
                             text_color,
                             2)
-    #to display
-    #cv2.imshow("detected emotions",image)
-    #cv2.waitKey(0)
+    """
+    to display
+    cv2.imshow("detected emotions",image)
+    cv2.waitKey(0)
+    """
     return image
