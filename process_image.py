@@ -1,4 +1,11 @@
-from model import predict
+
+import sys;
+sys.path.insert(1, './model')
+sys.path.insert(1, './image')
+# sys.path.insert(1, './saved-models/emotions_model.f5')
+sys.path.insert(1,'./image/face_detector')
+
+import model
 from reader import emotions_map
 
 
@@ -14,7 +21,7 @@ def extract_faces_emotions(image, detector_type = 'dlib'):
     items= []
 
     if detector_type == 'dlib':
-        from image.face_detector import dlib as detector
+        from face_detector import detect_dlib as detector
     elif detector_type =='haar':
         from image.face_detector import haar as detector
     elif detector_type =='lbp':
@@ -24,11 +31,11 @@ def extract_faces_emotions(image, detector_type = 'dlib'):
 
     faces = detector.get_faces(image)
     emotions_count = len(set(emotions_map))
-    model = EmotionsModel(emotions_count, use_hog=true)
-    for i in range (faces) :
+    m = model.EmotionsModel(emotions_count,create_new=False, use_hog=False)
+    for i in range (len(faces)) :
         item.append(faces[i][0]) #face
         item.append(faces[i][1]) #corner coordinates
-        emotion = model.predict(faces[i][0])
+        emotion = m.predict(faces[i][0])
         item.append(emotion)
         items.append(item)
         item.clear
