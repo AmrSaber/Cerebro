@@ -2,7 +2,7 @@ from model import predict
 from reader import emotions_map
 
 
-def extract_faces_emotion(image, detector_type = 'dlib'):
+def extract_faces_emotions(image, detector_type = 'dlib'):
     """
     detector_type >> ('dlib, haar, lbp')
     default >> dlib
