@@ -1,7 +1,7 @@
 #! /user/bin/env python3
 
 import sys; sys.path.insert(1, '../image')
-# import feature_extraction
+import feature_extraction
 from enhancement import filters
 
 from pathlib import Path
