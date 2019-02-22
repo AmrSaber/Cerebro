@@ -45,6 +45,7 @@ class EmotionsModel(object):
 
 	def predict(self, faces):
 		if not self.is_trained: raise Exception("Model not trained yet")
+		if type(faces) is not list: faces = [faces]
 		faces = self.__transform_input__(faces)
 		return self.model.predict(faces, batch_size=self.batch_size)
 
