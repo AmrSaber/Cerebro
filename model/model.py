@@ -18,7 +18,7 @@ class EmotionsModel(object):
 	def __init__(self, targets_count, create_new=False, use_hog=False):
 		self.model_path = '../saved-models/emotions_model.f5'
 		self.use_hog = use_hog
-		self.batch_size = 32
+		self.batch_size = 128
 		self.epochs = 2
 		if not create_new and self.has_saved_model():
 			self.load_model()
@@ -66,8 +66,11 @@ class EmotionsModel(object):
 		# remove salt and peper
 		img = filters.median(img)
 
+		# remove gaussian noise
+		img = filters.fastNLMeans(img)
+
 		# sharpen images
-		img = filters.laplacian(img)
+		# img = filters.laplacian(img)
 
 		# remove noise resulting from laplacian
 		# img = filters.median(img)
