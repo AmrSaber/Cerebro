@@ -7,7 +7,7 @@ import model
 import cv2
 
 def extract_faces_emotions(image, detector_type = 'dlib'):
-    item = []
+
     items= []
     if detector_type == 'dlib':
         from face_detector import detect_dlib as detector
@@ -20,21 +20,21 @@ def extract_faces_emotions(image, detector_type = 'dlib'):
 
     faces = detector.get_faces(image)
     # emotions_count = len(set(emotions_map))
-    m = model.EmotionsModel(5 , use_hog=False)
+    m = model.EmotionsModel(5 , use_hog=True)
     for i in range (len(faces)) :
+        item = []
         item.append(faces[i][0]) #face
         item.append(faces[i][1]) #corner coordinates
         emotion = m.predict(faces[i][0])
         item.append(emotion)
         items.append(item)
-        item.clear
     return items
 
 def mark_faces_emotions(image, detector_type = 'dlib'):
 
     font = cv2.FONT_HERSHEY_SIMPLEX
-    font_scale = 2
-    font_color = (77, 121, 255)
+    font_scale = 1
+    font_color = (255, 51, 51)
     offest_x = 2
     offest_y = 5
 
@@ -57,7 +57,7 @@ def mark_faces_emotions(image, detector_type = 'dlib'):
                               extracted_faces_emotions[i][1][0],
                               extracted_faces_emotions[i][1][1],
                               (66,206,244),
-                              1)
+                              2)
 
         image = cv2.putText(image,
                             extracted_faces_emotions[i][2],
@@ -65,6 +65,6 @@ def mark_faces_emotions(image, detector_type = 'dlib'):
                             font,
                             font_scale,
                             font_color,
-                            1)
+                            2)
 
     return image
