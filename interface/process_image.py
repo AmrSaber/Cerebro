@@ -4,10 +4,9 @@ sys.path.insert(1, '../image')
 sys.path.insert(1, '../saved-models/emotions_model.f5')
 sys.path.insert(1,'../image/face_detector')
 import model
-from reader import emotions_map
 import cv2
 
-def extract_faces_emotions(image, detector_type = 'lbp'):
+def extract_faces_emotions(image, detector_type = 'dlib'):
     item = []
     items= []
     if detector_type == 'dlib':
@@ -20,12 +19,12 @@ def extract_faces_emotions(image, detector_type = 'lbp'):
         raise Exception("invalid detector")
 
     faces = detector.get_faces(image)
-    emotions_count = len(set(emotions_map))
-    m = model.EmotionsModel(emotions_count, use_hog=True)
+    # emotions_count = len(set(emotions_map))
+    m = model.EmotionsModel(5 , use_hog=False)
     for i in range (len(faces)) :
         item.append(faces[i][0]) #face
         item.append(faces[i][1]) #corner coordinates
-        emotion = m.predict([faces[i][0]])
+        emotion = m.predict(faces[i][0])
         item.append(emotion)
         items.append(item)
         item.clear
@@ -59,16 +58,13 @@ def mark_faces_emotions(image, detector_type = 'dlib'):
                               extracted_faces_emotions[i][1][1],
                               (66,206,244),
                               1)
+
         image = cv2.putText(image,
                             extracted_faces_emotions[i][2],
                             tmp,
                             font,
                             font_scale,
-                            text_color,
-                            2)
-    """
-    to display
-    cv2.imshow("detected emotions",image)
-    cv2.waitKey(0)
-    """
+                            font_color,
+                            1)
+
     return image
