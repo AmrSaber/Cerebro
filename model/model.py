@@ -3,6 +3,13 @@
 import sys; sys.path.insert(1, '../image')
 import feature_extraction
 from enhancement import filters
+<<<<<<< HEAD
+=======
+
+# TODO: resolve the dependeny on reader (when the model is done)
+from reader import emotions
+
+>>>>>>> model-dev
 from pathlib import Path
 import numpy as np
 
@@ -16,7 +23,7 @@ class EmotionsModel(object):
 	def __init__(self, targets_count, create_new=False, use_hog=False):
 		self.model_path = '../saved-models/emotions_model.f5'
 		self.use_hog = use_hog
-		self.batch_size = 32
+		self.batch_size = 128
 		self.epochs = 2
 		if not create_new and self.has_saved_model():
 			self.load_model()
@@ -41,10 +48,30 @@ class EmotionsModel(object):
 		faces = self.__transform_input__(faces)
 		return self.model.evaluate(faces, targets)
 
-	def predict(self, faces):
+	def predict(self, faces, prob_emotion=False):
 		if not self.is_trained: raise Exception("Model not trained yet")
+<<<<<<< HEAD
 		faces = self.__transform_input__(faces)
 		return self.model.predict(faces, batch_size=self.batch_size)
+=======
+
+		is_one_face = False
+		if type(faces) is not list:
+			faces = [faces]
+			is_one_face = True
+
+		faces = self.__transform_input__(faces)
+
+		res = self.model.predict(faces, batch_size=self.batch_size)
+
+		if not prob_emotion:
+			for i, all from enumerate(res):
+				res[i] = emotions[np.argmax(all)]
+
+		if is_one_face: res = res[0]
+
+		return res
+>>>>>>> model-dev
 
 	def __transform_input__(self, images):
 		lms, hogs, imgs = [], [], []
@@ -63,8 +90,11 @@ class EmotionsModel(object):
 		# remove salt and peper
 		img = filters.median(img)
 
+		# remove gaussian noise
+		img = filters.fastNLMeans(img)
+
 		# sharpen images
-		img = filters.laplacian(img)
+		# img = filters.laplacian(img)
 
 		# remove noise resulting from laplacian
 		# img = filters.median(img)
