@@ -1,57 +1,45 @@
-
 import sys;
-sys.path.insert(1, './model')
-sys.path.insert(1, './image')
-# sys.path.insert(1, './saved-models/emotions_model.f5')
-sys.path.insert(1,'./image/face_detector')
-
+sys.path.insert(1, '../model')
+sys.path.insert(1, '../image')
+sys.path.insert(1, '../saved-models/emotions_model.f5')
+sys.path.insert(1,'../image/face_detector')
 import model
 from reader import emotions_map
+import cv2
 
-
-def extract_faces_emotions(image, detector_type = 'dlib'):
-    """
-    detector_type >> ('dlib, haar, lbp')
-    default >> dlib
-    each item has [face_image, corner_coordinate, emotion]
-    faces of size 48*48 , gray scale
-    corners coordinates as ()
-    """
+def extract_faces_emotions(image, detector_type = 'lbp'):
     item = []
     items= []
-
     if detector_type == 'dlib':
         from face_detector import detect_dlib as detector
     elif detector_type =='haar':
-        from image.face_detector import haar as detector
+        from face_detector import detect_haar as detector
     elif detector_type =='lbp':
-        from image.face_detector import lbp as detector
+        from face_detector import detect_lbp as detector
     else :
         raise Exception("invalid detector")
 
     faces = detector.get_faces(image)
     emotions_count = len(set(emotions_map))
-    m = model.EmotionsModel(emotions_count,create_new=False, use_hog=False)
+    m = model.EmotionsModel(emotions_count, use_hog=True)
     for i in range (len(faces)) :
         item.append(faces[i][0]) #face
         item.append(faces[i][1]) #corner coordinates
-        emotion = m.predict(faces[i][0])
+        emotion = m.predict([faces[i][0]])
         item.append(emotion)
         items.append(item)
         item.clear
     return items
 
 def mark_faces_emotions(image, detector_type = 'dlib'):
-    """
-    default detector >> dlib
-    """
+
     font = cv2.FONT_HERSHEY_SIMPLEX
     font_scale = 2
     font_color = (77, 121, 255)
     offest_x = 2
     offest_y = 5
 
-    extracted_faces_emotions = extract_faces_emotion(image, detector_type)
+    extracted_faces_emotions = extract_faces_emotions(image, detector_type)
     """
     extracted_faces_emotions[i] >>
                 item (face, corners(topright,bottomleft), emotion)

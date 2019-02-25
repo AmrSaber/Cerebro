@@ -1,11 +1,9 @@
 #! /user/bin/env python3
 
 import sys; sys.path.insert(1, '../image')
-# import feature_extraction
+import feature_extraction
 from enhancement import filters
-
 from pathlib import Path
-
 import numpy as np
 
 import keras
@@ -45,7 +43,7 @@ class EmotionsModel(object):
 
 	def predict(self, faces):
 		if not self.is_trained: raise Exception("Model not trained yet")
-		faces = slef.__transform_input__(faces)
+		faces = self.__transform_input__(faces)
 		return self.model.predict(faces, batch_size=self.batch_size)
 
 	def __transform_input__(self, images):
