@@ -4,6 +4,9 @@ import sys; sys.path.insert(1, '../image')
 import feature_extraction
 from enhancement import filters
 
+# TODO: resolve the dependeny on reader (when the model is done)
+from reader import emotions
+
 from pathlib import Path
 
 import numpy as np
@@ -43,11 +46,25 @@ class EmotionsModel(object):
 		faces = self.__transform_input__(faces)
 		return self.model.evaluate(faces, targets)
 
-	def predict(self, faces):
+	def predict(self, faces, prob_emotion=False):
 		if not self.is_trained: raise Exception("Model not trained yet")
-		if type(faces) is not list: faces = [faces]
+
+		is_one_face = False
+		if type(faces) is not list:
+			faces = [faces]
+			is_one_face = True
+
 		faces = self.__transform_input__(faces)
-		return self.model.predict(faces, batch_size=self.batch_size)
+
+		res = self.model.predict(faces, batch_size=self.batch_size)
+
+		if not prob_emotion:
+			for i, all from enumerate(res):
+				res[i] = emotions[np.argmax(all)]
+
+		if is_one_face: res = res[0]
+
+		return res
 
 	def __transform_input__(self, images):
 		lms, hogs, imgs = [], [], []
