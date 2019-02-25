@@ -57,9 +57,10 @@ class EmotionsModel(object):
 		faces = self.__transform_input__(faces)
 
 		res = self.model.predict(faces, batch_size=self.batch_size)
+		res = res.tolist()
 
 		if not prob_emotion:
-			for i, all from enumerate(res):
+			for i, all in enumerate(res):
 				res[i] = emotions[np.argmax(all)]
 
 		if is_one_face: res = res[0]
