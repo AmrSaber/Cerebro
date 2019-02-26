@@ -21,15 +21,14 @@ def main():
 	x_train, y_train = read_training(args.tr_count)
 
 	emotions_count = len(set(emotions_map))
-	y_train = to_categorical(y_train, emotions_count)
-	y_test = to_categorical(y_test, emotions_count)
 
 	model = EmotionsModel(emotions_count, use_hog=args.g, create_new=args.n)
 	print('\nCreated Model.')
 
-	print('Training...')
 	if not model.is_trained or args.t:
+		print('Training...')
 		history = model.fit(x_train, y_train)
+		# print(history.history['val_acc'])
 
 	print('\nTesting...')
 	result = model.test(x_test, y_test)

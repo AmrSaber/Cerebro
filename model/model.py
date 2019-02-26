@@ -15,26 +15,47 @@ import keras
 from keras.layers import Input, Conv2D, MaxPooling2D, Flatten, Dense, BatchNormalization, concatenate ,Dropout
 from keras.models import Model
 from keras.optimizers import SGD
+from keras.utils import to_categorical
 
 class EmotionsModel(object):
 
 	def __init__(self, targets_count, create_new=False, use_hog=False):
 		self.model_path = '../saved-models/emotions_model.f5'
+		self.targets_count = targets_count
 		self.use_hog = use_hog
 		self.batch_size = 128
-		self.epochs = 2
+		self.epochs = 1
+		self.folds = 2		# should be 5 or 6
 		if not create_new and self.has_saved_model():
 			self.load_model()
 			self.is_trained = True
 		else:
-			self.model = self.__create_model__(targets_count)
+			self.model = self.__create_model__()
 			self.is_trained = False
 
-	def fit(self, xs, ys, should_save_model=True, epochs_num=None):
+	def fit(self, xs, ys, should_save_model=True, folds_count=None, verbose=True, epochs_num=None):
 		if epochs_num == None: epochs_num = self.epochs
-		xs = self.__transform_input__(xs)
+		if folds_count == None: folds_count = self.folds
 
-		history = self.model.fit(xs, ys, batch_size=self.batch_size, epochs=epochs_num)
+		original_ys = ys
+		xs = self.__transform_input__(xs)
+		ys = to_categorical(ys, self.targets_count)
+
+		from sklearn.model_selection import StratifiedKFold
+		skf = StratifiedKFold(n_splits=folds_count, shuffle=True)
+		for epoch in range(epochs_num):
+			if verbose:
+				msg = f"\nMain epoch #{epoch+1}"
+				print(msg + '\n' + '=' * len(msg))
+			for fold, (train, validate) in enumerate(skf.split(np.zeros(len(ys)), original_ys)):
+				if verbose: print(f"\nFold #{fold+1}")
+				train_xs, train_ys = [sub_xs[train] for sub_xs in xs], ys[train]
+				validate_xs, validate_ys = [sub_xs[validate] for sub_xs in xs], ys[validate]
+				history = self.model.fit(train_xs, train_ys,
+								batch_size=self.batch_size,
+								epochs=1,
+								validation_data=(validate_xs, validate_ys),
+								verbose=verbose)
 
 		self.is_trained = True
 		if should_save_model: self.save_model()
@@ -43,7 +64,9 @@ class EmotionsModel(object):
 
 	def test(self, faces, targets):
 		if not self.is_trained: raise Exception("Model not trained yet")
+
 		faces = self.__transform_input__(faces)
+		targets = to_categorical(targets, self.targets_count)
 		return self.model.evaluate(faces, targets)
 
 	def predict(self, faces, prob_emotion=False):
@@ -105,7 +128,7 @@ class EmotionsModel(object):
 		model_path = Path(self.model_path)
 		return model_path.is_file()
 
-	def __create_model__(self, targets_count):
+	def __create_model__(self):
 		conv_activation = 'relu'
 		dense_activation = 'relu'
 		keep_prob = 0.956
@@ -162,7 +185,7 @@ class EmotionsModel(object):
 		output = Dense(units=256 ,activation=dense_activation)(concat_output)
 		output = BatchNormalization(axis=-1)(output)
 
-		output = Dense(units=targets_count, activation='softmax')(concat_output)
+		output = Dense(units=self.targets_count, activation='softmax')(concat_output)
 
 		# ========================== Model creating part ==========================
 		inputs = [input_image, inputLandmarks]
