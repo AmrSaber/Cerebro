@@ -4,6 +4,7 @@ sys.path.insert(1, '../image')
 import detect_dlib as detector
 import cv2
 #import process_image as pi
+"""
 def __extract_frames(video_path):
 
     vidObj = cv2.VideoCapture(video_path)
@@ -20,7 +21,7 @@ def __extract_frames(video_path):
 
 def detect_video_emotions(video_path, fps=100):
     """
-    >># TODO: how to control fps
+    # TODO: how to control fps
     """
     frames = __extract_frames(video_path)
     for i in range(len(frames)-1):
@@ -38,14 +39,33 @@ def detect_video_emotions(video_path, fps=100):
 
 def display_video(frames, video_name="video"):
     """
-    take frames and display it at particular rate
-    exit by pressing q key
-    >># TODO: how to control fps display through waitKey
+    #take frames and display it at particular rate
+    #exit by pressing q key
+    # TODO: how to control fps display through waitKey
     """
     for i in range(len(frames)-1):
         cv2.imshow(video_name,frames[i])
         if cv2.waitKey(2) & 0xFF == ord('q'):
              break
+"""
+def detect_video_emotions(video_path):
+    vidObj = cv2.VideoCapture(video_path)
+
+    # checks whether frames were extracted
+    success = 1
+
+    while success:
+        success, image = vidObj.read()
+        frame_info = detector.get_faces(image)
+        for fi in frame_info:
+        	image = cv2.rectangle(fi[i],
+                                fi[1][0],
+                                fi[1][1],
+                                (0, 255, 0),
+                                 1)
+            cv2.imshow("xxx",image)
+            if cv2.waitKey(60) & 0xFF == ord('q'):
+                 break
 
 if __name__ == '__main__':
     """
