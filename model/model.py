@@ -19,13 +19,15 @@ from keras.utils import to_categorical
 
 class EmotionsModel(object):
 
-	def __init__(self, targets_count, create_new=False, use_hog=False):
+	def __init__(self, targets_count, create_new=False, use_hog=False, use_lm=False, use_cnn=True):
 		self.model_path = '../saved-models/emotions_model.f5'
 		self.targets_count = targets_count
 		self.use_hog = use_hog
+		self.use_cnn = use_cnn
+		self.use_lm = use_lm
 		self.batch_size = 128
-		self.epochs = 1
-		self.folds = 2		# should be 5 or 6
+		self.epochs = 2
+		self.folds = 4		# should be 5 or 6
 		if not create_new and self.has_saved_model():
 			self.load_model()
 			self.is_trained = True
@@ -90,16 +92,18 @@ class EmotionsModel(object):
 
 		return res
 
-	def __transform_input__(self, images):
+	def __transform_input__(self, images, should_enhance=True):
 		lms, hogs, imgs = [], [], []
 		for image in images:
-			img = self.__enhance_image__(image)
-			imgs.append(np.reshape(img, (48, 48, 1)))
-			lms.append(feature_extraction.get_face_landmarks(img))
+			img = self.__enhance_image__(image) if should_enhance else image
+			if self.use_cnn: imgs.append(np.reshape(img, (48, 48, 1)))
+			if self.use_lm: lms.append(feature_extraction.get_face_landmarks(img))
 			if self.use_hog: hogs.append(feature_extraction.sk_get_hog(img))
 
-		ret = [np.array(imgs), np.array(lms)]
-		if self.use_hog: ret.insert(1, np.array(hogs))
+		ret = []
+		if self.use_cnn: ret.append(np.array(imgs))
+		if self.use_hog: ret.append(np.array(hogs))
+		if self.use_lm: ret.append(np.array(lms))
 
 		return ret
 
@@ -134,53 +138,60 @@ class EmotionsModel(object):
 		keep_prob = 0.956
 
 		# ========================== CNN Part ==========================
-		input_image = Input(batch_shape=(None, 48, 48, 1), dtype='float32', name='input_image')
-		x = BatchNormalization(axis=-1)(input_image)
+		if self.use_cnn:
+			input_image = Input(batch_shape=(None, 48, 48, 1), dtype='float32', name='input_image')
+			x = BatchNormalization(axis=-1)(input_image)
 
-		x = Conv2D(filters=64, kernel_size=(3, 3), padding='same', activation=conv_activation)(input_image)
-		x = BatchNormalization(axis=-1)(x)
-		x = MaxPooling2D(pool_size=(3, 3), strides=2, data_format="channels_last")(x)
+			x = Conv2D(filters=64, kernel_size=(3, 3), padding='same', activation=conv_activation)(input_image)
+			x = MaxPooling2D(pool_size=(3, 3), strides=2, data_format="channels_last")(x)
+			x = BatchNormalization(axis=-1)(x)
 
-		x = Conv2D(filters=128, kernel_size=(3, 3), padding='valid', activation=conv_activation)(x)
-		x = BatchNormalization(axis=-1)(x)
-		x = MaxPooling2D(pool_size=(3, 3), strides=2, data_format="channels_last")(x)
+			x = Conv2D(filters=128, kernel_size=(3, 3), padding='same', activation=conv_activation)(x)
+			x = MaxPooling2D(pool_size=(3, 3), strides=2, data_format="channels_last")(x)
+			x = BatchNormalization(axis=-1)(x)
 
-		x = Conv2D(filters=256, kernel_size=(3, 3), padding='valid', activation=conv_activation)(x)
-		x = BatchNormalization(axis=-1)(x)
-		x = MaxPooling2D(pool_size=(3, 3), strides=2, data_format="channels_last")(x)
+			x = Conv2D(filters=256, kernel_size=(3, 3), padding='same', activation=conv_activation)(x)
+			x = MaxPooling2D(pool_size=(3, 3), strides=2, data_format="channels_last")(x)
+			x = BatchNormalization(axis=-1)(x)
 
-		x = Flatten()(x)
+			x = Flatten()(x)
 
-		x = Dropout(rate=keep_prob)(x)
-		x = Dense(units=2048 , activation=dense_activation)(x)
-		x = BatchNormalization(axis=-1)(x)
+			x = Dropout(rate=keep_prob)(x)
+			x = Dense(units=2048 , activation=dense_activation)(x)
+			x = BatchNormalization(axis=-1)(x)
 
-		x = Dropout(rate=keep_prob)(x)
-		x = Dense(units=1024 , activation=dense_activation)(x)
-		x = BatchNormalization(axis=-1)(x)
+			x = Dropout(rate=keep_prob)(x)
+			x = Dense(units=1024 , activation=dense_activation)(x)
+			x = BatchNormalization(axis=-1)(x)
 
-		outputCNN = x
+			outputCNN = x
 
 		# ========================== Image features part ==========================
-		inputLandmarks = Input(batch_shape=(None, 68, 2), dtype='float32', name='input_landmarks')
-		flatLandmarks = Flatten()(inputLandmarks)
-		normalizedLandmarks = BatchNormalization(axis=-1)(flatLandmarks)
+		if self.use_lm or self.use_hog:
 
-		if self.use_hog:
-			inputHOG = Input(batch_shape=(None, 128), dtype='float32', name='input_HOG')
-			normalizedHog = BatchNormalization(axis=-1)(inputHOG)
+			if self.use_lm:
+				inputLandmarks = Input(batch_shape=(None, 68, 2), dtype='float32', name='input_landmarks')
+				flatLandmarks = Flatten()(inputLandmarks)
+				normalizedLandmarks = BatchNormalization(axis=-1)(flatLandmarks)
+				outputImage = normalizedLandmarks
 
-			outputImage = concatenate([normalizedHog, normalizedLandmarks])
+			if self.use_hog:
+				inputHOG = Input(batch_shape=(None, 128), dtype='float32', name='input_HOG')
+				normalizedHog = BatchNormalization(axis=-1)(inputHOG)
+				outputImage = normalizedHog
+
+			if self.use_lm and self.use_hog:
+				outputImage = concatenate([normalizedHog, normalizedLandmarks])
+
+			outputImage = Dense(units=1024, activation=dense_activation)(outputImage)
+			outputImage = BatchNormalization(axis=-1)(outputImage)
+
+		if (self.use_lm or self.use_lm) and self.use_cnn:
+			concat_output = concatenate([outputCNN, outputImage])
+		elif self.use_cnn:
+			concat_output = outputCNN
 		else:
-			outputImage = normalizedLandmarks
-
-		# outputImage = BatchNormalization(axis=-1)(outputImage)
-
-		outputImage = Dense(units=1024, activation=dense_activation)(outputImage)
-		outputImage = BatchNormalization(axis=-1)(outputImage)
-
-		concat_output = concatenate([outputCNN, outputImage])
-		# concat_output = BatchNormalization(axis=-1)(concat_output)
+			concat_output = outputImage
 
 		output = Dense(units=256 ,activation=dense_activation)(concat_output)
 		output = BatchNormalization(axis=-1)(output)
@@ -188,8 +199,10 @@ class EmotionsModel(object):
 		output = Dense(units=self.targets_count, activation='softmax')(concat_output)
 
 		# ========================== Model creating part ==========================
-		inputs = [input_image, inputLandmarks]
-		if self.use_hog: inputs.insert(1, inputHOG)
+		inputs = []
+		if self.use_cnn: inputs.append(input_image)
+		if self.use_hog: inputs.append(inputHOG)
+		if self.use_lm: inputs.append(inputLandmarks)
 
 		model = Model(inputs=inputs, outputs=[output])
 
