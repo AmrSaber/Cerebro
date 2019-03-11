@@ -1,50 +1,58 @@
+import sys
+sys.path.insert(1,'../image/face_detector')
+sys.path.insert(1, '../image')
+import detect_dlib as detector
 import cv2
-import numpy as np
-#import sys;
-#sys.path.insert(1, '../model')
-#sys.path.insert(1, '../image')
-#sys.path.insert(1, '../saved-models/emotions_model.f5')
-#sys.path.insert(1,'../image/face_detector')
-#from face_detector import detect_dlib as detector
-"""
-def __display(img, boxes):
-    for box in boxes:
-        cv2.rectangle(img, box[0], box[1], (0, 255, 0), 1)
-    cv2.imshow("detected faces", img)
-"""
-import process_image as pi
+#import process_image as pi
+def __extract_frames(video_path):
+
+    vidObj = cv2.VideoCapture(video_path)
+
+    # checks whether frames were extracted
+    success = 1
+    frames = []
+
+    while success:
+        success, image = vidObj.read()
+        frames.append(image)
+
+    return frames
+
+def detect_video_emotions(video_path, fps=100):
+    """
+    >># TODO: how to control fps
+    """
+    frames = __extract_frames(video_path)
+    for i in range(len(frames)-1):
+        frames_info = detector.get_faces(frames[i])
+        for frame_info in frames_info:
+        	frames[i] = cv2.rectangle(frames[i],
+                                    frame_info[1][0],
+                                    frame_info[1][1],
+                                    (0, 255, 0),
+                                     1)
+        print("process frame :", i, " of ", len(frames))
+
+    display_video(frames)
+    cv2.waitKey(0)
+
+def display_video(frames, video_name="video"):
+    """
+    take frames and display it at particular rate
+    exit by pressing q key
+    >># TODO: how to control fps display through waitKey
+    """
+    for i in range(len(frames)-1):
+        cv2.imshow(video_name,frames[i])
+        if cv2.waitKey(2) & 0xFF == ord('q'):
+             break
+
 if __name__ == '__main__':
-
-    # Create a VideoCapture object and read from input file
-    # If the input is the camera, pass 0 instead of the video file name
-    cap = cv2.VideoCapture('x.mp4')
-    fps = 24
-    # Check if camera opened successfully
-    if (cap.isOpened()== False):
-      print("Error opening video stream or file")
-
-    # Read until video is completed
-    while(cap.isOpened()):
-      # Capture frame-by-frame
-        ret, frame = cap.read()
-        if ret == True:
-            frame = cv2.resize(frame, (800,600))
-            #x = detector.get_faces(frame)
-            #__display(frame, x)
-            #  Display the resulting frame
-            frame = pi.mark_faces_emotions(frame)
-            cv2.imshow('Frame',frame)
-
-            # Press Q on keyboard to  exit
-            if cv2.waitKey((int)(1000 / fps)) & 0xFF == ord('q'):
-                break
-
-                # Break the loop
-        else:
-            break
-
-    # When everything done, release the video capture object
-    cap.release()
-
-    # Closes all the frames
-    cv2.destroyAllWindows()
+    """
+    frames = __extract_frames("x.mp4")
+    for i in range(len(frames)-1):
+        cv2.imshow("zzz",frames[i])
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+             break
+    """
+    detect_video_emotions("x.mp4")
