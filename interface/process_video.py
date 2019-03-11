@@ -50,22 +50,24 @@ def display_video(frames, video_name="video"):
         if cv2.waitKey(2) & 0xFF == ord('q'):
              break
 
-def detect_video_emotions(video_path):
+def detect_video_emotions(video_path, fps=50):
     vidObj = cv2.VideoCapture(video_path)
-
+    vidObj.set(cv2.CAP_PROP_FPS, fps)
     # checks whether frames were extracted
     success = 1
     counter = 1
     frames = []
     while success:
         success, image = vidObj.read()
-        if image.shape[0] != 0 and image.shape[1] !=0:
-            frame_info = detector.get_faces(image)
-            for fi in frame_info:
-                image = cv2.rectangle(image,fi[1][0],fi[1][1],(0, 255, 0),1)
-            frames.append(image)
-            print("process frame: ", counter)
-            counter += 1
+        if success != True :
+            break
+
+        frame_info = detector.get_faces(image)
+        for fi in frame_info:
+            image = cv2.rectangle(image,fi[1][0],fi[1][1],(0, 255, 0),1)
+        frames.append(image)
+        print("process frame: ", counter)
+        counter += 1
     return frames
 
 if __name__ == '__main__':
