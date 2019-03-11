@@ -5,40 +5,7 @@ import detect_dlib as detector
 import cv2
 import numpy as np
 #import process_image as pi
-"""
-def __extract_frames(video_path):
 
-    vidObj = cv2.VideoCapture(video_path)
-
-    # checks whether frames were extracted
-    success = 1
-    frames = []
-
-    while success:
-        success, image = vidObj.read()
-        frames.append(image)
-
-    return frames
-
-def detect_video_emotions(video_path, fps=100):
-
-    # TODO: how to control fps
-
-    frames = __extract_frames(video_path)
-    for i in range(len(frames)-1):
-        frames_info = detector.get_faces(frames[i])
-        for frame_info in frames_info:
-        	frames[i] = cv2.rectangle(frames[i],
-                                    frame_info[1][0],
-                                    frame_info[1][1],
-                                    (0, 255, 0),
-                                     1)
-        print("process frame :", i, " of ", len(frames))
-
-    display_video(frames)
-    cv2.waitKey(0)
-    https://www.techbeamers.com/python-multithreading-concepts/#python-multithreading-modules
-"""
 def display_video(frames, video_name="video"):
 
     #take frames and display it at particular rate
@@ -47,27 +14,31 @@ def display_video(frames, video_name="video"):
 
     for i in range(len(frames)-1):
         cv2.imshow(video_name,frames[i])
-        if cv2.waitKey(2) & 0xFF == ord('q'):
+        if cv2.waitKey(200) & 0xFF == ord('q'):
              break
 
-def detect_video_emotions(video_path, fps=50):
+def detect_video_emotions(video_path, skip = 50):
     vidObj = cv2.VideoCapture(video_path)
-    vidObj.set(cv2.CAP_PROP_FPS, fps)
+
     # checks whether frames were extracted
     success = 1
-    counter = 1
+    real_frame_counter = 1 #to check with sampling
+    sampled_frame_counter = 1 #to print frame number for user
     frames = []
     while success:
         success, image = vidObj.read()
-        if success != True :
+        if not success :
             break
+        #print(success,">>>",real_frame_counter % fps)
+        if not(real_frame_counter % skip):
+            frame_info = detector.get_faces(image)
+            for fi in frame_info:
+                image = cv2.rectangle(image,fi[1][0],fi[1][1],(0, 255, 0),1)
+            frames.append(image)
+            print("process frame: ", sampled_frame_counter)
+            sampled_frame_counter += 1
+        real_frame_counter += 1
 
-        frame_info = detector.get_faces(image)
-        for fi in frame_info:
-            image = cv2.rectangle(image,fi[1][0],fi[1][1],(0, 255, 0),1)
-        frames.append(image)
-        print("process frame: ", counter)
-        counter += 1
     return frames
 
 if __name__ == '__main__':
