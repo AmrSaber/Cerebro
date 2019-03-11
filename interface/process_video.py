@@ -59,7 +59,7 @@ def detect_video_emotions(video_path):
     frames = []
     while success:
         success, image = vidObj.read()
-        if image.size != 0:
+        if image.shape[0] != 0 and image.shape[1] !=0:
             frame_info = detector.get_faces(image)
             for fi in frame_info:
                 image = cv2.rectangle(image,fi[1][0],fi[1][1],(0, 255, 0),1)
