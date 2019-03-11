@@ -37,6 +37,7 @@ def detect_video_emotions(video_path, fps=100):
 
     display_video(frames)
     cv2.waitKey(0)
+    https://www.techbeamers.com/python-multithreading-concepts/#python-multithreading-modules
 """
 def display_video(frames, video_name="video"):
 
@@ -58,10 +59,10 @@ def detect_video_emotions(video_path):
     frames = []
     while success:
         success, image = vidObj.read()
-        if image.shape != None:
+        if image.size != 0:
             frame_info = detector.get_faces(image)
             for fi in frame_info:
-                image = cv2.rectangle(fi[i],fi[1][0],fi[1][1],(0, 255, 0),1)
+                image = cv2.rectangle(image,fi[1][0],fi[1][1],(0, 255, 0),1)
             frames.append(image)
             print("process frame: ", counter)
             counter += 1
