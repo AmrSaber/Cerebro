@@ -19,15 +19,19 @@ from keras.utils import to_categorical
 
 class EmotionsModel(object):
 
-	def __init__(self, targets_count, create_new=False, use_hog=False, use_lm=False, use_cnn=True):
+	def __init__(self, targets_count, use_hog, use_lm, use_cnn, verbose=True, create_new=False):
 		self.model_path = '../saved-models/emotions_model.f5'
 		self.targets_count = targets_count
+		self.verbose = verbose
+
 		self.use_hog = use_hog
 		self.use_cnn = use_cnn
 		self.use_lm = use_lm
+
 		self.batch_size = 128
-		self.epochs = 2
-		self.folds = 4		# should be 5 or 6
+		self.epochs = 4
+		self.folds = 5		# should be 5 or 6
+
 		if not create_new and self.has_saved_model():
 			self.load_model()
 			self.is_trained = True
@@ -35,7 +39,7 @@ class EmotionsModel(object):
 			self.model = self.__create_model__()
 			self.is_trained = False
 
-	def fit(self, xs, ys, should_save_model=True, folds_count=None, verbose=True, epochs_num=None):
+	def fit(self, xs, ys, should_save_model=True, folds_count=None, epochs_num=None):
 		if epochs_num == None: epochs_num = self.epochs
 		if folds_count == None: folds_count = self.folds
 
@@ -46,18 +50,18 @@ class EmotionsModel(object):
 		from sklearn.model_selection import StratifiedKFold
 		skf = StratifiedKFold(n_splits=folds_count, shuffle=True)
 		for epoch in range(epochs_num):
-			if verbose:
+			if self.verbose:
 				msg = f"\nMain epoch #{epoch+1}"
 				print(msg + '\n' + '=' * len(msg))
 			for fold, (train, validate) in enumerate(skf.split(np.zeros(len(ys)), original_ys)):
-				if verbose: print(f"\nFold #{fold+1}")
+				if self.verbose: print(f"\nFold #{fold+1}")
 				train_xs, train_ys = [sub_xs[train] for sub_xs in xs], ys[train]
 				validate_xs, validate_ys = [sub_xs[validate] for sub_xs in xs], ys[validate]
 				history = self.model.fit(train_xs, train_ys,
 								batch_size=self.batch_size,
 								epochs=1,
 								validation_data=(validate_xs, validate_ys),
-								verbose=verbose)
+								verbose=self.verbose)
 
 		self.is_trained = True
 		if should_save_model: self.save_model()
@@ -94,11 +98,30 @@ class EmotionsModel(object):
 
 	def __transform_input__(self, images, should_enhance=True):
 		lms, hogs, imgs = [], [], []
-		for image in images:
+
+		if self.verbose:
+			size = 30
+			print('Extraccting Features -   0% [', end='')
+			for i in range(size): print('.', end='')
+			print(']', end='')
+
+		for i, image in enumerate(images):
 			img = self.__enhance_image__(image) if should_enhance else image
 			if self.use_cnn: imgs.append(np.reshape(img, (48, 48, 1)))
 			if self.use_lm: lms.append(feature_extraction.get_face_landmarks(img))
 			if self.use_hog: hogs.append(feature_extraction.sk_get_hog(img))
+
+			# printing the done percentage
+			if self.verbose:
+				done = (i+1) / len(images)
+				print('\rExtraccting Features - %3d%% [' % (done*100), end='')
+				for j in range(size):
+					cnt = int(done*size)
+					if j <= cnt: print('=', end='')
+					elif j == cnt+1: print('>', end='')
+					else: print('.', end='')
+				print(']', end='')
+		if self.verbose: print()
 
 		ret = []
 		if self.use_cnn: ret.append(np.array(imgs))
@@ -112,10 +135,10 @@ class EmotionsModel(object):
 		img = filters.median(img)
 
 		# remove gaussian noise
-		img = filters.fastNLMeans(img)
+		# img = filters.fastNLMeans(img)
 
 		# sharpen images
-		# img = filters.laplacian(img)
+		img = filters.laplacian(img)
 
 		# remove noise resulting from laplacian
 		# img = filters.median(img)

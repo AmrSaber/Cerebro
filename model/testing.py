@@ -8,11 +8,17 @@ import argparse
 def main():
 
 	parser = argparse.ArgumentParser(description='')
-	parser.add_argument('-t', action='store_true', help='Force train model')
+
 	parser.add_argument('-g', action='store_true', help='Use HOG for training')
+	parser.add_argument('-m', action='store_true', help='Use LM (land marks) for training')
+	parser.add_argument('-c', action='store_true', help='Use CNN for training')
+
+	parser.add_argument('-t', action='store_true', help='Force train model')
 	parser.add_argument('-n', action='store_true', help='Create new model, reset old weights (if any)')
+
 	parser.add_argument('--tr-count', metavar='int', type=int, default=-1, help='Set the count of the training data')
 	parser.add_argument('--ts-count', metavar='int', type=int, default=-1, help='Set the count of the testing data')
+
 	args = parser.parse_args()
 	must_train = args.t
 
@@ -22,7 +28,13 @@ def main():
 
 	emotions_count = len(set(emotions_map))
 
-	model = EmotionsModel(emotions_count, use_hog=args.g, create_new=args.n)
+	model = EmotionsModel(
+				emotions_count,
+				use_hog=args.g,
+				use_lm=args.m,
+				use_cnn=args.c,
+				create_new=args.n
+			)
 	print('\nCreated Model.')
 
 	if not model.is_trained or args.t:
