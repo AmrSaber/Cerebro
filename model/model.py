@@ -29,7 +29,7 @@ class EmotionsModel(object):
 		self.use_lm = use_lm
 
 		self.batch_size = 128
-		self.epochs = 4
+		self.epochs = 5
 		self.folds = 5		# should be 5 or 6
 
 		if not create_new and self.has_saved_model():
@@ -57,6 +57,13 @@ class EmotionsModel(object):
 				if self.verbose: print(f"\nFold #{fold+1}")
 				train_xs, train_ys = [sub_xs[train] for sub_xs in xs], ys[train]
 				validate_xs, validate_ys = [sub_xs[validate] for sub_xs in xs], ys[validate]
+				# train_datagen = ImageDataGenerator(horizontal_flip=True)
+				# history_fit=self.model.fit_generator(
+                # train_generator,
+                # steps_per_epoch=800/(batch_siz/32),#28709
+                # nb_epoch=1,
+				#
+                # #callbacks=[early_stopping])
 				history = self.model.fit(train_xs, train_ys,
 								batch_size=self.batch_size,
 								epochs=1,
@@ -165,26 +172,24 @@ class EmotionsModel(object):
 			input_image = Input(batch_shape=(None, 48, 48, 1), dtype='float32', name='input_image')
 			x = BatchNormalization(axis=-1)(input_image)
 
-			x = Conv2D(filters=64, kernel_size=(3, 3), padding='same', activation=conv_activation)(input_image)
-			x = MaxPooling2D(pool_size=(3, 3), strides=2, data_format="channels_last")(x)
+			x = Conv2D(filters=32, kernel_size=(3, 3), padding='same', activation=conv_activation)(input_image)
 			x = BatchNormalization(axis=-1)(x)
 
-			x = Conv2D(filters=128, kernel_size=(3, 3), padding='same', activation=conv_activation)(x)
-			x = MaxPooling2D(pool_size=(3, 3), strides=2, data_format="channels_last")(x)
+			x = Conv2D(filters=32, kernel_size=(5, 5), padding='same', activation=conv_activation)(x)
 			x = BatchNormalization(axis=-1)(x)
 
-			x = Conv2D(filters=256, kernel_size=(3, 3), padding='same', activation=conv_activation)(x)
-			x = MaxPooling2D(pool_size=(3, 3), strides=2, data_format="channels_last")(x)
+			x = MaxPooling2D(pool_size=(2, 2), strides=2, data_format="channels_last")(x)
+
+			x = Conv2D(filters=64, kernel_size=(5, 5), padding='same', activation=conv_activation)(x)
+			x = MaxPooling2D(pool_size=(2, 2), strides=2, data_format="channels_last")(x)
 			x = BatchNormalization(axis=-1)(x)
 
 			x = Flatten()(x)
-
-			x = Dropout(rate=keep_prob)(x)
 			x = Dense(units=2048 , activation=dense_activation)(x)
-			x = BatchNormalization(axis=-1)(x)
-
 			x = Dropout(rate=keep_prob)(x)
 			x = Dense(units=1024 , activation=dense_activation)(x)
+			x = Dropout(rate=keep_prob)(x)
+
 			x = BatchNormalization(axis=-1)(x)
 
 			outputCNN = x
@@ -209,7 +214,7 @@ class EmotionsModel(object):
 			outputImage = Dense(units=1024, activation=dense_activation)(outputImage)
 			outputImage = BatchNormalization(axis=-1)(outputImage)
 
-		if (self.use_lm or self.use_lm) and self.use_cnn:
+		if (self.use_lm or self.use_hog) and self.use_cnn:
 			concat_output = concatenate([outputCNN, outputImage])
 		elif self.use_cnn:
 			concat_output = outputCNN
