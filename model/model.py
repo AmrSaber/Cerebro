@@ -29,8 +29,7 @@ class EmotionsModel(object):
 		self.use_lm = use_lm
 
 		self.batch_size = 128
-		self.epochs = 5
-		self.folds = 5		# should be 5 or 6
+		self.epochs = 10
 
 		if not create_new and self.has_saved_model():
 			self.load_model()
@@ -39,36 +38,19 @@ class EmotionsModel(object):
 			self.model = self.__create_model__()
 			self.is_trained = False
 
-	def fit(self, xs, ys, should_save_model=True, folds_count=None, epochs_num=None):
+	def fit(self, xs, ys, should_save_model=True, epochs_num=None):
 		if epochs_num == None: epochs_num = self.epochs
-		if folds_count == None: folds_count = self.folds
 
-		original_ys = ys
 		xs = self.__transform_input__(xs)
 		ys = to_categorical(ys, self.targets_count)
 
-		from sklearn.model_selection import StratifiedKFold
-		skf = StratifiedKFold(n_splits=folds_count, shuffle=True)
-		for epoch in range(epochs_num):
-			if self.verbose:
-				msg = f"\nMain epoch #{epoch+1}"
-				print(msg + '\n' + '=' * len(msg))
-			for fold, (train, validate) in enumerate(skf.split(np.zeros(len(ys)), original_ys)):
-				if self.verbose: print(f"\nFold #{fold+1}")
-				train_xs, train_ys = [sub_xs[train] for sub_xs in xs], ys[train]
-				validate_xs, validate_ys = [sub_xs[validate] for sub_xs in xs], ys[validate]
-				# train_datagen = ImageDataGenerator(horizontal_flip=True)
-				# history_fit=self.model.fit_generator(
-                # train_generator,
-                # steps_per_epoch=800/(batch_siz/32),#28709
-                # nb_epoch=1,
-				#
-                # #callbacks=[early_stopping])
-				history = self.model.fit(train_xs, train_ys,
+		history = self.model.fit(
+								xs, ys,
 								batch_size=self.batch_size,
-								epochs=1,
-								validation_data=(validate_xs, validate_ys),
-								verbose=self.verbose)
+								epochs=self.epochs,
+								validation_split=0.2,
+								verbose=self.verbose
+							)
 
 		self.is_trained = True
 		if should_save_model: self.save_model()
@@ -108,7 +90,7 @@ class EmotionsModel(object):
 
 		if self.verbose:
 			size = 30
-			print('Extraccting Features -   0% [', end='')
+			print('Extracting Features -   0% [', end='')
 			for i in range(size): print('.', end='')
 			print(']', end='')
 
@@ -121,7 +103,7 @@ class EmotionsModel(object):
 			# printing the done percentage
 			if self.verbose:
 				done = (i+1) / len(images)
-				print('\rExtraccting Features - %3d%% [' % (done*100), end='')
+				print('\rExtracting Features - %3d%% [' % (done*100), end='')
 				for j in range(size):
 					cnt = int(done*size)
 					if j <= cnt: print('=', end='')
@@ -163,8 +145,8 @@ class EmotionsModel(object):
 		return model_path.is_file()
 
 	def __create_model__(self):
-		conv_activation = 'relu'
-		dense_activation = 'relu'
+		conv_activation = 'sigmoid'
+		dense_activation = 'sigmoid'
 		keep_prob = 0.956
 
 		# ========================== CNN Part ==========================
@@ -211,7 +193,10 @@ class EmotionsModel(object):
 			if self.use_lm and self.use_hog:
 				outputImage = concatenate([normalizedHog, normalizedLandmarks])
 
-			outputImage = Dense(units=1024, activation=dense_activation)(outputImage)
+			outputImage = Dense(units=32, activation=dense_activation)(outputImage)
+			outputImage = BatchNormalization(axis=-1)(outputImage)
+
+			outputImage = Dense(units=128, activation=dense_activation)(outputImage)
 			outputImage = BatchNormalization(axis=-1)(outputImage)
 
 		if (self.use_lm or self.use_hog) and self.use_cnn:
@@ -221,7 +206,10 @@ class EmotionsModel(object):
 		else:
 			concat_output = outputImage
 
-		output = Dense(units=256 ,activation=dense_activation)(concat_output)
+		output = Dense(units=128 ,activation=dense_activation)(concat_output)
+		output = BatchNormalization(axis=-1)(output)
+
+		output = Dense(units=512 ,activation=dense_activation)(output)
 		output = BatchNormalization(axis=-1)(output)
 
 		output = Dense(units=self.targets_count, activation='softmax')(concat_output)
