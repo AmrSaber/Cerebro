@@ -4,7 +4,7 @@ sys.path.insert(1, '../image')
 import detect_dlib as detector
 import cv2
 import numpy as np
-#import process_image as pi
+import process_image as pi
 
 def display_video(frames, video_name="video"):
 
@@ -20,10 +20,10 @@ def display_video(frames, video_name="video"):
 def detect_video_emotions(video_path, skip = 50):
     vidObj = cv2.VideoCapture(video_path)
 
-    # checks whether frames were extracted
-    success = 1
+    success = 1 # checks whether frames were extracted
     real_frame_counter = 1 #to check with sampling
     sampled_frame_counter = 1 #to print frame number for user
+    prev_frame_data = None
     frames = []
     while success:
         success, image = vidObj.read()
@@ -31,12 +31,16 @@ def detect_video_emotions(video_path, skip = 50):
             break
         #print(success,">>>",real_frame_counter % fps)
         if not(real_frame_counter % skip):
-            frame_info = detector.get_faces(image)
-            for fi in frame_info:
-                image = cv2.rectangle(image,fi[1][0],fi[1][1],(0, 255, 0),1)
-            frames.append(image)
+            prev_frame_data = pi.extract_faces_emotions(image)
+            #frame_info = detector.get_faces(image)
+            #for fi in frame_info:
+            #    image = cv2.rectangle(image,fi[1][0],fi[1][1],(0, 255, 0),1)
             print("process frame: ", sampled_frame_counter)
             sampled_frame_counter += 1
+
+
+        image = pi.mark_faces_emotions(image,"None", prev_frame_data)
+        frames.append(image)
         real_frame_counter += 1
 
     return frames
