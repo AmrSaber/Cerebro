@@ -1,0 +1,35 @@
+1 - introduction
+    1.1 Preface
+    1.2 image processing
+        1.2.1 brief
+        1.2.2 what is it used for
+        1.2.3 how is it useful for this project
+    1.3 Neural Network
+        1.3.1 brief
+        1.3.2 types of neural nets and their applications
+        1.3.3 how is it useful for this project
+    1.2 CNN technology
+        1.2.1 what is it
+        1.2.2 how is it useful
+
+2 - Review
+    2.1 previous work
+    2.2 overview over work
+
+3 - Proposed system
+    3.1 System Architecture
+    3.2 Preprocessing
+        3.2.1 face detection
+        3.2.2 image enhancements
+        3.2.3 landmark Extraction
+        3.2.4 HOG
+        3.2.5 data augmentation (oversampling)
+        3.2.6 under sampling
+        3.2.7 used methods
+    3.3 Model
+        3.3.1 tried models
+        3.3.2 used model
+
+4 - Results
+5 - Conclusion
+references
