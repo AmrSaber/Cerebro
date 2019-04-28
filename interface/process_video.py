@@ -7,10 +7,10 @@ import numpy as np
 import process_image as pi
 
 def display_video(frames, video_name="video"):
-
-    #take frames and display it at particular rate
-    #exit by pressing q key
-    # TODO: how to control fps display through waitKey
+    """
+    take frames and display it at particular rate
+    exit by pressing q key
+    """
 
     for i in range(len(frames)-1):
         cv2.imshow(video_name,frames[i])
@@ -18,24 +18,25 @@ def display_video(frames, video_name="video"):
              break
 
 def detect_video_emotions(video_path, skip = 50):
+    """
+    takes video_path and no of skipped frames between two successive detections
+    output >> saved video
+    """
     vidObj = cv2.VideoCapture(video_path)
 
     success = 1 # checks whether frames were extracted
-    real_frame_counter = 1 #to check with sampling
-    sampled_frame_counter = 1 #to print frame number for user
+    real_frame_counter = 0 #to check with sampling
+    sampled_frame_counter = 0 #to print frame number for user
     prev_frame_data = None
     frames = []
     while success:
         success, image = vidObj.read()
         if not success :
             break
-        #print(success,">>>",real_frame_counter % fps)
+
         if not(real_frame_counter % skip):
-            prev_frame_data = pi.extract_faces_emotions(image)
-            #frame_info = detector.get_faces(image)
-            #for fi in frame_info:
-            #    image = cv2.rectangle(image,fi[1][0],fi[1][1],(0, 255, 0),1)
             print("process frame: ", sampled_frame_counter)
+            prev_frame_data = pi.extract_faces_emotions(image)
             sampled_frame_counter += 1
 
 
@@ -44,6 +45,17 @@ def detect_video_emotions(video_path, skip = 50):
         real_frame_counter += 1
 
     return frames
+
+def save_video(frames, video_name, fps = 25):
+    """
+    video_extension should be .avi .mp4
+    """
+    height, width, layers = frame[0].shape
+    video = cv2.VideoWriter(video_name, 0, fps, (width,height))
+    for frame in frames:
+        video.write(frame)
+    cv2.destroyAllWindows()
+    video.release()
 
 if __name__ == '__main__':
     """
@@ -54,4 +66,5 @@ if __name__ == '__main__':
              break
     """
     frames = detect_video_emotions("x.mp4")
-    display_video(frames)
+    #display_video(frames)
+    save_video(frames, "x_output.mp4")

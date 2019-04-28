@@ -19,6 +19,11 @@ def extract_faces_emotions(image, detector_type = 'dlib'):
         raise Exception("invalid detector")
 
     faces = detector.get_faces(image)
+    print(len(faces))
+    if len(faces):
+
+        print(faces[0][0])
+        
     # emotions_count = len(set(emotions_map))
     m = model.EmotionsModel(5 , use_hog=True)
     for i in range (len(faces)) :
