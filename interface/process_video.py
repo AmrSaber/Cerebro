@@ -45,6 +45,18 @@ def detect_video_emotions(video_path, skip = 50):
 
     return frames
 
+def save_video(frames, video_name, fps = 25):
+    """
+    video_extension should be .avi .mp4
+    """
+    height, width, layers = frame[0].shape
+    video = cv2.VideoWriter(video_name, 0, fps, (width,height))
+    for frame in frames:
+        video.write(frame)
+    cv2.destroyAllWindows()
+    video.release()
+
+
 if __name__ == '__main__':
     """
     frames = __extract_frames("x.mp4")
@@ -54,4 +66,5 @@ if __name__ == '__main__':
              break
     """
     frames = detect_video_emotions("x.mp4")
-    display_video(frames)
+    save_video(frames, "xx")
+    #display_video(frames)
