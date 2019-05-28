@@ -20,7 +20,7 @@ def extract_faces_emotions(image, detector_type = 'dlib'):
 
     faces = detector.get_faces(image)
     # emotions_count = len(set(emotions_map))
-    m = model.EmotionsModel(7 , use_hog=True ,use_lm =True ,use_cnn =True)
+    m = model.EmotionsModel(7 , use_hog=True ,use_lm =True ,use_cnn =False)
     for i in range (len(faces)) :
         item = []
         item.append(faces[i][0]) #face

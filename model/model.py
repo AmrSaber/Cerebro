@@ -80,7 +80,7 @@ class EmotionsModel(object):
 		if not prob_emotion:
 			for i, all in enumerate(res):
 				res[i] = emotions[np.argmax(all)]
-				print(res[i])
+
 		if is_one_face: res = res[0]
 
 		return res
