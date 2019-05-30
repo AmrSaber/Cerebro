@@ -17,9 +17,12 @@ def display_video(frames, video_name="video"):
 
 def detect_video_emotions(video_path, skip = 50):
 
-    vidObj = cv2.VideoCapture(video_path)
-    
+    #audio part 
+    video = VideoFileClip("x.mp4")
+    audio = video.audio
 
+    #processing frames
+    vidObj = cv2.VideoCapture(video_path)
     video_fps = vidObj.get(5)#fps
 
     success = 1 # checks whether frames were extracted
@@ -29,10 +32,8 @@ def detect_video_emotions(video_path, skip = 50):
 
     img_frames = []
 
-
     while success:
         success, image = vidObj.read()
-        
 
         if not success :
             break
@@ -47,8 +48,7 @@ def detect_video_emotions(video_path, skip = 50):
 
         img_frames.append(image)
         
-        
-    return img_frames, video_fps
+    return img_frames, audio, video_fps
 
 def save_video(img_frames, audio, video_name,fps = 25): 
     """
@@ -64,18 +64,23 @@ def save_video(img_frames, audio, video_name,fps = 25):
     cv2.destroyAllWindows()
     video.release()
     """
-    clips = [ImageClip(m).set_duration(2)
+    clips = [ImageClip(m).set_duration(1/fps)
          for m in img_frames]
-    concat_clip = concatenate_videoclips(clips, method="compose")
-    concat_clip.write_videofile("test.mp4", fps=fps)
-
+    concat_clip = concatenate_videoclips(clips, method="chain")
+    concat_clip_edited = concat_clip.set_audio(audio)
+    concat_clip_edited.write_videofile("test.mp4", fps=fps)
+    
 
 if __name__ == '__main__':
     
-    img_frames, fps = detect_video_emotions("x.mp4")
-    video = VideoFileClip("x.mp4")
-    audio = video.audio
+    img_frames, audio, fps = detect_video_emotions("x.mp4")
     save_video(img_frames, audio,"xx.avi", fps)
+
+    """
+    video2 = VideoFileClip("xx.avi")
+    edited = video2.set_audio(audio)
+    edited.write_videofile("test.mp4", fps = fps)
+    """
     #display_video(frames)
     
     
