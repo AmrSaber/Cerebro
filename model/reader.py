@@ -2,6 +2,7 @@
 
 import sys; sys.path.insert(1, '../image')
 from face_detector import detect_dlib
+from utils import normalize_image
 
 import cv2
 import numpy as np
@@ -87,7 +88,9 @@ def split_data(quite, filter):
 	with open(data_training, 'w') as f: f.writelines(trains)
 
 if __name__ == '__main__':
-	parser = argparse.ArgumentParser(description='Read, filter and separate the data to testing and training data (filtering is optional)')
+	parser = argparse.ArgumentParser(
+		description='Read, filter and separate the data to testing and training data (filtering is optional)'
+	)
 	parser.add_argument('-q', action='store_true', help='Quite mode, no ouput')
 	parser.add_argument('-f', action='store_true', help='Filter non-face images')
 	args = parser.parse_args()
