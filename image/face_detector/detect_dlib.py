@@ -1,3 +1,4 @@
+import numpy as np
 import cv2
 import dlib
 
@@ -30,3 +31,13 @@ def _enhance_face(face):
 	face = cv2.resize(face, (48, 48))
 	face = cv2.cvtColor(face, cv2.COLOR_RGB2GRAY)
 	return face
+
+
+if __name__ == '__main__':
+	im = cv2.imread('y.jpg')
+	cv2.imshow("title", im)
+	cv2.waitKey(0)
+	res = get_faces(im)
+	for i in res:
+		cv2.imshow("df", i[0])
+		cv2.waitKey(0)

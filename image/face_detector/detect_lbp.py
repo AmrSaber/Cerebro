@@ -1,6 +1,6 @@
-from __cascade_face_detector import cascade_FaceDetector
+from __cascade_face_detector import cacade_FaceDetector
 
-__lbp_facedetector = FaceDetector("lbp")
+__lbp_facedetector = cacade_FaceDetector("lbp")
 
 def get_faces(img):
     return __lbp_facedetector.get_faces(img)

@@ -1,7 +1,7 @@
 #! /user/bin/env python3
 
 import sys; sys.path.insert(1, '../image')
-from face_detector import dlib
+from face_detector import detect_dlib
 
 import cv2
 import numpy as np

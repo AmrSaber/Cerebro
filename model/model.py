@@ -8,7 +8,6 @@ from enhancement import filters
 from reader import emotions
 
 from pathlib import Path
-
 import numpy as np
 
 import keras

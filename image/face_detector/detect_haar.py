@@ -1,6 +1,7 @@
-from __cascade_face_detector import cascade_FaceDetector
+from image.face_detector.__cascade_face_detector import cascade_FaceDetector
 
-__haar_facedetector = FaceDetector("haar")
+
+__haar_facedetector = cascade_FaceDetector("haar")
 
 def get_faces(img):
     return __haar_facedetector.get_faces(img)
