@@ -9,12 +9,15 @@ from keras.layers import Input, Conv2D, MaxPooling2D, Flatten, Dense, BatchNorma
 import numpy as np
 from pathlib import Path
 
-import sys; sys.path.insert(1, '../image')
-from reader import emotions
-from enhancement import filters
-import feature_extraction
+from image.enhancement import filters
+from image import feature_extraction
+
 
 # TODO: resolve the dependency on reader (when the model is done)
+import model.reader as reader
+reader.set_dataset('fer')
+emotions = reader.emotions
+
 
 class EmotionsModel(object):
 
@@ -27,7 +30,7 @@ class EmotionsModel(object):
         verbose=True,
         create_new=False
     ):
-        self.model_path = '../saved-models/emotions_model.f5'
+        self.model_path = './saved-models/emotions_model.f5'
         self.targets_count = targets_count
         self.verbose = verbose
 
