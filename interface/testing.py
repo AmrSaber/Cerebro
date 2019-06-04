@@ -1,10 +1,11 @@
-import process_image as pi
-import numpy as np
-import cv2
-if __name__ == '__main__':
-    im = cv2.imread("t.jpg")
-    items = pi.extract_faces_emotions(im)
+import argparse
+import video_stream as vs
 
-    im = pi.mark_faces_emotions(im)
-    cv2.imshow("detected emotions",im)
-    cv2.waitKey(0)
+def main():
+	fps = 70
+	pa = argparse.ArgumentParser()
+	pa.add_argument('-c', action='store_true', help='stream from camera')
+	args = pa.parse_args()
+	if args.c:
+		vs.detect_stream_emotions(fps)
+if __name__ == '__main__': main()
