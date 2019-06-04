@@ -1,7 +1,7 @@
 #! /user/bin/env python3
 
 import sys; sys.path.insert(1, '../image')
-from face_detector import detect_dlib
+#from face_detector import dlib
 
 import cv2
 import numpy as np
@@ -13,14 +13,21 @@ data_training = 'dataset/fer2013_train.csv'
 
 # old_emotions = ["Angry", "Disgust", "Fear", "Happy", "Sad", "Surprise", "Neutral"]
 
-emotions = ["Fear", "Neutral", "Satisfied", "Surprise", "Unsatisfied"]
-emotions_map = [4, 4, 0, 2, 4, 3, 1]
-
-# emotions = ["Neutral", "Satisfied", "Unsatisfied"]
-# emotions_map = [2, 2, 0, 1, 2, 0, 0]
-
-# emotions = ["Angry", "Disgust", "Fear", "Happy", "Sad", "Surprise", "Neutral"]
-# emotions_map = list(range(7))
+# mode takes values => 'all', '5', '3'
+mode = 'all'
+if str(mode) == 'all':
+	emotions = ["Angry", "Disgust", "Fear", "Happy", "Sad", "Surprise", "Neutral"]
+	emotions_map = list(range(7))
+elif str(mode) == '5':
+	emotions = ["Fear", "Neutral", "Satisfied", "Surprise", "Unsatisfied"]
+	emotions_map = [4, 4, 0, 2, 4, 3, 1]
+elif str(mode) == '3':
+	emotions = ["Neutral", "Satisfied", "Unsatisfied"]
+	emotions_map = [2, 2, 0, 1, 2, 0, 0]
+else:
+	print("Unknown emotions mode")
+	exit()
+del mode
 
 def read_testing(limit=-1):
 	return read_from_file(data_test, limit)
