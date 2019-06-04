@@ -82,8 +82,3 @@ def mark_faces_emotions(image, detector_type = 'dlib', extracted_faces_emotions 
                                 1)
 
     return image
-if __name__ == '__main__':
-    im = cv2.imread("index.jpg")
-    im = mark_faces_emotions(im)
-    cv2.imshow("dd", im)
-    cv2.waitKey(10000)
