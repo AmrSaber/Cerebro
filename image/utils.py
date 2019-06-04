@@ -1,7 +1,8 @@
 import numpy as np 
 import cv2 
 import matplotlib.pyplot as plt
-import face_detector.detect_dlib as dlib_detector
+
+import image.face_detector.detect_dlib as dlib_detector
 # import face_detector.detect_haar as haar_detector
 # import face_detector.detect_lbp as lbp_detector
 
