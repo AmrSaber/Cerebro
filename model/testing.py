@@ -1,12 +1,12 @@
 #! /user/bin/env python3
 
-from model import *
-from reader import read_testing, read_training, emotions_map
 from  keras.utils import  to_categorical
 import argparse
 
-def main():
+from model.emotions_model import *
+from model.reader import read_testing, read_training, get_emotions, set_dataset
 
+def main():
 	parser = argparse.ArgumentParser(description='')
 
 	parser.add_argument('-g', action='store_true', help='Use HOG for training')
@@ -22,25 +22,26 @@ def main():
 	args = parser.parse_args()
 	must_train = args.t
 
+	set_dataset('ck+')
+
 	print('Reading data...')
 	x_test, y_test = read_testing(args.ts_count)
 	x_train, y_train = read_training(args.tr_count)
 
-	emotions_count = len(set(emotions_map))
-
 	model = EmotionsModel(
-				emotions_count,
-				use_hog=args.g,
 				use_lm=args.m,
+				use_hog=args.g,
 				use_cnn=args.c,
-				create_new=args.n
+				create_new=args.n,
+				emotions=get_emotions(),
+				verbose=True,
 			)
+
 	print('\nCreated Model.')
 
 	if not model.is_trained or args.t:
 		print('Training...')
 		history = model.fit(x_train, y_train)
-		# print(history.history['val_acc'])
 
 	print('\nTesting...')
 	result = model.test(x_test, y_test)

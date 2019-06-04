@@ -6,45 +6,52 @@ from keras.optimizers import SGD
 from keras.utils import to_categorical
 from keras.layers import Input, Conv2D, MaxPooling2D, Flatten, Dense, BatchNormalization, concatenate, Dropout
 
+import pickle
 import numpy as np
 from pathlib import Path
 
 from image.enhancement import filters
-from image import feature_extraction
-
-
-# TODO: resolve the dependency on reader (when the model is done)
-import model.reader as reader
-reader.set_dataset('fer')
-emotions = reader.emotions
-
+from image import feature_extraction, utils
 
 class EmotionsModel(object):
 
     def __init__(
         self,
-        targets_count,
-        use_hog,
-        use_cnn,
-        use_lm,
-        verbose=True,
-        create_new=False
+        verbose=False,
+        create_new=False,
+        use_hog=None,
+        use_cnn=None,
+        use_lm=None,
+        emotions=None,
     ):
+        # pathes constants
         self.model_path = './saved-models/emotions_model.f5'
-        self.targets_count = targets_count
+        self.model_specs_path = './saved-models/emotions_model_specs.bin'
+
+
         self.verbose = verbose
-
-        self.use_hog = use_hog
-        self.use_cnn = use_cnn
-        self.use_lm = use_lm
-
+        
+        # model numbers
+        self.imageSize = 150
         self.batch_size = 128
-        self.epochs = 10
+        self.epochs = 50
+
 
         if not create_new and self.has_saved_model():
             self.load_model()
             self.is_trained = True
         else:
+            if use_hog == None or use_cnn == None or use_lm == None or emotions == None:
+                raise Exception(
+                    'When creating new model, all model specs (use_hog, use_cnn, use_lm, emotions) must be given'
+                )
+
+            # set model specs
+            self.use_hog = use_hog
+            self.use_cnn = use_cnn
+            self.use_lm = use_lm
+            self.emotions = emotions
+
             self.model = self.__create_model__()
             self.is_trained = False
 
@@ -53,14 +60,14 @@ class EmotionsModel(object):
             epochs_num = self.epochs
 
         xs = self.__transform_input__(xs)
-        ys = to_categorical(ys, self.targets_count)
+        ys = to_categorical(ys, len(self.emotions))
 
         history = self.model.fit(
             xs, ys,
             batch_size=self.batch_size,
             epochs=self.epochs,
-            validation_split=0.2,
-            verbose=self.verbose
+            validation_split=0.1,
+            verbose=self.verbose,
         )
 
         self.is_trained = True
@@ -74,7 +81,7 @@ class EmotionsModel(object):
             raise Exception("Model not trained yet")
 
         faces = self.__transform_input__(faces)
-        targets = to_categorical(targets, self.targets_count)
+        targets = to_categorical(targets, len(self.emotions))
         return self.model.evaluate(faces, targets)
 
     def predict(self, faces, prob_emotion=False):
@@ -92,7 +99,7 @@ class EmotionsModel(object):
 
         if not prob_emotion:
             for i, all in enumerate(res):
-                res[i] = emotions[np.argmax(all)]
+                res[i] = self.emotions[np.argmax(all)]
 
         if is_one_face:
             res = res[0]
@@ -112,11 +119,11 @@ class EmotionsModel(object):
         for i, image in enumerate(images):
             img = self.__enhance_image__(image) if should_enhance else image
             if self.use_cnn:
-                imgs.append(np.reshape(img, (48, 48, 1)))
+                imgs.append(np.reshape(img, (self.imageSize, self.imageSize, 1)))
             if self.use_lm:
                 lms.append(feature_extraction.get_face_landmarks(img))
             if self.use_hog:
-                hogs.append(feature_extraction.sk_get_hog(img))
+                hogs.append(feature_extraction.sk_get_hog(img, pixels_per_cell=(30, 30)))
 
             # printing the done percentage
             if self.verbose:
@@ -145,29 +152,45 @@ class EmotionsModel(object):
         return ret
 
     def __enhance_image__(self, img):
-        # remove salt and peper
-        img = filters.median(img)
+        # normalize image to wanted size
+        img = utils.normalize_image(img, self.imageSize)
 
-        # remove gaussian noise
-        # img = filters.fastNLMeans(img)
+        # remove salt and pepper
+        img = filters.median(img)
 
         # sharpen images
         img = filters.laplacian(img)
 
-        # remove noise resulting from laplacian
-        # img = filters.median(img)
-
         return img
 
     def save_model(self):
+        # save model weights
         self.model.save(self.model_path)
 
+        # save model specs
+        with open(self.model_specs_path, 'wb') as specsFile:
+            pickle.dump(
+                (
+                    self.use_hog,
+                    self.use_cnn,
+                    self.use_lm,
+                    self.emotions,
+                ),
+                specsFile
+            )
+
     def load_model(self):
+        # load model weights
         self.model = keras.models.load_model(self.model_path)
+
+        # load model specs
+        with open(self.model_specs_path, 'rb') as specsFile:
+            self.use_hog, self.use_cnn, self.use_lm, self.emotions = pickle.load(specsFile)
 
     def has_saved_model(self):
         model_path = Path(self.model_path)
-        return model_path.is_file()
+        model_specs_path = Path(self.model_specs_path)
+        return model_path.is_file() and model_specs_path.is_file()
 
     def __create_model__(self):
         conv_activation = 'sigmoid'
@@ -176,7 +199,7 @@ class EmotionsModel(object):
 
         # ========================== CNN Part ==========================
         if self.use_cnn:
-            input_image = Input(batch_shape=(None, 48, 48, 1), dtype='float32', name='input_image')
+            input_image = Input(batch_shape=(None, 150, 150, 1), dtype='float32', name='input_image')
             x = BatchNormalization(axis=-1)(input_image)
 
             x = Conv2D(filters=32, kernel_size=(3, 3), padding='same', activation=conv_activation)(input_image)
@@ -211,7 +234,7 @@ class EmotionsModel(object):
                 outputImage = normalizedLandmarks
 
             if self.use_hog:
-                inputHOG = Input(batch_shape=(None, 128),dtype='float32', name='input_HOG')
+                inputHOG = Input(batch_shape=(None, 512),dtype='float32', name='input_HOG')
                 normalizedHog = BatchNormalization(axis=-1)(inputHOG)
                 outputImage = normalizedHog
 
@@ -239,7 +262,7 @@ class EmotionsModel(object):
         output = Dense(units=512, activation=dense_activation)(output)
         output = BatchNormalization(axis=-1)(output)
 
-        output = Dense(units=self.targets_count, activation='softmax')(concat_output)
+        output = Dense(units=len(self.emotions), activation='softmax')(concat_output)
 
         # ========================== Model creating part ==========================
         inputs = []
@@ -252,7 +275,6 @@ class EmotionsModel(object):
 
         model = Model(inputs=inputs, outputs=[output])
 
-        # sgd = SGD(lr=0.016, decay=0.864, momentum=0.95, nesterov=True)
         model.compile(
             optimizer='adadelta',
             loss='categorical_crossentropy',

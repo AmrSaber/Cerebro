@@ -15,10 +15,10 @@ path_testing = './model/dataset/ctk_testing.bin'
 emotions = ['Neutral', 'Anger', 'Contempt', 'Disgust', 'Fear', 'Happy', 'Sadness', 'Surprise']
 
 def read_training(limit=-1):
-	return read_file(path_training)
+	return read_file(path_training, limit)
 
 def read_testing(limit=-1):
-    return read_file(path_testing)
+    return read_file(path_testing, limit)
 
 def read_file(path, limit):
     with open(path, 'rb') as f: 
