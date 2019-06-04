@@ -59,12 +59,12 @@ def split_data(quite, filter):
             facesFiles = sorted(facesFiles, key=faceNameIntoNumber)
             facesFiles = [os.path.join(facesPath, face) for face in facesFiles]
             
-            emotionFacesCount = len(facesFiles) // 3
+            emotionFacesCount = 2 * len(facesFiles) // 3
             neutralFacesCount = 1
             
             # read and convert face images
-            emotionFaces = [readFaceFromPath(face, filter) for face in facesFiles[-emotionFacesCount:]]
-            neutralFaces = [readFaceFromPath(face, filter) for face in facesFiles[:neutralFacesCount]]
+            emotionFaces = [readFaceFromPath(face, filter) for face in facesFiles[-emotionFacesCount::2]]
+            neutralFaces = [readFaceFromPath(face, filter) for face in facesFiles[:neutralFacesCount:2]]
 
             xs += emotionFaces
             xs += neutralFaces
@@ -116,7 +116,10 @@ def readFaceFromPath(path, filter):
 
     image_size = 150
 
-    image = normalize_image(image, image_size, detect=filter)
+    if filter:
+        image = normalize_image(image, image_size, True, 'haar')
+    else:
+        image = normalize_image(image, image_size, True)
 
     if len(image.shape) == 3 and image.shape[-1] == 3:
         image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)

@@ -1,7 +1,5 @@
 #! /user/bin/env python3
 
-
-# HOG task
 import cv2
 from skimage.feature import hog
 from imutils import face_utils

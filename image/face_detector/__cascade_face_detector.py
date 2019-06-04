@@ -3,16 +3,15 @@ import cv2
 # haarcascade_frontalface_alt.xml scale-factor = 1.00849, min-neighbours = 5
 # scale factor of 1.03 - 1.05 for haar seems to give good results
 
-class cacade_FaceDetector:
+class cascade_FaceDetector:
 	def __init__(self, classifier_type):
+		self.min_neighbors = 5
 		if classifier_type == 'haar':
-			self.classifier = cv2.CascadeClassifier('../../saved-models/face-detection/haarcascade_frontalface_alt.xml')
+			self.classifier = cv2.CascadeClassifier('./saved-models/face-detection/haarcascade_frontalface_alt.xml')
 			self.scale_factor = 1.0303035
-			self.min_neighbours = 5
 		elif classifier_type == 'lbp':
-			self.classifier = cv2.CascadeClassifier('../../saved-models/face-detection/lbpcascade_frontalface_improved.xml')
+			self.classifier = cv2.CascadeClassifier('./saved-models/face-detection/lbpcascade_frontalface_improved.xml')
 			self.scale_factor = 1.2
-			self.min_neighbours = 5
 		else:
 			raise Exception("unknown classifier type")
 
@@ -54,7 +53,7 @@ class cacade_FaceDetector:
 		faces = self.classifier.detectMultiScale(
 			img,
 			scaleFactor=self.scale_factor,
-			minNeighbors=self.min_neighbours
+			minNeighbors=self.min_neighbors
 		)
 		boxes = []
 		for face in faces:

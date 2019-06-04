@@ -5,8 +5,8 @@ import cv2
 import matplotlib.pyplot as plt
 
 import image.face_detector.detect_dlib as dlib_detector
-# import face_detector.detect_haar as haar_detector
-# import face_detector.detect_lbp as lbp_detector
+import image.face_detector.detect_haar as haar_detector
+import image.face_detector.detect_lbp as lbp_detector
 
 def get_squared(img, n):
     ret = img.copy()
@@ -38,7 +38,7 @@ def normalize_image(img, n, detect=False, detector='dlib'):
         elif detector == 'lbp':
             ret = lbp_detector.get_faces(img)[0][0]
         else:
-            raise Exception('unkown detector %s given' %detector)
+            raise Exception('unknown detector %s given' %detector)
 
     # making the image a square image by adding padding depending on the shape
     if ret.shape[0] < ret.shape[1]:
