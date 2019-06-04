@@ -39,12 +39,11 @@ def mark_faces_emotions(image, detector_type = 'dlib', extracted_faces_emotions 
     """
     if detector_type >> None : don't detect
     """
-
     font = cv2.FONT_HERSHEY_SIMPLEX
     font_scale = 1
-    font_color = (255, 51, 51)
-    offest_x = 2
-    offest_y = 5
+    color = (72, 1, 68)
+    offset_x = 5
+    offset_y = 0
     if detector_type != "None":
         extracted_faces_emotions = extract_faces_emotions(image, detector_type)
     """
@@ -59,21 +58,32 @@ def mark_faces_emotions(image, detector_type = 'dlib', extracted_faces_emotions 
     """
     if extracted_faces_emotions != None :
         for i in range(len(extracted_faces_emotions)):
-            tmp = (extracted_faces_emotions[i][1][0][0]-offest_x,
-                   extracted_faces_emotions[i][1][0][1]-offest_y)
+            tmp = (extracted_faces_emotions[i][1][0][0]+offset_x,
+                   extracted_faces_emotions[i][1][0][1]-offset_y)
+            #text background
+            size = cv2.getTextSize(extracted_faces_emotions[i][2], font, fontScale=font_scale, thickness=1)[0]
+            box_coords = (tmp,
+                         (tmp[0] + size[0] - 2, tmp[1] - size[1] - 2))
+            cv2.rectangle(image, box_coords[0], box_coords[1], color, cv2.FILLED)
 
+            #selected face box
             image = cv2.rectangle(image,
                                   extracted_faces_emotions[i][1][0],
                                   extracted_faces_emotions[i][1][1],
-                                  (66,206,244),
+                                  color,
                                   2)
-
+            #text
             image = cv2.putText(image,
                                 extracted_faces_emotions[i][2],
                                 tmp,
                                 font,
                                 font_scale,
-                                font_color,
-                                2)
+                                (255, 255, 255),
+                                1)
 
     return image
+if __name__ == '__main__':
+    im = cv2.imread("index.jpg")
+    im = mark_faces_emotions(im)
+    cv2.imshow("dd", im)
+    cv2.waitKey(10000)
