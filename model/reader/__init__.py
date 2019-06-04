@@ -1,8 +1,8 @@
 import argparse
 
-from model.reader import fer
+from model.reader import fer, ck
 
-available_datasets = ['fer']
+available_datasets = ['fer', 'ck+']
 used_module = None
 
 def set_dataset(name):
@@ -10,6 +10,9 @@ def set_dataset(name):
     global used_module
     if name == 'fer':
         used_module = fer
+    elif name == 'ck+':
+        used_module = ck
+
 
 def read_training(limit=-1):
     return used_module.read_training(limit)
