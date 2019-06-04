@@ -76,10 +76,11 @@ class EmotionsModel(object):
 
 		res = self.model.predict(faces, batch_size=self.batch_size)
 		res = res.tolist()
-
+		print(res)
 		if not prob_emotion:
 			for i, all in enumerate(res):
 				res[i] = emotions[np.argmax(all)]
+				print(res[i])
 
 		if is_one_face: res = res[0]
 
