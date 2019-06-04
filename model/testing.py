@@ -42,6 +42,7 @@ def main():
 	if not model.is_trained or args.t:
 		print('Training...')
 		history = model.fit(x_train, y_train)
+		# print(history.history['val_acc'])
 
 	print('\nTesting...')
 	result = model.test(x_test, y_test)
