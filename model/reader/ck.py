@@ -11,7 +11,7 @@ path_all_emotions = './model/dataset/CK+/emotions'
 path_training = './model/dataset/ctk_training.bin'
 path_testing = './model/dataset/ctk_testing.bin'
 
-# 0=neutral, 1=anger, 2=contempt, 3=disgust, 4=fear, 5=happy, 6=sadness, 7=surprise
+# 0: neutral, 1: anger, 2: contempt, 3: disgust, 4: fear, 5: happy, 6: sadness, 7: surprise
 emotions = ['Neutral', 'Anger', 'Contempt', 'Disgust', 'Fear', 'Happy', 'Sadness', 'Surprise']
 
 def read_training(limit=-1):
@@ -75,16 +75,6 @@ def split_data(quite, filter):
             if not quite: print('Sequence Done')
 
         if not quite: print('Subject Done\n')
-    
-    # print stats
-    emotionsCount = [0] * len(emotions)
-    for y in ys: emotionsCount[y] += 1
-
-    print(f'Dataset size: {len(xs)}\n')
-    print('Emotions stats:')
-    print('===============')
-    for i, emotion in enumerate(emotions):
-        print('%8s: %3d' % (emotion, emotionsCount[i]))
         
     # shuffle xs, and ys
     allData = [(x, y) for x, y in zip(xs, ys)]
@@ -103,6 +93,20 @@ def split_data(quite, filter):
     # save training and testing data into binary files
     with open(path_training, 'wb') as f: pickle.dump((xs_training, ys_training), f)
     with open(path_testing, 'wb') as f: pickle.dump((xs_testing, ys_testing), f)
+
+    # print stats
+    emotionsCount = [0] * len(emotions)
+    for y in ys: emotionsCount[y] += 1
+
+    print(f'Dataset Size: {len(xs)}')
+    print(f'Training Size: {len(xs_training)}')
+    print(f'Testing Size: {len(xs_testing)}')
+    print()
+
+    print('Emotions Stats:')
+    print('===============')
+    for i, emotion in enumerate(emotions):
+        print('%8s: %3d' % (emotion, emotionsCount[i]))
 
 # faces files names are of format 'S064_003_00000009.png' is changed into '9'
 def faceNameIntoNumber(name):
