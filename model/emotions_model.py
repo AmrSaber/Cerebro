@@ -34,7 +34,7 @@ class EmotionsModel(object):
         # model numbers
         self.imageSize = 150
         self.batch_size = 128
-        self.epochs = 50
+        self.epochs = 5
 
 
         if not create_new and self.has_saved_model():
@@ -111,10 +111,7 @@ class EmotionsModel(object):
 
         if self.verbose:
             size = 30
-            print('Extracting Features -   0% [', end='')
-            for i in range(size):
-                print('.', end='')
-            print(']', end='')
+            print()
 
         for i, image in enumerate(images):
             img = self.__enhance_image__(image) if should_enhance else image
@@ -123,7 +120,7 @@ class EmotionsModel(object):
             if self.use_lm:
                 lms.append(feature_extraction.get_face_landmarks(img))
             if self.use_hog:
-                hogs.append(feature_extraction.sk_get_hog(img, pixels_per_cell=(30, 30)))
+                hogs.append(feature_extraction.sk_get_hog(img, pixels_per_cell=(20, 20)))
 
             # printing the done percentage
             if self.verbose:
@@ -154,6 +151,9 @@ class EmotionsModel(object):
     def __enhance_image__(self, img):
         # normalize image to wanted size
         img = utils.normalize_image(img, self.imageSize)
+
+        # make sure image is always in grayscale
+        img = utils.normalize_channels(img)
 
         # remove salt and pepper
         img = filters.median(img)
@@ -202,22 +202,22 @@ class EmotionsModel(object):
             input_image = Input(batch_shape=(None, 150, 150, 1), dtype='float32', name='input_image')
             x = BatchNormalization(axis=-1)(input_image)
 
-            x = Conv2D(filters=32, kernel_size=(3, 3), padding='same', activation=conv_activation)(input_image)
+            x = Conv2D(filters=8, kernel_size=(15, 15), padding='valid', activation=conv_activation)(input_image)
             x = BatchNormalization(axis=-1)(x)
 
-            x = Conv2D(filters=32, kernel_size=(5, 5), padding='same', activation=conv_activation)(x)
+            x = Conv2D(filters=16, kernel_size=(15, 15), padding='valid', activation=conv_activation)(x)
             x = BatchNormalization(axis=-1)(x)
 
             x = MaxPooling2D(pool_size=(2, 2), strides=2, data_format="channels_last")(x)
 
-            x = Conv2D(filters=64, kernel_size=(5, 5), padding='same', activation=conv_activation)(x)
+            x = Conv2D(filters=16, kernel_size=(15, 15), padding='valid', activation=conv_activation)(x)
             x = MaxPooling2D(pool_size=(2, 2), strides=2, data_format="channels_last")(x)
             x = BatchNormalization(axis=-1)(x)
 
             x = Flatten()(x)
-            x = Dense(units=2048, activation=dense_activation)(x)
-            x = Dropout(rate=keep_prob)(x)
             x = Dense(units=1024, activation=dense_activation)(x)
+            x = Dropout(rate=keep_prob)(x)
+            x = Dense(units=512, activation=dense_activation)(x)
             x = Dropout(rate=keep_prob)(x)
 
             x = BatchNormalization(axis=-1)(x)
@@ -234,7 +234,7 @@ class EmotionsModel(object):
                 outputImage = normalizedLandmarks
 
             if self.use_hog:
-                inputHOG = Input(batch_shape=(None, 512),dtype='float32', name='input_HOG')
+                inputHOG = Input(batch_shape=(None, 2048),dtype='float32', name='input_HOG')
                 normalizedHog = BatchNormalization(axis=-1)(inputHOG)
                 outputImage = normalizedHog
 

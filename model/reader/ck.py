@@ -4,7 +4,7 @@ import os, random, pickle
 import cv2
 import numpy as np
 
-from image.utils import normalize_image
+from image.utils import normalize_image, normalize_channels
 
 path_all_faces = './model/dataset/CK+/faces'
 path_all_emotions = './model/dataset/CK+/emotions'
@@ -125,8 +125,7 @@ def readFaceFromPath(path, filter):
     else:
         image = normalize_image(image, image_size, True)
 
-    if len(image.shape) == 3 and image.shape[-1] == 3:
-        image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    image = normalize_channels(image)
     
     image = np.resize(image, (image_size, image_size, 1))
 

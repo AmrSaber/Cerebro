@@ -54,15 +54,9 @@ def normalize_image(img, n, detect=False, detector='dlib'):
     
     return ret
 
-if __name__ == '__main__':
-    img = cv2.imread('example_02.jpg')
-    # cv2.imshow('resized', img)
-    # cv2.waitKey(0)
-    ret = normalize_image(img, 48, detect = True, detector='dlib')
-    # ret = get_squared(ret, 48)
-    print('before resize : {}'.format(img.shape))
-    print('after resize : {}'.format(ret.shape))
-    # plt.imshow(ret)
-    # plt.show()
-    cv2.imshow('resized', ret)
-    cv2.waitKey(0)
+def normalize_channels(image):
+    if len(image.shape) == 3 and image.shape[-1] == 3:
+        ret = cv2.cvtColor(image, cv2.COLOR_RGB2GRAY)
+    else:
+        ret = image.copy()
+    return ret

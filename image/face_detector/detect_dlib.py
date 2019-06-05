@@ -28,6 +28,7 @@ def _extract_face(img, rect):
 	return face
 
 def _enhance_face(face):
+	return face
 	face = cv2.resize(face, (48, 48))
 	face = cv2.cvtColor(face, cv2.COLOR_RGB2GRAY)
 	return face
