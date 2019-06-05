@@ -2,7 +2,7 @@ import argparse
 import video_stream as vs
 
 def main():
-	fps = 70
+	fps = 40
 	pa = argparse.ArgumentParser()
 	pa.add_argument('-s', action='store_true', help='stream from camera')
 	args = pa.parse_args()
