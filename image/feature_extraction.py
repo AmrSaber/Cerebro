@@ -1,13 +1,11 @@
 #! /user/bin/env python3
 
-
-# HOG task
 import cv2
 from skimage.feature import hog
 from imutils import face_utils
 import dlib
 
-__dlib_landmark_predictor = dlib.shape_predictor("../saved-models/face-landmarks/shape_predictor_68_face_landmarks.dat")
+__dlib_landmark_predictor = dlib.shape_predictor("./saved-models/face-landmarks/shape_predictor_68_face_landmarks.dat")
 
 def sk_get_hog(img, orientations=8, pixels_per_cell=(12, 12)):
 	"""

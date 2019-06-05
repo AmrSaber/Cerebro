@@ -1,5 +1,9 @@
-import argparse
-import video_stream as vs
+#!/usr/bin/env python3
+
+import cv2
+
+from interface import video_stream as vs
+from interface import process_image
 
 def main():
 	fps = 40
