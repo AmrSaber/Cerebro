@@ -1,36 +1,28 @@
-import sys;
-sys.path.insert(1, '../model')
-sys.path.insert(1, '../image')
-sys.path.insert(1, '../saved-models/emotions_model.f5')
-sys.path.insert(1,'../image/face_detector')
-import model
+from model import emotions_model as model
 import cv2
 
 def extract_faces_emotions(image, detector_type = 'dlib'):
 
     items= []
     if detector_type == 'dlib':
-        from face_detector import detect_dlib as detector
+        from image.face_detector import detect_dlib as detector
     elif detector_type =='haar':
-        from face_detector import detect_haar as detector
+        from image.face_detector import detect_haar as detector
     elif detector_type =='lbp':
-        from face_detector import detect_lbp as detector
+        from image.face_detector import detect_lbp as detector
     else :
         raise Exception("invalid detector")
 
     faces = detector.get_faces(image)
-    print(len(faces))
-    if len(faces):
-
-        print(faces[0][0])
 
     # emotions_count = len(set(emotions_map))
-    m = model.EmotionsModel(7, use_hog = True)
+    emotionsModel = model.EmotionsModel()
     for i in range (len(faces)) :
         item = []
         item.append(faces[i][0]) #face
         item.append(faces[i][1]) #corner coordinates
-        emotion = m.predict(faces[i][0])
+        if faces[i][0].shape[0] == 0 or faces[i][0].shape[1] == 0: continue
+        emotion = emotionsModel.predict(faces[i][0])
         item.append(emotion)
         items.append(item)
     return items
