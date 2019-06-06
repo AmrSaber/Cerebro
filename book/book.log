@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.2.23)  25 APR 2019 21:38
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.2.23)  3 JUN 2019 16:47
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -511,50 +511,56 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 
 ]
 Chapter 1.
-(./CH1-introduction/CH1-introduction.tex (./CH1-introduction/preface.tex)
-(./CH1-introduction/image_processing.tex)
-(./CH1-introduction/neural_networks.tex) (./CH1-introduction/cnn_technology.tex
-)) (./CH2-Review/CH2-Review.tex [5] [6
+(./CH1-introduction/CH1-introduction.tex
+(./CH1-introduction/sec1_preface/sec1_preface.tex)
+(./CH1-introduction/sec2_image_processing/sec2_image_processing.tex)
+(./CH1-introduction/sec3_neural_networks/sec3_neural_networks.tex)
+(./CH1-introduction/sec4_cnn_technology/sec4_cnn_technology.tex)) [5] [6
 
 ]
 Chapter 2.
-) (./CH3-Proposed_system/CH3-Proposed_system.tex [7] [8
+(./CH2-Review/CH2-Review.tex
+(./CH2-Review/sec1_overview_over_work/sec1_overview_over_work.tex)
+(./CH2-Review/sec2_previous_work/sec2_previous_work.tex)) [7] [8
 
 ]
 Chapter 3.
-) (./CH4-Results/CH4-Results.tex [9] [10
+(./CH3-Proposed_system/CH3-Proposed_system.tex
+(./CH3-Proposed_system/sec1_system_architecture/sec1_system_architecture.tex)
+(./CH3-Proposed_system/sec2_preprocessing/sec2_preprocessing.tex)
+(./CH3-Proposed_system/sec3_model/sec3_model.tex)) [9] [10
 
 ]
 Chapter 4.
-) (./CH5-Conslusion/CH5-Conclusion.tex [11] [12
+(./CH4-Results/CH4-Results.tex) [11] [12
 
 ]
 Chapter 5.
-) (./References/References.tex [13] [14
+(./CH5-Conslusion/CH5-Conclusion.tex) [13] [14
 
 ]
 Chapter 6.
-) [15] (./book.aux) ) 
+(./References/References.tex) [15] (./book.aux) ) 
 Here is how much of TeX's memory you used:
- 2223 strings out of 494923
- 29102 string characters out of 6180742
+ 2246 strings out of 494923
+ 30326 string characters out of 6180742
  79620 words of memory out of 5000000
  5470 multiletter control sequences out of 15000+600000
  14905 words of font info for 34 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  41i,6n,25p,271b,179s stack positions out of 5000i,500n,10000p,200000b,80000s
- </home/aim/.texlive2017/texmf-var/fonts/pk/ljfour/jknappe
-n/ec/ecbx1440.600pk> </home/aim/.texlive2017/texmf-var/fonts/pk/ljfour/jknappen
-/ec/ecbx2074.600pk> </home/aim/.texlive2017/texmf-var/fonts/pk/ljfour/jknappen/
-ec/ecsl1000.600pk> </home/aim/.texlive2017/texmf-var/fonts/pk/ljfour/jknappen/e
-c/ecbx1000.600pk> </home/aim/.texlive2017/texmf-var/fonts/pk/ljfour/jknappen/ec
-/ecbx2488.600pk> </home/aim/.texlive2017/texmf-var/fonts/pk/ljfour/jknappen/ec/
-ecrm1000.600pk> </home/aim/.texlive2017/texmf-var/fonts/pk/ljfour/jknappen/ec/e
-crm1200.600pk> </home/aim/.texlive2017/texmf-var/fonts/pk/ljfour/jknappen/ec/ec
-rm1728.600pk>
-Output written on book.pdf (15 pages, 67339 bytes).
+ </home/aim/.texlive2017/texmf
+-var/fonts/pk/ljfour/jknappen/ec/ecbx1440.600pk> </home/aim/.texlive2017/texmf-
+var/fonts/pk/ljfour/jknappen/ec/ecbx2074.600pk> </home/aim/.texlive2017/texmf-v
+ar/fonts/pk/ljfour/jknappen/ec/ecsl1000.600pk> </home/aim/.texlive2017/texmf-va
+r/fonts/pk/ljfour/jknappen/ec/ecbx1000.600pk> </home/aim/.texlive2017/texmf-var
+/fonts/pk/ljfour/jknappen/ec/ecbx2488.600pk> </home/aim/.texlive2017/texmf-var/
+fonts/pk/ljfour/jknappen/ec/ecrm1000.600pk> </home/aim/.texlive2017/texmf-var/f
+onts/pk/ljfour/jknappen/ec/ecrm1200.600pk> </home/aim/.texlive2017/texmf-var/fo
+nts/pk/ljfour/jknappen/ec/ecrm1728.600pk>
+Output written on book.pdf (15 pages, 73359 bytes).
 PDF statistics:
- 276 PDF objects out of 1000 (max. 8388607)
+ 291 PDF objects out of 1000 (max. 8388607)
  67 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
