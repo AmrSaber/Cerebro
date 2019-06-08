@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.2.23)  8 JUN 2019 14:19
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.2.23)  8 JUN 2019 14:44
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -514,8 +514,8 @@ Chapter 1.
 (./CH1-introduction/CH1-introduction.tex
 (./CH1-introduction/sec1_preface/sec1_preface.tex)
 (./CH1-introduction/sec2_image_processing/sec2_image_processing.tex)
-(./CH1-introduction/sec3_neural_networks/sec3_neural_networks.tex)
-(./CH1-introduction/sec4_cnn_technology/sec4_cnn_technology.tex)) [5] [6
+(./CH1-introduction/sec3_neural_networks/sec3_neural_networks.tex)) [5]
+[6
 
 ]
 Chapter 2.
@@ -528,7 +528,8 @@ Chapter 3.
 (./CH3-Proposed_system/CH3-Proposed_system.tex
 (./CH3-Proposed_system/sec1_system_architecture/sec1_system_architecture.tex)
 (./CH3-Proposed_system/sec2_preprocessing/sec2_preprocessing.tex)
-(./CH3-Proposed_system/sec3_model/sec3_model.tex)) [9] [10
+(./CH3-Proposed_system/sec3_model/sec3_model.tex)
+(./CH3-Proposed_system/sec4_library/sec4_library.tex)) [9] [10
 
 ]
 Chapter 4.
@@ -543,7 +544,7 @@ Chapter 6.
 (./References/References.tex) [15] (./book.aux) ) 
 Here is how much of TeX's memory you used:
  2246 strings out of 494923
- 30326 string characters out of 6180742
+ 30293 string characters out of 6180742
  79620 words of memory out of 5000000
  5470 multiletter control sequences out of 15000+600000
  14905 words of font info for 34 fonts, out of 8000000 for 9000
@@ -558,7 +559,7 @@ r/fonts/pk/ljfour/jknappen/ec/ecbx1000.600pk> </home/aim/.texlive2017/texmf-var
 fonts/pk/ljfour/jknappen/ec/ecrm1000.600pk> </home/aim/.texlive2017/texmf-var/f
 onts/pk/ljfour/jknappen/ec/ecrm1200.600pk> </home/aim/.texlive2017/texmf-var/fo
 nts/pk/ljfour/jknappen/ec/ecrm1728.600pk>
-Output written on book.pdf (15 pages, 73380 bytes).
+Output written on book.pdf (15 pages, 73057 bytes).
 PDF statistics:
  291 PDF objects out of 1000 (max. 8388607)
  67 compressed objects within 1 object stream
