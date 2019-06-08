@@ -5,70 +5,140 @@ MANAR : Overview over work, previous work, HOG
 SALMA : preface, CNN technology, Results
 WAFAA : oversampling, used method, tried models
 
+ENP : Expected number of pages
+ETN : expected time needed
+
 1 - introduction
     1.1 Preface <SALMA>
+	this part should include 
+	1 - an introduction about the problem we have
+	2 - why it's important to find a solution for it
+	3 - how would finding a solution to it help to achieve
+	example : see the abstract section in the thesis file we have
+	ENP : 1
+	ETN : 2 hours
+
     1.2 image processing <AIM>
         1.2.1 brief
-            in this section you should write a small intro about image processing, 
-            its history, a brief on where it sits within our project.
+			this sections should cover
+			1 - small intro about image processing and its history. 
+			2 - how far is image processign important (e.g. being the first step for any computer 
+				vision application and all)
+			ENP : 1
+			ETN : 1 hour
 
         1.2.2 what is it used for
-            the usual tasks of image processing, how they work and why is it useful
+			this section should cover
+			1 - examples about what image processing is used for
+				(make sure to include image that shows the effect better be image with faces)
+				covering topics like noise removal, types of noise, motion blur, ... etc
+				in brief
+			ENP : 2
+			ETN : 2 hours
 
         1.2.3 how is it useful for this project
-            describe the task of image processing in details while refering to why
-            we essentially need image processing for it.
+			this section should cover
+			1 - a brief over our application to get to why it needs image processing
+			2 - what type of image processing techniques we used and for each of them clarify why
+				(make sure to include samples whenever possible)
+			ENP : 2
+			ETN : 2 hours
 
     1.3 Neural Network <AREF>
         1.3.1 brief
-            a biref history on neural networks, as well as explanation for how it 
-            works in general
+			this section should include
+			1 - a biref history on neural networks, as well as explanation for how it 
+	            works in general
+			2 - how far is neural networks important (e.g. it's the most used tool for all ML learning
+				applications now)
+			ENP : 1.5 
+			ETN : 2 hours
 
         1.3.2 types of neural nets and their applications
-            search for different neural net architectures and explain each of them
-            refering to how they look like (their structure), what are they mostly used for
-            and good at.
+			this sections should cover
+			1 - for each type of neural networks 
+					you should state 
+					1 - a brief about it and how it works
+					2 - an example image for its structure
+					3 - what application is it most suited for.
+			ENP : 3 
+			ETN : 6 hours
+
 
         1.3.3 how is it useful for this project
-            exaplin which type of neural network we will be using in this project 
-            (that it's CNN and more or less stop at that) 
+			this section should cover
+			1 - the type of neural network we chose to use and why
+			ENP : 0.5
+			ETN : 30 mins
 
     1.2 CNN technology <SALMA>
+		-----<NOTE : we should reconsider this part since it looks like a subset of previous section>-----
         1.2.1 brief
-            a brief on the history of CNN, when it appeared, and what drove to the
-            idea of CNN to begin with, explain its structure, and the characteristics
-            of this network (what is it good at, efficiency of time and memory (the size 
-            o our model is a good example), ..etc).
-
+			this section should include
+			1 - a brief on the history of CNN, when it appeared, and what drove to the
+            idea of CNN to begin with.
+			2 - explain its structure (make sure to use example graph for the network),
+			and the characteristics of this network (what is it good at, efficiency of time
+			and memory (the size of our model is a good example), ..etc).
+			
+			ENP : 1
+			ETN : 30 mins
+			
         1.2.2 how is it useful
+			<adding this section seems redundunt>
             explain in more details how it works, its characteristics and how those 
             characteristics were most suited for our project.
 
 2 - Review
     2.1 previous work <MANAR>
-        make sure to point out the links for sites that we used as references
-        while thinking about the structure of the model (like the paper we were planning to 
-        follow at first).
-        for each of them list what were the most characteristic points of them (overview about
-        how they address the problem), how effective or ineffective they were.
+		this sections should cover
+		1 - for each resource we found working on this topic you should state
+			1 - the resource name (point to it in references)
+			2 - explain what methods they useds
+			3 - what accuracy they claim to have reached
+			4 - use graphes from the reference to show case their work if possible but not much
+		ENP : 3 
+		ETN : 8 hours
 
     2.2 overview over work <MANAR>
+		this section should cover
+		1 - the work we have done so far, going over the time line to show the different models
+			we tried, different structures
         how we worked with every reference, the struggles we went through, basically an 
         overview of the changes made through out our timeline.
 
 3 - Proposed system
     3.1 System Architecture <AMR>
-        explain the black box model of our system, defining the expected input format, and expected output format.
-        explain the system architecture, what are the parts the system is broken into, how they 
-        fit tgeather and how each of them works.
+		this section should cover:
+        1 - the black box model of our system, defining the expected input format, and 
+		expected output format.
+		(a digram should be made for that)
+        2 - the system architecture, what are the parts the system is broken into, how they 
+        fit togeather and how each of them works.
+		(another diagram should be made for this one as well)
+		ENP : 4
+		ETN : 4 hours
 
     3.2 Preprocessing
         3.2.1 face detection <AIM>
-            state the different face detection methods we tried, the pros, and cons of each
+			this section should cover:
+			1 - for each face detectection method state the following
+				1 - its principle of operation
+				2 - its effectiveness
+				3 - code sample along with results
+			ENP : 3 
+			ETN : 6 hours
             
         3.2.2 image enhancements <AREF>
-            state the reasons why we need image enhancements
-            list the image echancements we needed, their job, and how important they were.
+			<do we use image enhancements like at all??????????>
+			this section should cover 
+			1 - the reasons why we need image enhancements (e.g. bacause input contians noise .. etc)
+			2 - for each image enchancement technique you should state
+					1 - a biref on how it works and what it's good for
+					2 - a code sample alogn with result images
+			ENP : 2 
+			ETN : 4 hours
+			<this may be even less becuase we probably don't use enchancements>
 
         3.2.3 landmark Extraction <AREF>
             explain how is this task important for the system, how it's done, why we do it, and how it affects
