@@ -12,6 +12,6 @@ def main():
 	# pa = argparse.ArgumentParser()
 	# pa.add_argument('-s', action='store_true', help='stream from camera')
 	# args = pa.parse_args()
-	# if args.s:
+	# if args.s: pass
 
 if __name__ == '__main__': main()
