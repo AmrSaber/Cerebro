@@ -1,6 +1,8 @@
 from model import emotions_model as model
 import cv2
 
+emotionsModel = model.EmotionsModel()
+
 def extract_faces_emotions(image, detector_type = 'dlib'):
 
     items= []
@@ -16,7 +18,7 @@ def extract_faces_emotions(image, detector_type = 'dlib'):
     faces = detector.get_faces(image)
 
     # emotions_count = len(set(emotions_map))
-    emotionsModel = model.EmotionsModel()
+    # emotionsModel = model.EmotionsModel()
     for i in range (len(faces)) :
         item = []
         item.append(faces[i][0]) #face
