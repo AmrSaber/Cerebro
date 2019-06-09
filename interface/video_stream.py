@@ -1,27 +1,26 @@
 import cv2
 import time
 from imutils.video import VideoStream
-import multiprocessing
+from threading import Thread
 from interface import process_image as pi
 from queue import Queue
 
-task_queue = multiprocessing.Queue(1)
-result_queue = multiprocessing.Queue()
+task_queue = Queue(1)
+result_queue = Queue()
 
-
-class WorkerThread(multiprocessing.Process):
-    def __init__(self, task_queue, result_queue):
-        multiprocessing.Process.__init__(self)
-        self.task_queue = task_queue
-        self.result_queue = result_queue
-
-    def run(self):
+def worker():
+        global task_queue
+        global result_queue
         print("running")
         while True:
-            if not task_queue.empty():
+            while(not task_queue.empty()):
                 result_queue.put(pi.extract_faces_emotions(task_queue.get()))
 
-def detect_stream_emotions(fps):
+
+def detect_stream_emotions():
+    fps = 40
+    global task_queue
+    global result_queue
     frame_counter = 0
     vs = cv2.VideoCapture(0)
     time.sleep(2.0)
@@ -41,5 +40,10 @@ def detect_stream_emotions(fps):
     vs.release()
     cv2.destroyAllWindows()
 
-thread_object = WorkerThread(task_queue, result_queue)
-thread_object.start()
+if __name__ == '__main__':
+
+    producer = Thread(target = worker)
+    consumer = Thread(target = detect_stream_emotions)
+
+    producer.start()
+    consumer.start()
