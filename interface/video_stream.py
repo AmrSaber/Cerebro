@@ -8,19 +8,14 @@ from queue import Queue
 task_queue = Queue(1)
 result_queue = Queue()
 
-def worker():
-        global task_queue
-        global result_queue
+def worker( task_queue, result_queue):
         print("running")
         while True:
-            while(not task_queue.empty()):
+            if not task_queue.empty():
                 result_queue.put(pi.extract_faces_emotions(task_queue.get()))
 
 
-def detect_stream_emotions():
-    fps = 40
-    global task_queue
-    global result_queue
+def detect_stream_emotions(fps):
     frame_counter = 0
     vs = cv2.VideoCapture(0)
     time.sleep(2.0)
@@ -30,7 +25,8 @@ def detect_stream_emotions():
         if res:
             frame_counter += 1
             if not result_queue.empty():
-                frame = pi.mark_faces_emotions(frame, None, result_queue.get())
+                frame_data = result_queue.get()
+                frame = pi.mark_faces_emotions(frame, None, frame_data)
             cv2.imshow("Frame", frame)
             if not (frame_counter % fps) :
                 if not task_queue.full():
@@ -40,10 +36,5 @@ def detect_stream_emotions():
     vs.release()
     cv2.destroyAllWindows()
 
-if __name__ == '__main__':
-
-    producer = Thread(target = worker)
-    consumer = Thread(target = detect_stream_emotions)
-
-    producer.start()
-    consumer.start()
+mythread = Thread(target = worker, args=(task_queue, result_queue))
+mythread.start()
