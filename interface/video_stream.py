@@ -1,24 +1,27 @@
 import cv2
 import time
 from imutils.video import VideoStream
-#import threading
-from threading import Thread, Semaphore
-
+import multiprocessing
 from interface import process_image as pi
+from queue import Queue
 
-# frame =[]
-frame_data = None
+task_queue = multiprocessing.Queue(1)
+result_queue = multiprocessing.Queue()
 
-def mark_frame(frame):
-    global frame_data
-    print('HERE')
-    frame_data = pi.extract_faces_emotions(frame)
-    # frame = pi.mark_faces_emotions(frame, None, frame_data)
-    print(frame_data)
+
+class WorkerThread(multiprocessing.Process):
+    def __init__(self, task_queue, result_queue):
+        multiprocessing.Process.__init__(self)
+        self.task_queue = task_queue
+        self.result_queue = result_queue
+
+    def run(self):
+        print("running")
+        while True:
+            if not task_queue.empty():
+                result_queue.put(pi.extract_faces_emotions(task_queue.get()))
 
 def detect_stream_emotions(fps):
-    global frame_data
-    
     frame_counter = 0
     vs = cv2.VideoCapture(0)
     time.sleep(2.0)
@@ -27,46 +30,16 @@ def detect_stream_emotions(fps):
         res, frame = vs.read()
         if res:
             frame_counter += 1
-            if frame_data != None:
-                #print(frame_data)
-                frame = pi.mark_faces_emotions(frame, None, frame_data)
-
+            if not result_queue.empty():
+                frame = pi.mark_faces_emotions(frame, None, result_queue.get())
             cv2.imshow("Frame", frame)
-            # print("main thread")
             if not (frame_counter % fps) :
-                thread = threading.Thread(target=mark_frame, args=(frame,))
-                thread.start()
-
+                if not task_queue.full():
+                    task_queue.put(frame)
         if cv2.waitKey(1) & 0xFF == ord("q"):
             break
     vs.release()
     cv2.destroyAllWindows()
 
-class WorkerThread(Thread):
-    def __init__(self):
-        self.semaphore = Semaphore(0)
-    
-    def run(self):
-        while True:
-            self.semaphore.aquire()
-            # get frame from queue
-    
-    def processFrame(frame):
-        # put frame in queue
-        self.semaphore.release()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+thread_object = WorkerThread(task_queue, result_queue)
+thread_object.start()
