@@ -6,7 +6,7 @@ def faceTracking(frames):
 
     currentFaceID = -1
     frameCounter = -1
-    framesNumber = 30
+    framesNumber = 10
 
     nones = [None for i in range(framesNumber)]
     faces = []
@@ -89,7 +89,7 @@ if __name__ == '__main__':
     cv2.namedWindow("base-image", cv2.WINDOW_AUTOSIZE)
     cv2.startWindowThread()
     frames = []
-    for i in range(300):
+    for i in range(100):
         rc, x = capture.read()
         x = cv2.resize(x, (320, 240))
         gray = cv2.cvtColor(x, cv2.COLOR_BGR2GRAY)
