@@ -89,17 +89,17 @@ ETN : expected time needed
 		        explain in more details how it works, its characteristics and how those 
 		        characteristics were most suited for our project.
 
-2 - Review <WAFAA>
+2 - Review <WAFAA> 15/6
 	add references related previous work files.
 
 	2.1 preprocessing
-		2.1.1 datasets <WAFAA>
+		2.1.1 datasets <WAFAA> 13/6
 			this section should cover the data sets we worked on
 			- their structure ans size
 			- their problems
 			- .. etc
 			
-		2.1.2 face detection <AIM>
+		2.1.2 face detection <AIM> 12/6
 			this section should cover:
 			1 - for each face detectection method state the following
 				1 - its principle of operation
@@ -108,7 +108,7 @@ ETN : expected time needed
 			ENP : 3 
 			ETN : 6 hours
 
-		2.1.3 image enhacements <AREF>
+		2.1.3 image enhacements <AREF> 11/6
 			this section should cover 
 			1 - the reasons why we need image enhancements (e.g. bacause input contians noise .. etc)
 			2 - for each image enchancement technique you should state
@@ -152,7 +152,7 @@ ETN : expected time needed
 			ENP : 1
 			ETN : 30 mins
 
-	2.2 model <AMR>
+	2.2 model <AMR> 14/6
 		this section should include tried models and architectures in previous papers we worked on
 		- a brief on how each model works
 		- it should include the structure of each model
@@ -177,7 +177,7 @@ ETN : expected time needed
 		ENP : 4
 		ETN : 4 hours
 
-    3.2 Preprocessing <WAFAA> 
+    3.2 Preprocessing <WAFAA> 14/6
 		each one of the below sections should cover
 		1 - the set of available solutions (names)
 		2 - comparison in performance (time, memory) and methods used by each.
@@ -214,7 +214,7 @@ ETN : expected time needed
 			3.4.3.2 feature exctracion API
 			3.4.3.3 image processing API
 			
-	2.2 ٍSummary <MANAR>
+	3.5 ٍSummary <MANAR> 13/6
 		this section should cover
 		1 - the used methods for each section and why they were used.
 		2 - final model parameter

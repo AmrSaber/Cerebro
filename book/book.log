@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.6.9)  11 JUN 2019 08:56
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.2.23)  11 JUN 2019 18:41
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -620,7 +620,7 @@ Chapter 1.
 (./CH1-introduction/CH1-introduction.tex
 (./CH1-introduction/sec1_preface/sec1_preface.tex)
 (./CH1-introduction/sec2_image_processing/sec2_image_processing.tex [5]
-<CH1-introduction/sec2_image_processing/noise_types.png, id=154, 521.95pt x 756
+<CH1-introduction/sec2_image_processing/noise_types.png, id=159, 521.95pt x 756
 .8275pt>
 File: CH1-introduction/sec2_image_processing/noise_types.png Graphic file (type
  png)
@@ -631,7 +631,7 @@ Package pdftex.def Info: CH1-introduction/sec2_image_processing/noise_types.png
 
 [6] [7 <./CH1-introduction/sec2_image_processing/noise_types.png>])
 (./CH1-introduction/sec3_neural_networks/sec3_neural_networks.tex
-<CH1-introduction/sec3_neural_networks/nn.jpeg, id=182, 722.7pt x 354.32375pt>
+<CH1-introduction/sec3_neural_networks/nn.jpeg, id=187, 722.7pt x 354.32375pt>
 File: CH1-introduction/sec3_neural_networks/nn.jpeg Graphic file (type jpg)
 <use CH1-introduction/sec3_neural_networks/nn.jpeg>
 Package pdftex.def Info: CH1-introduction/sec3_neural_networks/nn.jpeg  used on
@@ -642,53 +642,8 @@ Package pdftex.def Info: CH1-introduction/sec3_neural_networks/nn.jpeg  used on
 ]
 Chapter 2.
 (./CH2-Review/CH2-Review.tex
-(./CH2-Review/sec1_overview_over_work/sec1_overview_over_work.tex)
-(./CH2-Review/sec2_previous_work/sec2_previous_work.tex
-Underfull \hbox (badness 10000) in paragraph at lines 3--4
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 5--6
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 15--15
-
- []
-
-<CH2-Review/sec2_previous_work/graph.png, id=218, 602.25pt x 464.73625pt>
-File: CH2-Review/sec2_previous_work/graph.png Graphic file (type png)
-<use CH2-Review/sec2_previous_work/graph.png>
-Package pdftex.def Info: CH2-Review/sec2_previous_work/graph.png  used on input
- line 29.
-(pdftex.def)             Requested size: 180.67639pt x 139.42194pt.
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-[11]
-Overfull \hbox (42.90315pt too wide) in paragraph at lines 42--51
- [] 
- []
-
-<CH2-Review/sec2_previous_work/cnn_arch_amine.png, id=226, 1366.10374pt x 596.2
-275pt>
-File: CH2-Review/sec2_previous_work/cnn_arch_amine.png Graphic file (type png)
-<use CH2-Review/sec2_previous_work/cnn_arch_amine.png>
-Package pdftex.def Info: CH2-Review/sec2_previous_work/cnn_arch_amine.png  used
- on input line 53.
-(pdftex.def)             Requested size: 409.83429pt x 178.86963pt.
-
-Overfull \hbox (64.83429pt too wide) in paragraph at lines 53--54
-[] 
- []
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-)) [12 <./CH2-Review/sec2_previous_work/graph.png (PNG copy)>] [13 <./CH2-Revie
-w/sec2_previous_work/cnn_arch_amine.png>] [14
+(./CH2-Review/sec1_preprocessing/sec1_preprocessing.tex)
+(./CH2-Review/sec2_model/sec2_model.tex)) [11] [12
 
 ]
 Chapter 3.
@@ -696,56 +651,64 @@ Chapter 3.
 (./CH3-Proposed_system/sec1_system_architecture/sec1_system_architecture.tex)
 (./CH3-Proposed_system/sec2_preprocessing/sec2_preprocessing.tex)
 (./CH3-Proposed_system/sec3_model/sec3_model.tex)
-(./CH3-Proposed_system/sec4_library/sec4_library.tex)) [15] [16
+(./CH3-Proposed_system/sec4_library/sec4_library.tex)
+(./CH3-Proposed_system/sec5_summary/sec5_summary.tex)) [13] [14
 
 ]
 Chapter 4.
-(./CH4-Results/CH4-Results.tex) [17] [18
+(./CH4-Results/CH4-Results.tex) [15] [16
 
 ]
 Chapter 5.
-(./CH5-Conslusion/CH5-Conclusion.tex) [19] [20
+(./CH5-Conslusion/CH5-Conclusion.tex) [17] [18
 
 ]
 Chapter 6.
 (./References/References.tex
-Overfull \hbox (2.15846pt too wide) in paragraph at lines 16--20
-\T1/cmr/m/n/12 IEEE Conf. Com-puter Vi-sion and Pat-tern Recog-ni-tion (CVPR)
+Overfull \hbox (0.92166pt too wide) in paragraph at lines 2--3
+[]\T1/cmr/m/n/10 Facial Ex-pres-sion Recog-ni-tion us-ing Con-vo-lu-tional Neu-
+ral Net-works: State
  []
 
 )
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 44.
- [21]
+ [19]
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 44.
  (./book.aux)
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 44.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 44.
-Package rerunfilecheck Info: File `book.out' has not changed.
-(rerunfilecheck)             Checksum: 326E6025FC08749B8BF2EBF498790E4D;1455.
+
+
+Package rerunfilecheck Warning: File `book.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `book.out':
+(rerunfilecheck)             Before: 3963F21F57CF4EBB9D7A07FC702CE1A8;1509
+(rerunfilecheck)             After:  C76AB2163A721473BD1A7821A096644B;1491.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 44.
  ) 
 Here is how much of TeX's memory you used:
- 5978 strings out of 494923
- 86908 string characters out of 6180743
- 164648 words of memory out of 5000000
- 9082 multiletter control sequences out of 15000+600000
+ 5966 strings out of 494923
+ 86498 string characters out of 6180742
+ 164407 words of memory out of 5000000
+ 9073 multiletter control sequences out of 15000+600000
  15681 words of font info for 35 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 28i,10n,44p,708b,408s stack positions out of 5000i,500n,10000p,200000b,80000s
- </home/wafaaismail/.texlive2017/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx12
-00.600pk> </home/wafaaismail/.texlive2017/texmf-var/fonts/pk/ljfour/jknappen/ec
-/ecbx1440.600pk> </home/wafaaismail/.texlive2017/texmf-var/fonts/pk/ljfour/jkna
-ppen/ec/ecbx2074.600pk> </home/wafaaismail/.texlive2017/texmf-var/fonts/pk/ljfo
-ur/jknappen/ec/ecsl1000.600pk> </home/wafaaismail/.texlive2017/texmf-var/fonts/
-pk/ljfour/jknappen/ec/ecbx1000.600pk> </home/wafaaismail/.texlive2017/texmf-var
-/fonts/pk/ljfour/jknappen/ec/ecbx2488.600pk> </home/wafaaismail/.texlive2017/te
-xmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1000.600pk> </home/wafaaismail/.texlive
-2017/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1200.600pk> </home/wafaaismail/.
-texlive2017/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1728.600pk>
-Output written on book.pdf (21 pages, 246108 bytes).
+ 28i,7n,44p,708b,408s stack positions out of 5000i,500n,10000p,200000b,80000s
+ </home/aim/.texlive2017/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1200.600pk
+> </home/aim/.texlive2017/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1440.600pk>
+ </home/aim/.texlive2017/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx2074.600pk> 
+</home/aim/.texlive2017/texmf-var/fonts/pk/ljfour/jknappen/ec/ecsl1000.600pk> <
+/home/aim/.texlive2017/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1000.600pk> </
+home/aim/.texlive2017/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx2488.600pk> </h
+ome/aim/.texlive2017/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1000.600pk> </ho
+me/aim/.texlive2017/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1200.600pk> </hom
+e/aim/.texlive2017/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1728.600pk>
+Output written on book.pdf (19 pages, 167781 bytes).
 PDF statistics:
- 690 PDF objects out of 1000 (max. 8388607)
- 299 compressed objects within 3 object streams
- 91 named destinations out of 1000 (max. 500000)
- 205 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 595 PDF objects out of 1000 (max. 8388607)
+ 285 compressed objects within 3 object streams
+ 86 named destinations out of 1000 (max. 500000)
+ 203 words of extra memory for PDF output out of 10000 (max. 10000000)
 
