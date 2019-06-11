@@ -91,6 +91,9 @@ ETN : expected time needed
 		        characteristics were most suited for our project.
 
 2 - Review 
+	<this chapter should be restructured to cover a detailed description of image processing, and neural networks>
+	it should cover previous work previous work only.
+
     2.1 previous work <WAFAA> 11/6
 		this sections should cover
 		1 - for each resource we found working on this topic you should state
@@ -101,7 +104,9 @@ ETN : expected time needed
 		ENP : 3 
 		ETN : 8 hours
 
-    2.2 overview of our work <MANAR> 11/6
+
+3 - Proposed system
+	2.2 overview of our work <MANAR> 11/6
 		- include used datasets
 		this section should cover
 		1 - the work we have done so far, going over the time line to show the different models
@@ -109,7 +114,6 @@ ETN : expected time needed
         how we worked with every reference, the struggles we went through, basically an 
         overview of the changes made through out our timeline.
 
-3 - Proposed system
     3.1 System Architecture <AMR> 13/6
 		this section should cover:
         1 - the black box model of our system, defining the expected input format, and 
@@ -158,6 +162,7 @@ ETN : expected time needed
 			ENP : 1.5
 			ETN : 2 hours
 
+		<should be reallocated>
         3.2.5 data augmentation (oversampling) <WAFAA> 13/6
 			this section should cover
 			1 - what is data augmentation, and why didn we even try it
@@ -166,7 +171,8 @@ ETN : expected time needed
 			4 - its effect on performance
 			ENP : 1.5
 			ETN : 2 hours
-
+	
+		<should be reallocated>
         3.2.6 under sampling <AIM> 12/6
 			this section should cover
 			1 - the idea of undersampling XD
@@ -174,12 +180,6 @@ ETN : expected time needed
 			3 - its effect on performance
 			ENP : 1
 			ETN : 30 mins
-
-        3.2.7 used methods <WAFAA> : 14/6
-			this section should cover
-			1 - the methods we have chosen to use in every part alogn with why			
-          	ENP : 2
-			ETN : 2 hours  
 
     3.3 Model 
         3.3.1 tried models <WAFAA> 18/6
