@@ -1,26 +1,44 @@
 \contentsline {chapter}{\numberline {1}CH1 - Introduction}{5}{chapter.1}
 \contentsline {section}{\numberline {1.1}Preface}{5}{section.1.1}
+\contentsline {subsection}{\numberline {1.1.1}Preface}{5}{subsection.1.1.1}
+\contentsline {paragraph}{}{5}{section*.2}
+\contentsline {paragraph}{}{5}{section*.3}
 \contentsline {section}{\numberline {1.2}Image Processing}{5}{section.1.2}
 \contentsline {subsection}{\numberline {1.2.1}Brief}{5}{subsection.1.2.1}
-\contentsline {paragraph}{definition}{5}{section*.2}
-\contentsline {paragraph}{impact}{5}{section*.3}
+\contentsline {paragraph}{definition}{5}{section*.4}
+\contentsline {paragraph}{impact}{5}{section*.5}
 \contentsline {subsection}{\numberline {1.2.2}How important is image processing?}{6}{subsection.1.2.2}
-\contentsline {paragraph}{}{6}{section*.4}
-\contentsline {subsubsection}{Noise removal}{6}{section*.5}
 \contentsline {paragraph}{}{6}{section*.6}
-\contentsline {subsubsection}{Feature extraction}{7}{section*.7}
+\contentsline {subsubsection}{Noise removal}{6}{section*.7}
+\contentsline {paragraph}{}{6}{section*.8}
+\contentsline {subsubsection}{Feature extraction}{6}{section*.9}
 \contentsline {subsection}{\numberline {1.2.3}How is image processing important for our project}{7}{subsection.1.2.3}
-\contentsline {subsubsection}{Noise Removal}{7}{section*.8}
-\contentsline {subsubsection}{Feature Extraction}{7}{section*.9}
-\contentsline {section}{\numberline {1.3}Neural Networks}{7}{section.1.3}
-\contentsline {chapter}{\numberline {2}CH2 - Review}{9}{chapter.2}
-\contentsline {section}{\numberline {2.1}Overview About Our Work}{9}{section.2.1}
-\contentsline {section}{\numberline {2.2}Previous Work}{9}{section.2.2}
-\contentsline {chapter}{\numberline {3}CH3 - Proposed System}{11}{chapter.3}
-\contentsline {section}{\numberline {3.1}System Architecture}{11}{section.3.1}
-\contentsline {section}{\numberline {3.2}Preprocessing}{11}{section.3.2}
-\contentsline {section}{\numberline {3.3}Model}{11}{section.3.3}
-\contentsline {section}{\numberline {3.4}Library}{11}{section.3.4}
-\contentsline {chapter}{\numberline {4}CH4 - Results}{13}{chapter.4}
-\contentsline {chapter}{\numberline {5}CH5 - Conclusion}{15}{chapter.5}
-\contentsline {chapter}{\numberline {6}References}{17}{chapter.6}
+\contentsline {subsubsection}{Noise Removal}{7}{section*.10}
+\contentsline {subsubsection}{Feature Extraction}{7}{section*.11}
+\contentsline {section}{\numberline {1.3}Neural Networks}{8}{section.1.3}
+\contentsline {subsection}{\numberline {1.3.1}Breif}{8}{subsection.1.3.1}
+\contentsline {paragraph}{What is Neural Networks?}{8}{section*.12}
+\contentsline {paragraph}{}{8}{section*.13}
+\contentsline {paragraph}{}{8}{section*.14}
+\contentsline {subsection}{\numberline {1.3.2}Basics of Neural Networks.}{8}{subsection.1.3.2}
+\contentsline {paragraph}{a}{8}{section*.15}
+\contentsline {paragraph}{}{9}{section*.16}
+\contentsline {paragraph}{}{9}{section*.17}
+\contentsline {paragraph}{}{9}{section*.18}
+\contentsline {subsection}{\numberline {1.3.3}Why Neural networks are important? }{9}{subsection.1.3.3}
+\contentsline {paragraph}{}{9}{section*.19}
+\contentsline {subsection}{\numberline {1.3.4}Types of neural network }{9}{subsection.1.3.4}
+\contentsline {paragraph}{}{9}{section*.20}
+\contentsline {chapter}{\numberline {2}CH2 - Review}{11}{chapter.2}
+\contentsline {section}{\numberline {2.1}Overview About Our Work}{11}{section.2.1}
+\contentsline {section}{\numberline {2.2}Previous Work}{11}{section.2.2}
+\contentsline {paragraph}{}{11}{section*.21}
+\contentsline {paragraph}{}{11}{section*.22}
+\contentsline {chapter}{\numberline {3}CH3 - Proposed System}{15}{chapter.3}
+\contentsline {section}{\numberline {3.1}System Architecture}{15}{section.3.1}
+\contentsline {section}{\numberline {3.2}Preprocessing}{15}{section.3.2}
+\contentsline {section}{\numberline {3.3}Model}{15}{section.3.3}
+\contentsline {section}{\numberline {3.4}Library}{15}{section.3.4}
+\contentsline {chapter}{\numberline {4}CH4 - Results}{17}{chapter.4}
+\contentsline {chapter}{\numberline {5}CH5 - Conclusion}{19}{chapter.5}
+\contentsline {chapter}{\numberline {6}References}{21}{chapter.6}
