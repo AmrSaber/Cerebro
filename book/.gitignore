@@ -4,4 +4,4 @@
 *.pdf
 *.synctex.gz
 *.toc
-
+*.out
