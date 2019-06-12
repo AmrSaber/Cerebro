@@ -10,14 +10,14 @@ While neural networks (also called “perceptrons”) have been around since the
 Another important advance has been the arrival of deep learning neural networks, in which different layers of a multilayer network extract different features until it can recognize what it is looking for.
 
 \subsection{Basics of Neural Networks.}
-\paragraph a basic idea of how a deep learning neural network learns, imagine a factory line. After the raw materials (the data set) are input, they are then passed down the conveyer belt, with each subsequent stop or layer extracting a different set of high-level features. If the network is intended to recognize an object, the first layer might analyze the brightness of its pixels.\begin{flushright}
+\paragraph a basic idea of how a deep learning neural network learns, imagine a factory line. After the raw materials (the data set) are input, they are then passed down the conveyer belt, with each subsequent stop or layer extracting a different set of high-level features. If the network is intended to recognize an object, the first layer might analyze the brightness of its pixels. see figure 1.2
 	
-\end{flushright}
 \begin{figure}{l}
 	\centering
-	\includegraphics[width=0.5\textwidth]{nn.jpeg}
-	\caption{Neural network }
-\end{figure}
+	\includegraphics[width=1.0\textwidth]{CH1-introduction/sec3_neural_networks/nn.png}
+	\caption{example of neural networks}
+\end{figure} 
+
 \paragraph{}
 The next layer could then identify any edges in the image, based on lines of similar pixels. After this, another layer may recognize textures and shapes, and so on. By the time the fourth or fifth layer is reached, the deep learning net will have created complex feature detectors. It can figure out that certain image elements (such as a pair of eyes, a nose, and a mouth) are commonly found together.
 \paragraph{}
@@ -37,8 +37,22 @@ ANNs (Artificial Neural Networks) have some key advantages that make them most s
 \subsection{Types of neural network }
 \paragraph{}
 There are multiple types of neural network, each of which come with their own specific use cases and levels of complexity.
-\begin{enumerate}
-	\item The most basic type of neural net is something called a feedforward neural network, in which information travels in only one direction from input to output.
-\end{enumerate}
+\newline
+\subsubsection{\textbf feedforward neural network}
+
+\paragraph{}The most basic type of neural net is something called a feedforward neural network, in which information travels in only one direction from input to output.
+\paragraph{}neural network layers are independent of each other; hence, a specific layer can have an arbitrary number of nodes. Typically, the number of hidden nodes must be greater than the number of input nodes. When the neural network is used as a function approximation, the network will generally have one input and one output node. When the neural network is used as a classifier, the input and output nodes will match the input features and output classes.
+\paragraph{}A neural network must have at least one hidden layer but can have as many as necessary. The bias nodes are always set equal to one. In analogy, the bias nodes are similar to the offset in linear regression 
+i.e. y = mx+b. How does one select the proper number of nodes and hidden number of layers? This is the best part: there are really no rules! The modeler is free to use his or her best judgment on solving a specific problem. Experience has shown that there are best practices such as selecting an adequate number of hidden layers, activation functions, and training methods.
+\begin{figure}{l}
+	\centering
+	\includegraphics[width=0.7\textwidth]{ff.png}
+	\caption{feedforward neural networks}
+\end{figure}
+\subsubsection{Recurrent Neural Network
+}
+\paragraph{}
+A recurrent neural network (RNN) is a type of artificial neural network commonly used in speech recognition and natural language processing (NLP). RNNs are designed to recognize a data's sequential characteristics and use patterns to predict the next likely scenario.
+
 
 
