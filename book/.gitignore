@@ -1,2 +1,7 @@
 // compiled book
-*book.* 
+*.aux
+*.log
+*.pdf
+*.synctex.gz
+*.toc
+

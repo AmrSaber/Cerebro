@@ -9,3 +9,22 @@ under sampling should solve the problem with bias in the trained model, but at h
 one of the data sets we worked was imbalanced which made the trained model more biased towards negative emotions (which was more presented in the data set), so we tried to apply under sampling to solve this problem. \newline
 
 \paragraph{results}
+unfortunately this made things even worse with our case since the difference between the size of smallest class and other classes was significant(see Figure~\ref{fig:dataset}) so it results in a large decrease in data set size so a large decrease in learning. \newline
+\begin{figure}
+	\centering
+	\includegraphics[width=0.75\textwidth]{CH2-Review/sec1_preprocessing/dataset_distribution.png}
+	\caption{the unbalanced dataset, classes have large difference in their sizes}
+	\label{fig:dataset}
+\end{figure}
+table \ref{tab:table1} shows the how the prediction accuracy of model changes during training epochs, as the table shows, by more training the training accuracy increases, while testing accuracy actually decreases, so this technique couldn't help solve the overfitting problem we had with the model before it which stopped at about 50\% testing accuracy before overfitting, it even caused a decrease in accuracy, so this technique wasn't a success in his case. 
+\begin{table}[h!]
+	\centering
+	\caption{this table holds the progress of learning for model after under sampling for data set}
+	\label{tab:table1}
+	\begin{tabular}{c | c | c | c}
+		\textbf{Number of Epochs} & \textbf{Training accuracy} & \textbf{Testing accuracy} & \textbf{Error}\\ \hline 
+		10 & 39.33 \% & 37.32 \% & 1.69 \\
+		20 & 49.08 \% & 36.80 \% & 1.73 \\
+		30 & 53.01 \% & 35.64 \% & 1.83 \\
+	\end{tabular}
+\end{table}
