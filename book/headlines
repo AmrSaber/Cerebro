@@ -117,23 +117,23 @@ ETN : expected time needed
 			ENP : 2 
 			ETN : 4 hours
 			
-        2.1.4 landmark Extraction <AREF> 12/6 
-			this sections should cover 
-			1 - what is landmark extraction, why we need it
-			2 - the principle behind landmark exraction (how it works)
-			3 - [sample code with] example image
-			4 - its effect on performance
-			ENP : 1.5 
-			ETN : 2 hours
+		2.1.4 landmark Extraction <AREF> 12/6 
+				this sections should cover 
+				1 - what is landmark extraction, why we need it
+				2 - the principle behind landmark exraction (how it works)
+				3 - [sample code with] example image
+				4 - its effect on performance
+				ENP : 1.5 
+				ETN : 2 hours
 
-        2.1.5 HOG <MANAR> 13/6
-			this section should cover
-			1 - what is HOG and why we need it
-			2 - how do we compute the HOG
-			3 - sample code with example image on how it works
-			4 - its effect on performance
-			ENP : 1.5
-			ETN : 2 hours
+		2.1.5 HOG <MANAR> 13/6
+				this section should cover
+				1 - what is HOG and why we need it
+				2 - how do we compute the HOG
+				3 - sample code with example image on how it works
+				4 - its effect on performance
+				ENP : 1.5
+				ETN : 2 hours
 
 		2.1.6 data augmentation (oversampling) <WAFAA> 13/6
 			this section should cover

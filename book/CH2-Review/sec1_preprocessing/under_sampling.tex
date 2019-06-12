@@ -1,0 +1,11 @@
+\paragraph{Breif}
+it's a technique we can use when the data distribution is imbalanced, first we define what an "imbalance" is, data is called imbalanced if the output class values aren't evenly represented, for example let's say we study data with output feature having 2 possible values, either 0 or 1, the value 0 happens 80\% of the time while the value 1 is represented by only 20\% of the data, if we start training on this data right away we can expect the trained model to be biased towards the value 0 which appears to be the most common outcome, so even if he value 0 is not ha frequent, the model will assume so because that's what the data say. \newline
+
+the solution for this is to balance the data by removing some instances from the large class(s) until they are close enough to the smaller classes, this way we can decrease the bias of our model towards the large classes, this technique is called \textbf{under sampling}. \newline 
+
+under sampling should solve the problem with bias in the trained model, but at he cost of decreasing the size of the data set when you drop large portion of it, hence decreasing what he model learns, so it can decrease the accuracy as well, if the biggest problem for your model is bias then under sampling can solve it, however if te biggest problem is in learning itself then under sampling shall make it worse.
+
+\paragraph{How we used it in our project}
+one of the data sets we worked was imbalanced which made the trained model more biased towards negative emotions (which was more presented in the data set), so we tried to apply under sampling to solve this problem. \newline
+
+\paragraph{results}
