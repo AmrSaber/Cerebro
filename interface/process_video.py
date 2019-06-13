@@ -26,16 +26,7 @@ def check_rotation(path_video_file):
 
     return rotateCode
 
-
-def detect_video_emotions(video_path, output_path, skip = 50, verbose=False):
-    """
-    skip >> determines number of skipped frames during procerssing
-    in normal video speed skip=50 means detect emotions every 2 seconds
-    higher skip means faster processing but less accurate
-    -----------------------------------------
-    output_path >> include output name & extension
-    the output video extension should be mp4
-    """
+def detect_video_emotions_tracking (video_path, output_path, tracked_frames=50):
     #saving audio 
     video = VideoFileClip(video_path)
     audio = video.audio
@@ -46,12 +37,9 @@ def detect_video_emotions(video_path, output_path, skip = 50, verbose=False):
     rotateCode = check_rotation(video_path)
 
     success = 1 #checks whether frames were extracted
-    real_frame_counter = 1 #to check with sampling
-    sampled_frame_counter = 1 #to print frame number for user
-    prev_frame_data = None
-
+    it = 0
     img_frames = []
-
+    to_be_tracked = []
     #getting frames
     while success:
         success, image = vidObj.read()
@@ -61,20 +49,26 @@ def detect_video_emotions(video_path, output_path, skip = 50, verbose=False):
 
         if not success :
             break
-        #processing frames
-        if not(real_frame_counter % skip):
-            prev_frame_data = pi.extract_faces_emotions(image)
-            if verbose: print("process frame: ", sampled_frame_counter)
-            sampled_frame_counter += 1
+        if it == tracked_frames :
+            to_be_tracked = []
+            it = 0
+            #calling aref function >>returns 2 lists [imgs ,persons], [boxes, persons]
+            #calling amr detection function >> returns [emotions, persons]
+            #combing frame by frame image,[face, corners, emotion]
+            #for loop to marks emotions on it (with length n)
+            #from BGR to RGB :image = cv2.cvtColor(image,cv2.COLOR_BGR2RGB)
+            #append frames to image frames
 
-        image = pi.mark_faces_emotions(image,None, prev_frame_data)
-        real_frame_counter += 1
-        image = cv2.cvtColor(image,cv2.COLOR_BGR2RGB)
-        img_frames.append(image)
-    
-    #making output video
-    if verbose: print("making output video...")
+        face_boxes = []
+        frame_data = dt.get_faces(image)
+        for fd in frame_data :
+            face_boxes.append(fd[1])
+        to_be_tracked.append([image, get_faces])
+        it += 1
+
+    #making output
     clips = [ImageClip(m).set_duration(1/fps) for m in img_frames]
     concat_clip = concatenate_videoclips(clips, method="chain")
     concat_clip_edited = concat_clip.set_audio(audio)
     concat_clip_edited.write_videofile(output_path, fps=fps)
+
