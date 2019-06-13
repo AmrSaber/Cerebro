@@ -10,6 +10,7 @@ def faceTracking(frames):
 
     nones = [None for i in range(framesNumber)]
     faces = []
+    cords = []
     faceTrackers = {}
 
     # Loop over all faces and check if the area for this
@@ -21,11 +22,11 @@ def faceTracking(frames):
     for (frame, croppedFaces) in frames:
         frameCounter += 1
         frame = cv2.resize(frame, (320, 240))
-        for (_x, _y, _w, _h) in croppedFaces:
-            x = int(_x)
-            y = int(_y)
-            w = int(_w)
-            h = int(_h)
+        for (_x1, _y1, _x2, _y2) in croppedFaces:
+            x = int(_x1)
+            y = int(_y1)
+            w = int(abs(_x1-_x2))
+            h = int(abs(_y1-_y2))
 
             # calculate the centerpoint
             x_bar = x + 0.5 * w
@@ -65,6 +66,7 @@ def faceTracking(frames):
                         (y <= t_y_bar <= (y + h))):
                     matchedFid = True
                     faces[fid][frameCounter] = frame[y: (y + h), x: (x + w)]
+                    cords[fid][frameCounter] = (x, y, x + w, y + h)
                     break
 
             for fid in fidsToDelete:
@@ -78,9 +80,11 @@ def faceTracking(frames):
                 tracker.start_track(frame, dlib.rectangle(x - 10, y - 20, x + w + 10, y + h + 20))
                 faceTrackers[currentFaceID] = tracker
                 faces.append(nones)
+                cords.append(nones)
                 faces[currentFaceID][frameCounter] = frame[y: (y + h), x: (x + w)]
+                cords[currentFaceID][frameCounter] = (x, y, x + w, y + h)
 
-    return faces
+    return faces, cords
 
 """
 if __name__ == '__main__':
