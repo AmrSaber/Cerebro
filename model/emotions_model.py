@@ -105,6 +105,32 @@ class EmotionsModel(object):
             res = res[0]
 
         return res
+    
+    # each element should be an array of the same face
+    # returns vector of the same size, each dimension contains the resulting emotion from the vote
+    def predict_with_vote(self, faces):
+
+        if type(faces) is not list:
+            faces = [faces]
+
+        if type(faces[0]) is not list:
+            faces = [faces]
+            is_one_vector = True
+        
+        result = []
+        
+        for vector in faces:
+            emotions_map = {}
+            emotions_vector = predict(vector)
+            for emotion in emotions_vector:
+                emotions_map[emotion] = emotions_map.get(emotion, 0) + 1
+            sortedEmotions = sorted(emotions_map.items(), key=lambda x: x[1], reversed=True)
+            result.append(sortedEmotions[0][0])
+        
+        if is_one_vector:
+            result = result[0]
+        
+        return result
 
     def __transform_input__(self, images, should_enhance=True):
         lms, hogs, imgs = [], [], []

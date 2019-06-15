@@ -4,7 +4,9 @@
 
 */.idea/
 
-// sample images
+// testing samples
 *.png
 *.jpg
 *.jpeg
+*.mp4
+samples/
