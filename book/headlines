@@ -9,17 +9,17 @@ ENP : Expected number of pages
 ETN : expected time needed
 
 1 - introduction
-    1.1 Preface <SALMA> 9/6
-	this part should include 
-	1 - an introduction about the problem we have
-	2 - why it's important to find a solution for it
-	3 - how would finding a solution to it help to achieve
-	example : see the abstract section in the thesis file we have
-	ENP : 1
-	ETN : 2 hours
+    1.1 Preface <SALMA> 9/6 <written>
+		this part should include 
+		1 - an introduction about the problem we have
+		2 - why it's important to find a solution for it
+		3 - how would finding a solution to it help to achieve
+		example : see the abstract section in the thesis file we have
+		ENP : 1
+		ETN : 2 hours
 
 	
-    1.2 image processing <AIM> 10/6
+    1.2 image processing <AIM> 10/6 <written>
         1.2.1 brief
 			this sections should cover
 			1 - small intro about image processing and its history. 
@@ -45,8 +45,8 @@ ETN : expected time needed
 			ENP : 2
 			ETN : 2 hours
 
-    1.3 Neural Network <AMR> 11/6
-        1.3.1 brief
+    1.3 Neural Network <WAFAA> 11/6
+        1.3.1 brief (written, )
 			this section should include
 			1 - a biref history on neural networks, as well as explanation for how it 
 	            works in general
@@ -73,7 +73,6 @@ ETN : expected time needed
 			ETN : 30 mins
 
 		1.3.4 CNN technology
-			-----<NOTE : we should reconsider this part since it looks like a subset of previous section>-----
 		    1.3.4.1 brief
 				this section should include
 				1 - a brief on the history of CNN, when it appeared, and what drove to the
@@ -90,24 +89,81 @@ ETN : expected time needed
 		        explain in more details how it works, its characteristics and how those 
 		        characteristics were most suited for our project.
 
-2 - Review 
-    2.1 previous work <WAFAA> 11/6
-		this sections should cover
-		1 - for each resource we found working on this topic you should state
-			1 - the resource name (point to it in references)
-			2 - explain what methods they useds
-			3 - what accuracy they claim to have reached
-			4 - use graphes from the reference to show case their work if possible but not much
+2 - Review <WAFAA> 15/6
+	add references related previous work files.
+
+	2.1 preprocessing
+		2.1.1 datasets <WAFAA> 13/6
+			this section should cover the data sets we worked on
+			- their structure ans size
+			- their problems
+			- .. etc
+			
+		2.1.2 face detection <AIM> 12/6
+			this section should cover:
+			1 - for each face detectection method state the following
+				1 - its principle of operation
+				2 - its effectiveness
+				3 - example image
+			ENP : 3 
+			ETN : 6 hours
+
+		2.1.3 image enhacements <AREF> 11/6
+			this section should cover 
+			1 - the reasons why we need image enhancements (e.g. bacause input contians noise .. etc)
+			2 - for each image enchancement technique you should state
+					1 - a biref on how it works and what it's good for
+					2 - a code sample alogn with result images
+			ENP : 2 
+			ETN : 4 hours
+			
+		2.1.4 landmark Extraction <AREF> 12/6 
+				this sections should cover 
+				1 - what is landmark extraction, why we need it
+				2 - the principle behind landmark exraction (how it works)
+				3 - [sample code with] example image
+				4 - its effect on performance
+				ENP : 1.5 
+				ETN : 2 hours
+
+		2.1.5 HOG <MANAR> 13/6
+				this section should cover
+				1 - what is HOG and why we need it
+				2 - how do we compute the HOG
+				3 - sample code with example image on how it works
+				4 - its effect on performance
+				ENP : 1.5
+				ETN : 2 hours
+
+		2.1.6 data augmentation (oversampling) <WAFAA> 13/6
+			this section should cover
+			1 - what is data augmentation, and why didn we even try it
+			2 - how it works in principle
+			3 - sample code with example images on how it works
+			4 - its effect on performance
+			ENP : 1.5
+			ETN : 2 hours
+	
+        2.1.7 under sampling <AIM> 12/6
+			this section should cover
+			1 - the idea of undersampling XD
+			2 - why did we try it
+			3 - its effect on performance
+			ENP : 1
+			ETN : 30 mins
+
+	2.2 model <AMR> 14/6
+		this section should include tried models and architectures in previous papers we worked on
+		- a brief on how each model works
+		- it should include the structure of each model
+		- its strength points
+		- its performance
+		* include a comparison with table between different models if possible.
+		* make sure to include reference to resources used
+
 		ENP : 3 
 		ETN : 8 hours
 
-    2.2 overview of our work <MANAR> 11/6
-		- include used datasets
-		this section should cover
-		1 - the work we have done so far, going over the time line to show the different models
-			we tried, different structures
-        how we worked with every reference, the struggles we went through, basically an 
-        overview of the changes made through out our timeline.
 
 3 - Proposed system
     3.1 System Architecture <AMR> 13/6
@@ -121,65 +177,16 @@ ETN : expected time needed
 		ENP : 4
 		ETN : 4 hours
 
-    3.2 Preprocessing 
+    3.2 Preprocessing <WAFAA> 14/6
+		each one of the below sections should cover
+		1 - the set of available solutions (names)
+		2 - comparison in performance (time, memory) and methods used by each.
+		3 - the solution we chose and why
+
         3.2.1 face detection <AIM> 12/6
-			this section should cover:
-			1 - for each face detectection method state the following
-				1 - its principle of operation
-				2 - its effectiveness
-				3 - code sample along with results
-			ENP : 3 
-			ETN : 6 hours
-            
         3.2.2 image enhancements <AREF> 10/6
-			this section should cover 
-			1 - the reasons why we need image enhancements (e.g. bacause input contians noise .. etc)
-			2 - for each image enchancement technique you should state
-					1 - a biref on how it works and what it's good for
-					2 - a code sample alogn with result images
-			ENP : 2 
-			ETN : 4 hours
-
         3.2.3 landmark Extraction <AREF> 12/6 
-			this sections should cover 
-			1 - what is landmark extraction, why we need it
-			2 - the principle behind landmark exraction (how it works)
-			3 - [sample code with] example image
-			4 - its effect on performance
-			ENP : 1.5 
-			ETN : 2 hours
-
         3.2.4 HOG <MANAR> 13/6
-			this section should cover
-			1 - what is HOG and why we need it
-			2 - how do we compute the HOG
-			3 - sample code with example image on how it works
-			4 - its effect on performance
-			ENP : 1.5
-			ETN : 2 hours
-
-        3.2.5 data augmentation (oversampling) <WAFAA> 13/6
-			this section should cover
-			1 - what is data augmentation, and why didn we even try it
-			2 - how it works in principle
-			3 - sample code with example images on how it works
-			4 - its effect on performance
-			ENP : 1.5
-			ETN : 2 hours
-
-        3.2.6 under sampling <AIM> 12/6
-			this section should cover
-			1 - the idea of undersampling XD
-			2 - why did we try it
-			3 - its effect on performance
-			ENP : 1
-			ETN : 30 mins
-
-        3.2.7 used methods <WAFAA> : 14/6
-			this section should cover
-			1 - the methods we have chosen to use in every part alogn with why			
-          	ENP : 2
-			ETN : 2 hours  
 
     3.3 Model 
         3.3.1 tried models <WAFAA> 18/6
@@ -207,6 +214,12 @@ ETN : expected time needed
 			3.4.3.2 feature exctracion API
 			3.4.3.3 image processing API
 			
+	3.5 ٍSummary <MANAR> 13/6
+		this section should cover
+		1 - the used methods for each section and why they were used.
+		2 - final model parameter
+
+
 4 - Results <SALMA> 16/6
 5 - Conclusion <AMR> 17/6
 references 11/6

@@ -1,0 +1,31 @@
+\paragraph{}
+A collection of instances is a dataset and when working with machine learning methods we typically need a few datasets for different purposes.
+\paragraph{Training Dataset:}
+ A dataset that we feed into our machine learning algorithm to train our model.
+\paragraph{Testing Dataset:}
+Testing Dataset: A dataset that we use to validate the accuracy of our model but is not used to train the model. It may be called the validation dataset.
+\textbf{Brief about used Datesets.}
+\subsubsection{FER13}
+\begin{figure}
+	\centering
+	\includegraphics[width=.5\textwidth]{fer2013.jpg}
+	\caption{example of neural networks}
+\end{figure} 
+\paragraph{}
+FER2013 is a large, publicly available Facial Expression Detection dataset consisting of 35,887 face crops. The dataset is challenging as the depicted faces vary significantly in terms of person age, face pose, and other factors, reflecting realistic conditions.The dataset is split into training, validation, and test sets with 28,709, 3,589, and 3,589 samples, respectively.fer13 contains seven categories (0=Angry, 1=Disgust, 2=Fear, 3=Happy, 4=Sad, 5=Surprise, 6=Neutral).Basic expression labels are provided for all samples. All images are grayscale and have a resolution of 48 by 48 pixels. The human accuracy on this dataset is around 65.5\%.
+
+\paragraph{}
+This makes the classification harder because the model have to generalize well and be robust to incorrect data. The best accuracy results obtained on this dataset, as far as I know, is 75.2\% described in this paper:\cite{state_of_art}[Facial Expression Recognition using Convolutional Neural Networks: State of the Art, Pramerdorfer \& al. 2016]
+\begin{figure}
+	\centering
+	\includegraphics[width=.5\textwidth]{fer_dis.png}
+	\caption{example of neural networks}
+\end{figure} 
+\subsubsection{CK+}
+\paragraph{}
+Extended cohen kandle dataset is a small dataset ,publicly available Facial Expression Detection dataset Participants are 18 to 50 years of age. 69\% female, 81\% Euro-American 
+13\% Afro-Americn and 6\% other groups .
+\paragraph{}
+Image sequances for frontal views and 30-degree views were digitalized into either 640*940 or 640*480 pixel arrays with 8-bit gray scale or 124 color value.
+contains eight categories neutral, sadness, surprise, happiness, fear, anger, contempt and disgust.	
+
