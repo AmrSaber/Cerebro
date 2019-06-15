@@ -13,13 +13,13 @@ The main idea of the Median Filter is to run through the photo entry(Pixel) by e
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=\linewidth]{median_code.jpg}
+	\includegraphics[width=\linewidth]{images/median_code.jpg}
 	\caption{Median Code Example}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=\linewidth]{salt_pepper.jpg}
+	\includegraphics[width=\linewidth]{images/salt_pepper.jpg}
 	\caption{I/O Example}
 \end{figure}
 
@@ -31,20 +31,20 @@ It works as we need a set of similar images to average out the noise. Consider a
 See an example image below:\newline
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=\linewidth]{nlmd.jpg}
+	\includegraphics[width=\linewidth]{images/nlmd.jpg}
 \end{figure}
 The blue patches in the image looks the similar. Green patches looks similar. So we take a pixel, take small window around it, search for similar windows in the image, average all the windows and replace the pixel with the result we got.\newline
 But we did not use it as it is slow and this will make problem in real-time streaming.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=\linewidth]{denoising_code.jpg}
+	\includegraphics[width=\linewidth]{images/Denoising_code.jpg}
 	\caption{Denoising Code Example}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=\linewidth]{gaussian.jpg}
+	\includegraphics[width=\linewidth]{images/gaussian.jpg}
 	\caption{I/O Example}
 \end{figure}
 
@@ -75,18 +75,18 @@ So, the Laplacian can be given as follows:\newline
 We can transform that to:\newline
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=\linewidth]{filters.jpg}
+	\includegraphics[width=\linewidth]{images/filters.jpg}
 \end{figure}
 
 The main idea of the Laplacian Filter is to run through the photo entry(Pixel) by entry, replacing each entry with the sum of multiplaied entries of original window of image by the filter(kernel).
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=\linewidth]{sharpening_code.jpg}
+	\includegraphics[width=\linewidth]{images/sharpening_code.jpg}
 	\caption{Sharpening Code Example}
 \end{figure}
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=\linewidth]{Sharpened.jpg}
+	\includegraphics[width=\linewidth]{images/Sharpened.jpg}
 	\caption{I/O Example}
 \end{figure}
 
@@ -97,7 +97,7 @@ An effective noise reduction method for this type of noise is a trained library
 But we did not use it as it is slow and this will make problem in real-time streaming.
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=\linewidth]{motion_blur.png}
+	\includegraphics[width=\linewidth]{images/motion_blur.png}
 	\caption{Motion Blur Example}
 \end{figure}
 \paragraph{}
@@ -108,7 +108,7 @@ It works as photo rotated that such the eyes lie on a horizontal line (i.e., the
 But we did not use it as it is slow and this will make problem in real-time streaming so we depend on frontal faces only.
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=\linewidth]{aligning.jpg}
+	\includegraphics[width=\linewidth]{images/Aligning.jpg}
 	\caption{Aligning Example}
 \end{figure}
 \newpage
