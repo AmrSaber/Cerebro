@@ -6,6 +6,27 @@ from moviepy.editor import *
 
 from interface import process_image as pi
 
+import ffmpeg 
+
+def check_rotation(path_video_file):
+
+    print (path_video_file)
+    # this returns meta-data of the video file in form of a dictionary
+    meta_dict = ffmpeg.probe(path_video_file)
+
+    # from the dictionary, meta_dict['streams'][0]['tags']['rotate'] is the key
+    # we are looking for
+    rotateCode = None
+    if int(meta_dict['streams'][0]['tags']['rotate']) == 90:
+        rotateCode = cv2.ROTATE_90_CLOCKWISE
+    elif int(meta_dict['streams'][0]['tags']['rotate']) == 180:
+        rotateCode = cv2.ROTATE_180
+    elif int(meta_dict['streams'][0]['tags']['rotate']) == 270:
+        rotateCode = cv2.ROTATE_90_COUNTERCLOCKWISE
+
+    return rotateCode
+
+
 def detect_video_emotions(video_path, output_path, skip = 50, verbose=False):
     """
     skip >> determines number of skipped frames during procerssing
@@ -22,6 +43,7 @@ def detect_video_emotions(video_path, output_path, skip = 50, verbose=False):
     #processing frames
     vidObj = cv2.VideoCapture(video_path)
     fps = vidObj.get(5) #fps
+    rotateCode = check_rotation(video_path)
 
     success = 1 #checks whether frames were extracted
     real_frame_counter = 1 #to check with sampling
@@ -33,6 +55,9 @@ def detect_video_emotions(video_path, output_path, skip = 50, verbose=False):
     #getting frames
     while success:
         success, image = vidObj.read()
+
+        if rotateCode is not None:
+            image = cv2.rotate(image, rotateCode)
 
         if not success :
             break

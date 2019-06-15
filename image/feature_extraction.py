@@ -20,7 +20,7 @@ def sk_get_hog(img, orientations=8, pixels_per_cell=(12, 12)):
 		transform_sqrt=False,
 		feature_vector=True,
 		multichannel=False,
-		block_norm='L2-Hys'
+		block_norm='L2'
 	)
 
 	return features
