@@ -61,7 +61,7 @@ class EmotionsModel(object):
         xs = self.__transform_input__(xs)
         ys = to_categorical(ys, len(self.emotions))
 
-        data_gen = ImageDataGenerator(horizontal_flip =True)
+        # data_gen = ImageDataGenerator(horizontal_flip =True)
        	# history = self.model.fit_generator(data_gen.flow(max(xs),ys,self.batch_size),
        	# 	steps_per_epoch = len(xs)/self.batch_size,epochs=self.epochs)
 		
