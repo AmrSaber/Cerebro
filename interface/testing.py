@@ -27,7 +27,7 @@ def main():
 	# if args.c:
 	# 	vs.detect_stream_emotions(fps)
 
-	pv.detect_video_emotions('./samples/wafaa.mp4', './samples/wafaa_output.mp4', skip=10, verbose=True)
+	pv.detect_video_emotions('x.mp4', 'x_output.mp4')
 
 	
 if __name__ == '__main__': main()

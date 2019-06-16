@@ -5,7 +5,9 @@ import numpy as np
 from moviepy.editor import *
 
 from interface import process_image as pi
-
+from image import FaceTracking as tracker
+from image.face_detector import detect_dlib as detector
+from model import emotions_model as model
 import ffmpeg 
 
 def check_rotation(path_video_file):
@@ -40,6 +42,7 @@ def detect_video_emotions_tracking (video_path, output_path, tracked_frames=50):
     it = 0
     img_frames = []
     to_be_tracked = []
+    to_be_printed = 0
     #getting frames
     while success:
         success, image = vidObj.read()
@@ -49,21 +52,33 @@ def detect_video_emotions_tracking (video_path, output_path, tracked_frames=50):
 
         if not success :
             break
+
+        #after calling track function that is what is supposed to be done
         if it == tracked_frames :
+            returned_faces, returned_cords = tracker.faceTracking(to_be_tracked)
+            
+            emotions = model.predict_with_vote(returned_faces)
+            
+            for j in range(len(cords[0])):
+                tmp = to_be_tracked[j][0]
+                for i in range(len(cords)):
+                    if cords[i][j] != None:
+                        em = emotions[i]
+                        tmp = mark_emotion(tmp, cords[i][j], em)
+                tmp = cv2.cvtColor(tmp,cv2.COLOR_BGR2RGB)
+                img_frames.append(tmp)
+
             to_be_tracked = []
             it = 0
-            #calling aref function >>returns 2 lists [imgs ,persons], [boxes, persons]
-            #calling amr detection function >> returns [emotions, persons]
-            #combing frame by frame image,[face, corners, emotion]
-            #for loop to marks emotions on it (with length n)
-            #from BGR to RGB :image = cv2.cvtColor(image,cv2.COLOR_BGR2RGB)
-            #append frames to image frames
+            to_be_printed += 1
+            print(to_be_printed)
+
 
         face_boxes = []
-        frame_data = dt.get_faces(image)
+        frame_data = detector.get_faces(image)
         for fd in frame_data :
             face_boxes.append(fd[1])
-        to_be_tracked.append([image, get_faces])
+        to_be_tracked.append([image, face_boxes])
         it += 1
 
     #making output
@@ -72,3 +87,36 @@ def detect_video_emotions_tracking (video_path, output_path, tracked_frames=50):
     concat_clip_edited = concat_clip.set_audio(audio)
     concat_clip_edited.write_videofile(output_path, fps=fps)
 
+def mark_emotion(image, cords, emotion):
+    font = cv2.FONT_HERSHEY_SIMPLEX
+    font_scale = 1
+    color = (72, 1, 68)
+    offset_x = 5
+    offset_y = 0
+
+
+    tmp = (i[0][0] + offset_x, i[0][1] - offset_y)
+    size = cv2.getTextSize(emotion, font, fontScale=font_scale, thickness=1)[0]
+    box_coords = (tmp, (tmp[0] + size[0] - 2, tmp[1] - size[1] - 2))
+        cv2.rectangle(image, box_coords[0], box_coords[1], color, cv2.FILLED)
+
+    #selected face box
+    image = cv2.rectangle(
+        image,
+        i[0],
+        i[1],
+        color,
+        2,
+    )
+
+    #text
+    image = cv2.putText(
+        image,
+        emotion,
+        tmp,
+        font,
+        font_scale,
+        (255, 255, 255),
+        1,
+    )
+    return image
