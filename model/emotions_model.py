@@ -2,14 +2,13 @@
 
 import keras
 from keras.models import Model
-from keras.optimizers import SGD
 from keras.utils import to_categorical
+# from keras.preprocessing.image import ImageDataGenerator
 from keras.layers import Input, Conv2D, MaxPooling2D, Flatten, Dense, BatchNormalization, concatenate, Dropout
 
 import pickle
 import numpy as np
 from pathlib import Path
-
 from image.enhancement import filters
 from image import feature_extraction, utils
 
@@ -62,6 +61,10 @@ class EmotionsModel(object):
         xs = self.__transform_input__(xs)
         ys = to_categorical(ys, len(self.emotions))
 
+        data_gen = ImageDataGenerator(horizontal_flip =True)
+       	# history = self.model.fit_generator(data_gen.flow(max(xs),ys,self.batch_size),
+       	# 	steps_per_epoch = len(xs)/self.batch_size,epochs=self.epochs)
+		
         history = self.model.fit(
             xs, ys,
             batch_size=self.batch_size,

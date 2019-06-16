@@ -2,22 +2,23 @@
 
 import cv2
 
+from interface import process_video as pv;
 from interface import video_stream as vs
 from interface import process_image
 
 def main():
-	imagePathes = [
-		'./samples/baby_sad.jpg'
-		'./samples/baby_sad2.jpg'	
-		# './samples/people_sad.jpg',
-		# './samples/people_happy.jpeg'
-	]
+	# imagePathes = [
+	# 	'./samples/baby_sad.jpg'
+	# 	'./samples/baby_sad2.jpg'	
+	# 	# './samples/people_sad.jpg',
+	# 	# './samples/people_happy.jpeg'
+	# ]
 
-	for imagePath in imagePathes:
-		image = cv2.imread(imagePath)
-		markedImage = process_image.mark_faces_emotions(image)
-		cv2.imshow('Marked Face(s)', markedImage)
-		cv2.waitKey()
+	# for imagePath in imagePathes:
+	# 	image = cv2.imread(imagePath)
+	# 	markedImage = process_image.mark_faces_emotions(image)
+	# 	cv2.imshow('Marked Face(s)', markedImage)
+	# 	cv2.waitKey()
 
 	# fps = 70
 	# pa = argparse.ArgumentParser()
@@ -25,6 +26,8 @@ def main():
 	# args = pa.parse_args()
 	# if args.c:
 	# 	vs.detect_stream_emotions(fps)
+
+	pv.detect_video_emotions('./samples/wafaa.mp4', './samples/wafaa_output.mp4', skip=10, verbose=True)
 
 	
 if __name__ == '__main__': main()
