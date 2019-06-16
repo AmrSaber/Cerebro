@@ -16,21 +16,35 @@ Figure \ref{fig:LBP_calculation} shows an example of LBP calculation.
 \end{figure}
 
 \paragraph{performance}
-we used the openCV implementation of the LBP classifier, among other methods we tried this was by far the the fastest one, it has an average execution time of ---- ms, this execution time and performance makes it suitable for mobile apps and real time applications alot, however it's very lacking in accuracy and when it comes to small faces mostly wouldn't detect them at all. 
+we used the openCV implementation of the LBP classifier, among other methods we tried this was by far the the fastest one, it has an average execution time of 0.678606 seconds, this execution time and performance makes it suitable for mobile apps and real time applications alot, however it's very lacking in accuracy and when it comes to small faces mostly wouldn't detect them at all. 
+
+
 
 \subsubsection{HAAR classifier face detector}
 
 \paragraph{theory}
 Object Detection using Haar feature-based cascade classifiers is an effective object detection method proposed by Paul Viola and Michael Jones\cite{haar}, It is a machine learning based approach where a cascade function is trained from a lot of positive and negative images. It is then used to detect objects in other images.
 
-Initially, the algorithm needs a lot of positive images (images of faces) and negative images (images without faces) to train the classifier, Then we need to extract features from it, For this, Haar features shown in the below image are used, They are just like our convolutional kernel. Each feature is a single value obtained by subtracting sum of pixels under the white rectangle from sum of pixels under the black rectangle.
+to build the classifier we need a lot of positive images (images of faces) and negative images (images without faces) for training, Then we need to extract features from them, For this, Haar features like those shown in Figure \ref{fig:haar_features} are used, They are just like our convolutional kernel. Each feature is a single value obtained by subtracting sum of pixels under the white rectangle from sum of pixels under the black rectangle.
 
-this classifier divides uses multiple sub weak classifiers to detect multiple features in the face, each of those classifiers has its own threshold value and was trained separately on the given images.
+\begin{figure}
+	\centering
+	\includegraphics[width=0.5\textwidth]{images/haar_features.jpg}
+	\caption{example of haar features}
+	\label{fig:haar_features}
+\end{figure}
+
+this classifier is a weighed sum of multiple weak classifiers each of wish is responsible to detect different features in the face, each of those classifiers has its own threshold value and was trained separately on the given images.
 but there are too many features (up to 160000+) which would basically be very time consuming, so we a cascade style classifier, the point of this is that we don't need to test for all features in a window, if the strongest feature isn't there, then we can simply discard it, after few features have been tested we would end up with considerably few windows that can be face candidates, hence greatly increasing the performance, once enough amount of features is found we can accept the candidate window as a face.
 
 \paragraph{performance}
-we used the openCV implementation of the HAAR classifier, this classifier is quite close in structure and operation to LBP however it has higher accuracy than LBP, however it comes at the cost of execution time which greatly increased to ----, it's still possible to work with it for real time at soft constraints.
-
+we used the openCV implementation of the HAAR classifier, this classifier is quite close in structure and operation to LBP however it has higher accuracy than LBP as obvious from figure \ref{fig:haar_example}, however it comes at the cost of execution time which greatly increased to 1.289553 seconds, it's still possible to work with it for real time at soft constraints.
+\begin{figure}
+	\centering
+	\includegraphics[width=0.75\textwidth]{images/haar_example.jpg}
+	\caption{example image displaying the accuracy of HAAR classifier}
+	\label{fig:haar_example}
+\end{figure}
 
 \subsubsection{Dlib face detector}
 \paragraph{theory}
@@ -42,7 +56,7 @@ this is a pre-trained model within the Dlib library, its accuracy can be control
 \paragraph{Brief}
 it's a rotation invariant face detector made based on Progressive Calibration Networks \cite{PCN}, this approach is one of the most effective approaches to the problem of rotation invariant face detection, it was implemented in c++ using libraries like openCV and Caffe.
 \paragraph{theory}
-The PCN detector diagram in Figure \ref{fig:LBP_calculation}, Given an image, all face candidates are obtained according to the sliding window and image pyramid principle, and each candidate window goes through the detector stage by stage, In each stage of PCN, the detector simultaneously rejects most candidates with low face confidences, regresses the bounding boxes of remaining face candidates, and calibrates the RIP orientations of the face candidates. After each stage, non-maximum suppression (NMS) is used to merge those highly overlapped candidates as most existing methods do.
+The PCN detector diagram in Figure \ref{fig:PCN_archOverview}, Given an image, all face candidates are obtained according to the sliding window and image pyramid principle, and each candidate window goes through the detector stage by stage, In each stage of PCN, the detector simultaneously rejects most candidates with low face confidences, regresses the bounding boxes of remaining face candidates, and calibrates the RIP orientations of the face candidates. After each stage, non-maximum suppression (NMS) is used to merge those highly overlapped candidates as most existing methods do.
 \begin{figure}
 	\centering
 	\includegraphics[width=\textwidth]{images/PCN_archOverview.png}
