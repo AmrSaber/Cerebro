@@ -7,14 +7,17 @@ from moviepy.editor import *
 from interface import process_image as pi
 from image import FaceTracking as tracker
 from image.face_detector import detect_dlib as detector
-from model import emotions_model as model
+from model.emotions_model import EmotionsModel
 import ffmpeg 
+
+model = EmotionsModel()
 
 def check_rotation(path_video_file):
 
     print (path_video_file)
     # this returns meta-data of the video file in form of a dictionary
     meta_dict = ffmpeg.probe(path_video_file)
+    print(meta_dict['streams'][0]['tags'])
 
     # from the dictionary, meta_dict['streams'][0]['tags']['rotate'] is the key
     # we are looking for
@@ -28,7 +31,7 @@ def check_rotation(path_video_file):
 
     return rotateCode
 
-def detect_video_emotions_tracking (video_path, output_path, tracked_frames=50):
+def detect_video_emotions_tracking (video_path, output_path, tracked_frames=125):
     #saving audio 
     video = VideoFileClip(video_path)
     audio = video.audio
@@ -36,7 +39,7 @@ def detect_video_emotions_tracking (video_path, output_path, tracked_frames=50):
     #processing frames
     vidObj = cv2.VideoCapture(video_path)
     fps = vidObj.get(5) #fps
-    rotateCode = check_rotation(video_path)
+    rotateCode = None #check_rotation(video_path)
 
     success = 1 #checks whether frames were extracted
     it = 0
@@ -57,6 +60,7 @@ def detect_video_emotions_tracking (video_path, output_path, tracked_frames=50):
         if it == tracked_frames :
             returned_faces, returned_cords = tracker.faceTracking(to_be_tracked)
             
+            print(len(returned_faces))
             emotions = model.predict_with_vote(returned_faces)
             
             for j in range(len(cords[0])):
@@ -98,16 +102,10 @@ def mark_emotion(image, cords, emotion):
     tmp = (i[0][0] + offset_x, i[0][1] - offset_y)
     size = cv2.getTextSize(emotion, font, fontScale=font_scale, thickness=1)[0]
     box_coords = (tmp, (tmp[0] + size[0] - 2, tmp[1] - size[1] - 2))
-        cv2.rectangle(image, box_coords[0], box_coords[1], color, cv2.FILLED)
+    cv2.rectangle(image, box_coords[0], box_coords[1], color, cv2.FILLED)
 
     #selected face box
-    image = cv2.rectangle(
-        image,
-        i[0],
-        i[1],
-        color,
-        2,
-    )
+    image = cv2.rectangle(image,i[0],i[1],color,2)
 
     #text
     image = cv2.putText(
@@ -117,6 +115,6 @@ def mark_emotion(image, cords, emotion):
         font,
         font_scale,
         (255, 255, 255),
-        1,
+        1
     )
     return image
