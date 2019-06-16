@@ -1,5 +1,8 @@
 #! /user/bin/env python3
 
+import os
+os.environ['KERAS_BACKEND'] = 'theano'
+
 import keras
 from keras.models import Model
 from keras.utils import to_categorical

@@ -1,6 +1,5 @@
 #! /user/bin/env python3
 
-from  keras.utils import  to_categorical
 import argparse
 
 from model.emotions_model import *
