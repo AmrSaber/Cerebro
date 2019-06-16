@@ -34,7 +34,7 @@ class EmotionsModel(object):
         # model numbers
         self.imageSize = 150
         self.batch_size = 128
-        self.epochs = 5
+        self.epochs = 20
 
 
         if not create_new and self.has_saved_model():

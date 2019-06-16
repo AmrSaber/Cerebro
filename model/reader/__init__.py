@@ -1,8 +1,7 @@
 import argparse
 
-from model.reader import fer, ck, rafd
+from model.reader import fer, ck, rafd, combined
 
-# TODO: implement combined dataset
 available_datasets = ['fer', 'ck+', 'rafd', 'combined']
 used_module = None
 
@@ -16,7 +15,8 @@ def set_dataset(name):
         used_module = ck
     elif name == 'rafd':
         used_module = rafd
-
+    elif name == 'combined':
+        used_module = combined
 
 def read_training(limit=-1):
     return used_module.read_training(limit)
