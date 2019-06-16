@@ -3,6 +3,7 @@
 *$py.class
 
 */.idea/
+XDG_CACHE_HOME/
 
 // testing samples
 *.png

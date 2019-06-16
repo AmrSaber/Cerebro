@@ -1,15 +1,13 @@
 #! /usr/bin/env python3
 
-import os, random, pickle
-import cv2
-import numpy as np
+import os
 
-from image.utils import normalize_image, normalize_channels
+from model.reader.utils import *
 
 path_all_faces = './model/dataset/CK+/faces'
 path_all_emotions = './model/dataset/CK+/emotions'
-path_training = './model/dataset/ctk_training.bin'
-path_testing = './model/dataset/ctk_testing.bin'
+path_training = './model/dataset/ck_training.bin'
+path_testing = './model/dataset/ck_testing.bin'
 
 # 0: neutral, 1: anger, 2: contempt, 3: disgust, 4: fear, 5: happy, 6: sadness, 7: surprise
 emotions = ['Neutral', 'Anger', 'Contempt', 'Disgust', 'Fear', 'Happy', 'Sadness', 'Surprise']
@@ -20,16 +18,11 @@ def read_training(limit=-1):
 def read_testing(limit=-1):
     return read_file(path_testing, limit)
 
-def read_file(path, limit):
-    with open(path, 'rb') as f: 
-        xs, ys = pickle.load(f)
-    
-    if limit != -1:
-        xs = xs[:limit]
-        yx = ys[:limit]
-    return (xs, ys)
-
 def split_data(quite, filter):
+    xs, ys = parse_all_data(quite, filter)
+    save_parsed_data(xs, ys, path_testing, path_training, emotions)
+
+def parse_all_data(quite, filter):
     xs, ys = [], []
 
     # read dataset subjects
@@ -63,8 +56,8 @@ def split_data(quite, filter):
             neutralFacesCount = 1
             
             # read and convert face images
-            emotionFaces = [readFaceFromPath(face, filter) for face in facesFiles[-emotionFacesCount::2]]
-            neutralFaces = [readFaceFromPath(face, filter) for face in facesFiles[:neutralFacesCount:2]]
+            emotionFaces = [read_face_from_path(face, filter) for face in facesFiles[-emotionFacesCount::2]]
+            neutralFaces = [read_face_from_path(face, filter) for face in facesFiles[:neutralFacesCount:2]]
 
             xs += emotionFaces
             xs += neutralFaces
@@ -75,58 +68,10 @@ def split_data(quite, filter):
             if not quite: print('Sequence Done')
 
         if not quite: print('Subject Done\n')
-        
-    # shuffle xs, and ys
-    allData = [(x, y) for x, y in zip(xs, ys)]
-    random.shuffle(allData)
-    xs = [e[0] for e in allData]
-    ys = [e[1] for e in allData]
-
-    # split xs, ys into training and testing (80-20 split)
-    testingCount = len(xs) // 5
-    xs_training = xs[:-testingCount]
-    xs_testing = xs[-testingCount:]
-    
-    ys_training = ys[:-testingCount]
-    ys_testing = ys[-testingCount:]
-
-    # save training and testing data into binary files
-    with open(path_training, 'wb') as f: pickle.dump((xs_training, ys_training), f)
-    with open(path_testing, 'wb') as f: pickle.dump((xs_testing, ys_testing), f)
-
-    # print stats
-    emotionsCount = [0] * len(emotions)
-    for y in ys: emotionsCount[y] += 1
-
-    print(f'Dataset Size: {len(xs)}')
-    print(f'Training Size: {len(xs_training)}')
-    print(f'Testing Size: {len(xs_testing)}')
-    print()
-
-    print('Emotions Stats:')
-    print('===============')
-    for i, emotion in enumerate(emotions):
-        print('%8s: %3d' % (emotion, emotionsCount[i]))
+    return (xs, ys)
 
 # faces files names are of format 'S064_003_00000009.png' is changed into '9'
 def faceNameIntoNumber(name):
     name = name.split('_')[-1]
     name = name.split('.')[0]
     return int(name)
-
-# reads and transforms images
-def readFaceFromPath(path, filter):
-    image = cv2.imread(path)
-
-    image_size = 150
-
-    if filter:
-        image = normalize_image(image, image_size, True, 'haar')
-    else:
-        image = normalize_image(image, image_size, True)
-
-    image = normalize_channels(image)
-    
-    image = np.resize(image, (image_size, image_size, 1))
-
-    return image
