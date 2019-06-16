@@ -22,7 +22,7 @@ def faceTracking(frames):
     for (frame, croppedFaces) in frames:
         frameCounter += 1
         frame = cv2.resize(frame, (320, 240))
-        for (_x1, _y1, _x2, _y2) in croppedFaces:
+        for ((_x1, _y1), (_x2, _y2)) in croppedFaces:
             x = int(_x1)
             y = int(_y1)
             w = int(abs(_x1-_x2))
@@ -66,7 +66,7 @@ def faceTracking(frames):
                         (y <= t_y_bar <= (y + h))):
                     matchedFid = True
                     faces[fid][frameCounter] = frame[y: (y + h), x: (x + w)]
-                    cords[fid][frameCounter] = (x, y, x + w, y + h)
+                    cords[fid][frameCounter] = ((x, y), (x + w, y + h))
                     break
 
             for fid in fidsToDelete:
@@ -82,7 +82,7 @@ def faceTracking(frames):
                 faces.append(nones)
                 cords.append(nones)
                 faces[currentFaceID][frameCounter] = frame[y: (y + h), x: (x + w)]
-                cords[currentFaceID][frameCounter] = (x, y, x + w, y + h)
+                cords[currentFaceID][frameCounter] = ((x, y), (x + w, y + h))
 
     return faces, cords
 
