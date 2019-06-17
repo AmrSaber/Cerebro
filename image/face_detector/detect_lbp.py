@@ -10,7 +10,7 @@ def is_one_face(img):
     return __lbp_facedetector.is_one_face(img)
 
 if __name__ == '__main__':
-	img = cv2.imread("example.jpg")
+	img = cv2.imread("example1.jpg")
 	t1 = time.time()	
 	out = get_faces(img)
 	print("execution time : %f\n" %(time.time() - t1))
