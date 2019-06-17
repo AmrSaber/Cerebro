@@ -1,0 +1,17 @@
+\paragraph{}
+In this section we will list the working solutions for every type of noise we mentioned before in review chapter(~\ref{chapter:review})\newline
+\textbf{list of available image enhancements  we deal with :}
+\begin{enumerate}
+	\item Square Images.
+	\item Gray Scale images.
+	\item Salt and Paper Noise. (Median Filter)
+	\item Smoothing. (SharpeningFilter "Laplacian")
+	\item Gaussian Noise. (Non-local Means Denoising Algorithm)
+	\item Motion Blur. (Keras Deblur GAN)
+	\item Face Alignment. (Face Aligner\& and landmarks)	
+\end{enumerate}
+\paragraph{Trade of between Accuracy an speed }
+We Try to reach to good comprimise between speed and good accuracy so we handle only needed method ,
+Our model is designed to get as input a \textbf{squared images} of faces \textbf{gray scale} so we built new Two Functions to make this transformation . 
+we use \textbf{Median Filter} as a good Filter to remove Salt and Paper noise we need Sharpening for better detection so we use \textbf{Laplacian Filter}.
+we did not use non of face Alignment ,motion Blur ,gaussian noise techniques because of being slow which will make problem for real-time streaming.

@@ -4,34 +4,37 @@ Fortunately nowadays cameras have higher quality so in this case there should be
 \paragraph{Most common problems:}
 \subparagraph{Salt and Pepper Noise:}
 It is a form of noise sometimes seen on images. It is also known as impulse noise, This noise can be caused by sharp and sudden disturbances in the image signal, It presents itself as sparsely occurring white and black pixels.\newline
-An effective noise reduction method for this type of noise is a Median Filter.\newline
-The main idea of the Median Filter is  replacing each pixel with the median of neighboring pixels, The pattern of neighbors is called the "window", which slides, entry by entry, over the entire photo.
+An effective noise reduction method for this type of noise is a \textbf{Median Filter}.\newline
+The main idea of the Median Filter is  replacing each pixel with the median of neighboring pixels, The pattern of neighbors is called the "window", which slides, entry by entry, over the entire photo.(see Figure~\ref{fig:median})
+
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=\linewidth]{images/salt_pepper.jpg}
+	\includegraphics[width=.5\linewidth]{images/salt_pepper.jpg}
 	\caption{I/O Example}
+	\label{fig:median}
 \end{figure}
 
 \subparagraph{Gaussian Noise:}
-It is a noise having a probability density function (PDF) that follows normal distribution, an effective noise reduction method for this type of noise is a Non-local Means Denoising Algorithm.\newline
+It is a noise having a probability density function (PDF) that follows normal distribution, an effective noise reduction method for this type of noise is a \textbf{Non-local Means Denoising Algorithm}.\newline
 It works as we need a set of similar images to average out the noise, consider a small window (say 5x5 window) in the image. Chance is large that the same patch may be somewhere else in the image. Sometimes in a small neighborhood around it. What about using these similar patches together and find their average.\newline
-The blue patches in the image looks the similar. Green patches looks similar. So we take a pixel, take small window around it, search for similar windows in the image, average all the windows and replace the pixel with the result we got.\newline
-But we decided not to use it because it is slow which will prevent real-time streaming.
+The blue patches in the image looks the similar. Green patches looks similar. So we take a pixel, take small window around it, search for similar windows in the image, average all the windows and replace the pixel with the result we got (see Figure~\ref{fig:Gnoise}).\newline 
+
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=\linewidth]{images/nlmd.jpg}
+	\includegraphics[width=.5\linewidth]{images/nlmd.jpg}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=\linewidth]{images/gaussian.jpg}
+	\includegraphics[width=.5\linewidth]{images/gaussian.jpg}
 	\caption{I/O Example}
+	\label{fig:Gnoise}
 \end{figure}
 
 \subparagraph{Smoothed Images:}
-Some images can be blurred which hides small details within them, an effective noise reduction method for this type of noise is a Laplacian Filter (Sharpening Spatial Filter).\newline
-Sharpening spatial filters seek to highlight small details by Removing blur from images and Highlighting edges within them.\newline
+Some images can be blurred which hides small details within them, an effective noise reduction method for this type of noise is a \textbf{Laplacian Filter (Sharpening Spatial Filter)}.\newline
+Sharpening spatial filters seek to highlight small details by Removing blur from images and Highlighting edges within them.(see Figure~\ref{figure:laplacian})\newline
 Sharpening filters are based on spatial differentiation.\newline
 The Laplacian is defined as follows:
 \[\nabla^{2} f = \frac{\partial^{2}f}{\partial^{2}x} + \frac{\partial^{2}f}{\partial^{2}y}\]
@@ -73,14 +76,14 @@ sharpening filters has multiple similar variations we use the one below as it gi
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=\linewidth]{images/Sharpened.jpg}
+	\includegraphics[width=0.5\linewidth]{images/Sharpened.jpg}
+	\label{figure:laplacian}
 	\caption{I/O Example}
 \end{figure}
 
 \subparagraph{Motion Blurred Images:}
 It is the apparent streaking of moving objects in an image or a sequence of frames, such as a film or animation, It results when the image being recorded changes during the recording of a single exposure, due to rapid movement or long exposure.\newline
-An effective noise reduction method for this type of noise is a trained library called Keras Deblur GAN.\newline
-But we did not use it because of being slow which will make problem for real-time streaming.
+An effective noise reduction method for this type of noise is a trained library called \textbf{Keras Deblur GAN}.\newline
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=\linewidth]{images/motion_blur.png}
@@ -89,7 +92,6 @@ But we did not use it because of being slow which will make problem for real-tim
 
 \subparagraph{Face alignment:}
 We prefer to deal with frontal faces to easily detect them, but sometimes faces aren’t necessarily aligned in that way, so we may use a trained model called FaceAligner in OpenCV library which rotates the image such that the eyes lie on a horizontal line (i.e., the eyes lie along the same y-coordinates).\newline
-But we did not use it as it slows real-time streaming so we work with frontal faces only.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=\linewidth]{images/Aligning.jpg}
