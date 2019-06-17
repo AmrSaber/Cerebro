@@ -2,11 +2,10 @@ import cv2
 import dlib
 
 
-def faceTracking(frames):
+def faceTracking(frames, framesNumber):
 
     currentFaceID = -1
     frameCounter = -1
-    framesNumber = 10
 
     nones = [None for i in range(framesNumber)]
     faces = []
