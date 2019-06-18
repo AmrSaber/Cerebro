@@ -10,6 +10,17 @@ ETN : expected time needed
 
 frameworks
 
+
+WRITTEN
+CH1 completeled written
+CH2 Face detection and data augmentation not completed
+    model section : NO PROGRESS
+CH3 system architecture : NO PROGRESS
+	landmarks subsection is not completed
+	model, library and summary sections are not completed
+CH4, CH5 no progress
+	
+
 1 - introduction
     1.1 Preface <SALMA> 9/6 <written>
 		this part should include 
@@ -119,7 +130,7 @@ frameworks
 			ENP : 2 
 			ETN : 4 hours
 			
-		2.1.4 landmark Extraction <AREF> 12/6 
+		2.1.4 landmark Extraction <AREF> 12/6 <written>
 				this sections should cover 
 				1 - what is landmark extraction, why we need it
 				2 - the principle behind landmark exraction (how it works)
@@ -128,7 +139,7 @@ frameworks
 				ENP : 1.5 
 				ETN : 2 hours
 
-		2.1.5 HOG <MANAR> 13/6
+		2.1.5 HOG <MANAR> 13/6 <written>
 				this section should cover
 				1 - what is HOG and why we need it
 				2 - how do we compute the HOG
@@ -146,7 +157,7 @@ frameworks
 			ENP : 1.5
 			ETN : 2 hours
 		
-		2.1.7 under sampling <AIM> 12/6
+		2.1.7 under sampling <AIM> 12/6 <Written>
 			this section should cover
 			1 - the idea of undersampling XD
 			2 - why did we try it
@@ -191,10 +202,10 @@ frameworks
 		2 - comparison in performance (time, memory) and methods used by each.
 		3 - the solution we chose and why
 
-        3.2.1 face detection <AIM> 12/6
-        3.2.2 image enhancements <AREF> 10/6
+        3.2.1 face detection <AIM> 12/6 <WRITTEN>
+        3.2.2 image enhancements <AREF> 10/6 <WRITTEN>
         3.2.3 landmark Extraction <AREF> 12/6 
-        3.2.4 HOG <MANAR> 13/6
+        3.2.4 HOG <MANAR> 13/6 <WRITTEN>
 
     3.3 Model 
         3.3.1 tried models <WAFAA> 18/6
@@ -222,7 +233,7 @@ frameworks
 			3.4.3.2 feature exctracion API
 			3.4.3.3 image processing API
 			
-	3.5 ٍSummary <MANAR> 13/6
+	3.5 ٍSummary <MANAR> 13/6 
 		this section should cover
 		1 - the used methods for each section and why they were used.
 		2 - final model parameter

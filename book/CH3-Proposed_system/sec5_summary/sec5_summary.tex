@@ -1,11 +1,3 @@
-\documentclass{article}
-\usepackage[utf8]{inputenc}
-\usepackage{amsmath}
-\usepackage{graphicx}
-
-\begin{document}
-
-\section{Summary}
 \paragraph{}
 We choose to work with 3 datasets and combination of 2 of them (section 2.1) \newline
 In preprocessing data, we decide to use image processing to enhance image and extract features in order to speed up our model. \newline
@@ -28,15 +20,14 @@ In block normalization we choose \textbf{L2} method by try and error.
 We get this from \cite{state_of_art} (paper compares papers in facial emotion recognition), this paper supposes that its accuracy 70\% but after following it and only get 57.63 \% with FER dataset. \newline
 With this challenging data set we had to apply some enhancement to remove the noise and remove images with distorted faces. \newline
 Used methods: \newline
+
 \begin{itemize}
-\item \textbf{For face detection} 
-\newline We worked with pre-trained models like \textit{HAAR}, \textit{LBP cascading classifiers} and \textit{DLIB detector}. \newline All of them works with frontal face and each one has its own advantages, HAAR is quite accurate but slow, LBP is faster than HAAR but less accurate and DLIB detector is more accurate than HAAR without any increase in detection time so our default classifier is DLIB detector. 
-\item \textbf{For image enhancement} 
-\newline In the training phase we have to ensure that all the input image is gray scale and all of them is the same size. 
-\newline For noise removal, we can’t cover all kinds of noise so after searching we found that the most common noise is gaussian and salt & pepper. 
-\newline  We remove gaussian noise by fastNLMeans algorithm and salt & pepper with median filter. \newline
+	\item \textbf{For face detection} \newline We worked with pre-trained models like \textit{HAAR}, \textit{LBP cascading classifiers} and \textit{DLIB detector}. \newline All of them works with frontal face and each one has its own advantages, HAAR is quite accurate but slow, LBP is faster than HAAR but less accurate and DLIB detector is more accurate than HAAR without any increase in detection time so our default classifier is DLIB detector. 
+	\item \textbf{For image enhancement} \newline In the training phase we have to ensure that all the input image is gray scale and all of them is the same size. \newline For noise removal, we can’t cover all kinds of noise so after searching we found that the most common noise is gaussian and salt \& pepper. \newline  We remove gaussian noise by fastNLMeans algorithm and salt \& pepper with median filter. \newline
 \end{itemize}
+
 We find 5 combinations in out model architecture and here is the summary: 
+
 \begin{enumerate}
 \item For \textit{FER} dataset \newline
 \begin{itemize}
@@ -171,8 +162,3 @@ We find 5 combinations in out model architecture and here is the summary:
         \end{itemize}
 \end{itemize}
 \end{enumerate}
-
-
-\paragraph{}
-
-\end{document}
