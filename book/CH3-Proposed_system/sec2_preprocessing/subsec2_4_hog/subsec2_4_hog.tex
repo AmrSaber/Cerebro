@@ -1,28 +1,26 @@
 \paragraph{}
-Here it seems that we have a lot of variations but actually we only have to tune block normalization parameter.
-\newline
-We took the rest configuration from \cite{hog} as it works with hog for facial expression recognition and there is a comparison on it between a lot of variations.
-\newline Here is our configuration: \newline
+the only tuning we needed for HOG was for the normalization parameter which the rest of parameters were taken following a paper\cite{HOG} we found which compared between other different parameters and giave us a conclusion on the best ones.\newline 
+our final configuration: \newline
 \begin{itemize}
-\item Orientation: 8 bins. \item 12X12 pixels per cell. \item 4X4 cells per block.
+\item Orientation: 8 bins. 
+\item 12X12 pixels per cell. 
+\item 4X4 cells per block.
 \end{itemize}
 
-Tuning the normalization parameter was by try and error so we made the pervious configuration fixed and start to change block\_norm parameter during our work with our datasets.
-\newline
-The best choice here is the highest testing accuracy.
-\newline
+\paragraph{Normalization parameter tuning}
+we tried different normalization methods on the different datasets we had and chose the one that gave a better result on average.
+
 \begin{center}
-\begin{tabular}{ |c|c|c|c| }
-\hline
-  & FER & CK+ & RafD \\ 
- L1-norm & 0.23\% & X & 89.08\% \\  
- L2-norm & 0.36\% & X & 90.2\% \\
- L1-sqrt & 0.38\% & X & 89.21\% \\
- L2-Hys & 0.38\% & X & 88.96\% \\
-\hline
+\begin{tabular}{ c|c|c|c }
+	  & FER & CK+ & RafD \\ \hline
+	 L1-norm & 23.16\% & X & 89.08\% \\  
+	 L2-norm & 36.80\% & X & 90.2\% \\
+	 L1-sqrt & 38.61\% & X & 89.21\% \\
+	 L2-Hys & 38.61\% & X & 88.96\% \\
 \end{tabular}
 \end{center}
-With FER we choose to work with  .\newline
+With FER \textbf{L1-sqrt} and \textbf{L2-Hys} give best result.\newline
 With CK+ we choose to work with  .\newline
 With RafD we choose to work with  \textbf{L2-norm}. \newline
 \paragraph{}
+as obvious from the results \textbf{L1-sqrt} and \textbf{L2-Hys} methods tend to show better results on average, but \textbf{L2-Hys} seems to be more effective method.
