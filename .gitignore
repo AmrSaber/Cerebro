@@ -3,12 +3,11 @@
 *$py.class
 
 */.idea/
+XDG_CACHE_HOME/
 
-// sample images
+// testing samples
 *.png
 *.jpg
 *.jpeg
-
-
-// sample videos
 *.mp4
+samples/

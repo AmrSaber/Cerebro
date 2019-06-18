@@ -1,18 +1,22 @@
 import argparse
 
-from model.reader import fer, ck
+from model.reader import fer, ck, rafd, combined
 
-available_datasets = ['fer', 'ck+']
+available_datasets = ['fer', 'ck+', 'rafd', 'combined']
 used_module = None
 
 def set_dataset(name):
-    if name not in available_datasets: raise Exception('Unknown dataset name!!')
     global used_module
+    if name not in available_datasets: raise Exception('Unknown dataset name!!')
+    
     if name == 'fer':
         used_module = fer
     elif name == 'ck+':
         used_module = ck
-
+    elif name == 'rafd':
+        used_module = rafd
+    elif name == 'combined':
+        used_module = combined
 
 def read_training(limit=-1):
     return used_module.read_training(limit)

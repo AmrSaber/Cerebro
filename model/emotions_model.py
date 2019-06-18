@@ -1,15 +1,17 @@
 #! /user/bin/env python3
 
+import os
+os.environ['KERAS_BACKEND'] = 'theano'
+
 import keras
 from keras.models import Model
-from keras.optimizers import SGD
 from keras.utils import to_categorical
+# from keras.preprocessing.image import ImageDataGenerator
 from keras.layers import Input, Conv2D, MaxPooling2D, Flatten, Dense, BatchNormalization, concatenate, Dropout
 
 import pickle
 import numpy as np
 from pathlib import Path
-
 from image.enhancement import filters
 from image import feature_extraction, utils
 
@@ -34,7 +36,7 @@ class EmotionsModel(object):
         # model numbers
         self.imageSize = 150
         self.batch_size = 128
-        self.epochs = 5
+        self.epochs = 20
 
 
         if not create_new and self.has_saved_model():
@@ -62,6 +64,10 @@ class EmotionsModel(object):
         xs = self.__transform_input__(xs)
         ys = to_categorical(ys, len(self.emotions))
 
+        # data_gen = ImageDataGenerator(horizontal_flip =True)
+       	# history = self.model.fit_generator(data_gen.flow(max(xs),ys,self.batch_size),
+       	# 	steps_per_epoch = len(xs)/self.batch_size,epochs=self.epochs)
+		
         history = self.model.fit(
             xs, ys,
             batch_size=self.batch_size,
@@ -105,6 +111,32 @@ class EmotionsModel(object):
             res = res[0]
 
         return res
+    
+    # each element should be an array of the same face
+    # returns vector of the same size, each dimension contains the resulting emotion from the vote
+    def predict_with_vote(self, faces):
+
+        if type(faces) is not list:
+            faces = [faces]
+
+        if type(faces[0]) is not list:
+            faces = [faces]
+            is_one_vector = True
+        
+        result = []
+        
+        for vector in faces:
+            emotions_map = {}
+            emotions_vector = predict(vector)
+            for emotion in emotions_vector:
+                emotions_map[emotion] = emotions_map.get(emotion, 0) + 1
+            sortedEmotions = sorted(emotions_map.items(), key=lambda x: x[1], reversed=True)
+            result.append(sortedEmotions[0][0])
+        
+        if is_one_vector:
+            result = result[0]
+        
+        return result
 
     def __transform_input__(self, images, should_enhance=True):
         lms, hogs, imgs = [], [], []
