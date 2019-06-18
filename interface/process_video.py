@@ -58,7 +58,7 @@ def detect_video_emotions_tracking (video_path, output_path, tracked_frames=125)
 
         #after calling track function that is what is supposed to be done
         if it == tracked_frames :
-            returned_faces, returned_cords = tracker.faceTracking(to_be_tracked)
+            returned_faces, returned_cords = tracker.faceTracking(to_be_tracked, tracked_frames)
             
             print(len(returned_faces))
             emotions = model.predict_with_vote(returned_faces)
