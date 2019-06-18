@@ -1,0 +1,13 @@
+\subsection{Processing video}
+It works by calling detect\_video\_emotion from process\_video.py.
+\newline \textbf{\textit{Input}}: 
+\begin{itemize}
+\item  \textbf{video\_path}: the video which supposed to be processed.
+\item  \textbf{output\_path}: output video path, should contain output video name with its extension (must be mp4).
+\item  \textbf{skip}: how many frames you want it to be skipped without emotion detection, be careful by increasing this parameter the output would be less accurate but the processing would be faster, its default value is 50 and that mean detect emotion every 2 seconds in normal video speed.
+\item \textbf{detector\_type}: the default is dlib detector but it can be controlled to be HAAR or LBP classifiers.
+\item  \textbf{verbose}: to follow processing operation by some print line this should be true, its default value is false.
+\end{itemize}
+\newline \textbf{\textit{Output}}: it doesn't return anything as its output directly saved to the output path.
+\newline\textbf{\textit{ Rule}}: it divides the video into frames and audio, applies analysis on it then gathers them again.
+\newline 
