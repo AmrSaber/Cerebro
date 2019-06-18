@@ -1,0 +1,71 @@
+for the face detection step we had multiple solutions to consider out of them the following ones where most interesting ones.
+\begin{enumerate}
+	\item LBP classifier
+	\item HAAR classifier
+	\item DLIB classifier
+	\item PCN (Progressive Calibration Network) face detector
+\end{enumerate}
+table \ref{tab:facedetectors_compared} shows a comparison between the PROS and CONS of those techniques.\newline
+
+in the end we decided to use \textbf{DLIB face detector} as it gave us enough accuracy at an acceptable execution time, 
+we couldn't used PCN detector because it was not compatible with python programming, being implemented in c++, we tried the C/python API to make an interface between the two programs so that our python program can use C/C++ dynamic library of PCN but it didn't work out, and since it was too time consuming for our development time we decided not to use it.
+
+\begin{table}[h!]
+	\centering
+	\begin{tabular}{m{3cm} | m{5cm} | m{5cm}}
+		%\centering
+		\textbf{Face detector} & \textbf{Pros} & \textbf{Cons}\\ \hline 
+		LBP classifier 
+		&
+		\begin{itemize}
+			\item it's very fast and suitable for real time applications 
+		\end{itemize}
+
+		& 
+		\begin{itemize}
+			\item low accuracy specially with small faces within the image.
+			\item only works for frontal faces.
+		\end{itemize}
+		\\ \hline
+		
+		HAAR classifier 
+		& 
+		\begin{itemize}
+			\item it's quite accurate, (vastly more accurate than LBP).
+			\item can even detect small faces
+		\end{itemize}
+		& 
+		\begin{itemize}
+			\item it has long execution time (can be over a second or two)
+			\item can only work with frontal faces.
+		\end{itemize} 
+		\\ \hline
+		
+		DLIB classifier 
+		& 
+		\begin{itemize}
+			\item it's very accurate even more than HAAR classifier.
+			\item its execution time is not as bad as HAAR classifier.
+		\end{itemize}
+		& 
+		\begin{itemize}
+			\item its execution time is not good enough for smooth real time.
+			\item can only work with frontal faces.
+		\end{itemize}
+		\\ \hline
+		
+		PCN face detector 
+		& 
+		\begin{itemize}
+			\item it has a very high accuracy, can be the best.
+			\item small execution time suitable for real time streaming.
+		\end{itemize} 
+		& 
+		\begin{itemize}
+			\item it's implemented in C++ making it hard to integrate with python programs.
+		\end{itemize}
+		\\
+	\end{tabular}
+	\label{tab:facedetectors_compared}
+	\caption{this table holds the progress of learning for model after under sampling for data set}
+\end{table}
