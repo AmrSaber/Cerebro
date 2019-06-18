@@ -1,9 +1,28 @@
 \paragraph{}
-In this section we will list the working solutions for Hog we mentioned before in review chapter(~\ref{chapter:review})\newline
-\textbf{list of available Hog we deal with :}
-\begin{enumerate}
-	\item Hog
-	\item Hog with Sliding Window
-	??	
-\end{enumerate}
+Here it seems that we have a lot of variations but actually we only have to tune block normalization parameter.
+\newline
+We took the rest configuration from \cite{hog} as it works with hog for facial expression recognition and there is a comparison on it between a lot of variations.
+\newline Here is our configuration: \newline
+\begin{itemize}
+\item Orientation: 8 bins. \item 12X12 pixels per cell. \item 4X4 cells per block.
+\end{itemize}
+
+Tuning the normalization parameter was by try and error so we made the pervious configuration fixed and start to change block\_norm parameter during our work with our datasets.
+\newline
+The best choice here is the highest testing accuracy.
+\newline
+\begin{center}
+\begin{tabular}{ |c|c|c|c| }
+\hline
+  & FER & CK+ & RafD \\ 
+ L1-norm & X & X & 89.08\% \\  
+ L2-norm & X & X & 90.2\% \\
+ L1-sqrt & X & X & 89.21\% \\
+ L2-Hys & X & X & 88.96\% \\
+\hline
+\end{tabular}
+\end{center}
+With FER we choose to work with  .\newline
+With CK+ we choose to work with  .\newline
+With RafD we choose to work with  \textbf{L2-norm}. \newline
 \paragraph{}
