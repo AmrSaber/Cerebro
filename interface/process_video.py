@@ -27,7 +27,7 @@ def check_rotation(path_video_file):
     return rotateCode
 
 
-def detect_video_emotions(video_path, output_path, skip = 50, verbose=False):
+def detect_video_emotions(video_path, output_path, skip = 50, detector_type = 'dlib', verbose=False):
     """
     skip >> determines number of skipped frames during procerssing
     in normal video speed skip=50 means detect emotions every 2 seconds
@@ -63,7 +63,7 @@ def detect_video_emotions(video_path, output_path, skip = 50, verbose=False):
             break
         #processing frames
         if not(real_frame_counter % skip):
-            prev_frame_data = pi.extract_faces_emotions(image)
+            prev_frame_data = pi.extract_faces_emotions(image, detector_type)
             if verbose: print("process frame: ", sampled_frame_counter)
             sampled_frame_counter += 1
 
