@@ -3,7 +3,6 @@ In this section we will make a quick review of all the models we passed through 
 \subsection{CNN Model}
 As we Mention before in the Review Section \ref{review} we follow \textbf{Facial Expression Recognition using Convolutional Neural Networks: State of the Art} Paper\cite{state_of_art} model numebr Five .
 on \textbf{fer13} dataset this model follow this Paper \textbf{Learning Social Relation Traits from Face Images} this model Architecture is \textbf{CPNCPNCPCFF} \footnote{ the operations C , P ,N ,F denote to covolutional ,Pooling ,Normalization,Fully Connected } fig 3.1
-
 \begin{figure}
 	\centering
 	\includegraphics[width=.8\textwidth]{model14.jpg}
@@ -49,7 +48,7 @@ Using the the all dataset with adadelta optimizer ,we get a result of 95\% train
 We found some solutions as :
 \begin{enumerate}
 	\item Update Layers of Model.
-	\item Solve Dataset Problems.
+	\item Dealing with Dataset Problems.
 	\item apply Cross Validation Technique.
 	\item try Early Stoping Technique.
 \end{enumerate}
@@ -57,19 +56,6 @@ We found some solutions as :
 here we try to update layers of our model making it more simple get the feature we need from each image as fast as we can and try to make the gap between accuracy of training and testing small to be accepted.
 \textbf{Keep on your mind that we working on fer13 dataset that is challanging data set so we have a big problem here.}
 \subsubsection{New Structure}
-Before going through the new structure ,let us discuss
-\textbf{what is Batch Normalization?}
-\paragraph{Batch Normalization}
-As we Know we normalize the input layer by adjusting and scaling the Features. For example, when we have features from 0 to 1 and some from 1 to 1000, we should normalize them to speed up learning. If the input layer is benefiting from it, why not do the same thing also for the values in the hidden layers, that are changing all the time, and get 10 times or more improvement in the training speed.
-\paragraph{}
-Batch normalization reduces the amount by what the hidden unit values shift around (covariance shift).To explain covariance shift, let’s have a deep network on cat detection. We train our data on only black cats’ images. So, if we now try to apply this network to data with colored cats, it is obvious; we’re not going to do well. The training set and the prediction set are both cats’ images but they differ a little bit. In other words, if an algorithm learned some X to Y mapping, and if the distribution of X changes, then we might need to retrain the learning algorithm by trying to align the distribution of X with the distribution of Y.
-Also, batch normalization allows each layer of a network to learn by itself a little bit more independently of other layers.
-We can use higher learning rates because batch normalization makes sure that there’s no activation that’s gone really high or really low. And by that, things that previously couldn’t get to train, it will start to train.
-
-\paragraph{}
-\textbf{It reduces overfitting}
-because it has a slight regularization effects. Similar to dropout, it adds some noise to each hidden layer’s activations. Therefore, if we use batch normalization, we will use less dropout, which is a good thing because we are not going to lose a lot of information. However, we should not depend only on batch normalization for regularization; we should better use it together with dropout.
-\paragraph{Back to the new Structure}
 We update our structure to be as in this Figure 3.2
 \begin{figure}
 	\centering
@@ -83,7 +69,7 @@ result of this section without Normalization
 \paragraph{}
 After adding Normalization Layers we get \textbf{testing accuracy of 56.93\%} and \textbf{training accuracy of 74\%} after 10 epochs. 
 \paragraph{}
-We notice an increase now of the accuracy and more stablization after adding the Normalization layers.
+We notice an increase now of the accuracy after adding the Normalization layers.
 
 \subsection{Dealing with datasets problem}
 \paragraph{}
@@ -110,18 +96,19 @@ table \ref{tab:table1} shows the how the prediction accuracy of model changes du
 \end{table}
 
 \subsubsection{Data Augmentation}
-Also 
-
-
-
-
-
-
-
-
-
-
-
+Also after applying data-augmentation with horizontal-flip as suggested in the paper\cite{state_of_art}
+it make things worse in our case .
+\ref{tab:table12} after more training we find that testing accuracy stop increasing or sometimes start to decrease .
+\begin{table}[h!]
+	\centering
+	\caption{this table holds the progress of learning for model after under sampling for data set}
+	\label{tab:table12}
+	\begin{tabular}{c | c | c | c}
+		\textbf{Number of Epochs} & \textbf{Training accuracy} & \textbf{Testing accuracy} & \textbf{Error}\\ \hline 
+		10 & 15.1\% \% & 27\% \% & 1.87 \\
+		100 & 20\% \% &  27\%\% & 1.5 \\
+	\end{tabular}
+\end{table}
 \subsubsection{Apply Cross-Validation}
 \subsubsection{Apply EarlyStoping}
 \subsection{Transfer-learning}
@@ -129,6 +116,8 @@ Also
 Transfer learning is a machine learning method where a model developed for a task is reused as the starting point for a model on a second task.
 It is a popular approach in deep learning where pre-trained models are used as the starting point on computer vision and natural language processing tasks given the vast compute and time resources required to develop neural network models on these problems and from the huge jumps in skill that they provide on related problems.
 \paragraph{VGG16}
+VGG16 is a convolutional neural network model we found it built in layer in keras on imagenet dataset ,so we apply this method with simple dropout and dense layers and it give an accuracy of 27\% for testing .
+we find that also vgg16 is not a solution because it suggested that start train this network with at least 1000 sample in each class and we have around 500 sample only in disgust class.
 \subsection{Auto-Keras}
 \paragraph{}
 Autokeras is a new built-in library, tries every possible CNN combination in a period chosen by the user to get the best model structure and configuration.It takes period, training, testing part as an input, its default period is 24 hours and we can get the best model and save it from the program.
