@@ -36,5 +36,6 @@ def detect_stream_emotions(fps):
     vs.release()
     cv2.destroyAllWindows()
 
+
 mythread = Thread(target = worker, args=(task_queue, result_queue))
 mythread.start()
