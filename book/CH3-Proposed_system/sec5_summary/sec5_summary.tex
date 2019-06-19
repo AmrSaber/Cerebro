@@ -1,0 +1,164 @@
+\paragraph{}
+We choose to work with 3 datasets and combination of 2 of them (section 2.1) \newline
+In preprocessing data, we decide to use image processing to enhance image and extract features in order to speed up our model. \newline
+Used methods: \newline
+\begin{itemize}
+\item \textbf{HOG \textit{“histogram of gradients”} }
+\newline It generalizes the image in a way makes the output of this as close as possible for the same image under different conditions and capture most of image features. 
+\newline We use \textbf{skimage} library to handle this because it makes us control HOG parameters as we want. 
+\newline Our HOG parameters are: 8 bins for the histogram, 12X12 pixels per cell, 4X4 cells per block with disabled multichannel as we train the model on gray scale images. 
+\newline All parameters are chosen according to \cite{hog},this paper makes combinations of the whole parameters except normalization, so it gives us the best configuration.
+\newline
+In block normalization we choose \textbf{L2} method by try and error.
+\item \textbf{Face landmarks }
+\newline It extracts the key features of the face and its position and this could have a strong impact on our work. 
+\newline We use \textbf{DLIB} library with trained model to extract 68 face landmarks from each face we pass to it. 
+\newline We have to choose this model because the size is important to us as its size is acceptable according to what it represents to us. 
+\newline There are 2 models also, one with 5 landmarks and this isn’t enough for our model and one with 194 landmarks “this could be perfect, but it is size is too large”.
+\end{itemize}
+\textbf{\textit{Important note }} we use hog and face landmarks according to instructions in this paper \cite{method_5}  \newline
+We get this from \cite{state_of_art} (paper compares papers in facial emotion recognition), this paper supposes that its accuracy 70\% but after following it and only get 57.63 \% with FER dataset. \newline
+With this challenging data set we had to apply some enhancement to remove the noise and remove images with distorted faces. \newline
+Used methods: \newline
+
+\begin{itemize}
+	\item \textbf{For face detection} \newline We worked with pre-trained models like \textit{HAAR}, \textit{LBP cascading classifiers} and \textit{DLIB detector}. \newline All of them works with frontal face and each one has its own advantages, HAAR is quite accurate but slow, LBP is faster than HAAR but less accurate and DLIB detector is more accurate than HAAR without any increase in detection time so our default classifier is DLIB detector. 
+	\item \textbf{For image enhancement} \newline In the training phase we have to ensure that all the input image is gray scale and all of them is the same size. \newline For noise removal, we can’t cover all kinds of noise so after searching we found that the most common noise is gaussian and salt \& pepper. \newline  We remove gaussian noise by fastNLMeans algorithm and salt \& pepper with median filter. \newline
+\end{itemize}
+
+We find 5 combinations in out model architecture and here is the summary: 
+
+\begin{enumerate}
+\item For \textit{FER} dataset \newline
+\begin{itemize}
+    \item Only CNN: 
+        \begin{itemize}
+            \item It takes X time in training and X time in testing.
+            \item The model size was X.
+            \item Its training accuracy is X and testing accuracy is X.
+        \end{itemize}
+    \item Only HOG: 
+        \begin{itemize}
+            \item It takes X time in training and X time in testing.
+            \item The model size was X.
+            \item Its training accuracy is X and testing accuracy is 0.36\%.
+        \end{itemize}
+    \item Only landmarks: 
+        \begin{itemize}
+            \item It takes X time in training and X time in testing.
+            \item The model size was X.
+            \item Its training accuracy is X and testing accuracy is X.
+        \end{itemize}
+    \item HOG and landmarks: 
+        \begin{itemize}
+            \item It takes X time in training and X time in testing.
+            \item The model size was X.
+            \item Its training accuracy is X and testing accuracy is X.
+        \end{itemize}
+    \item CNN, HOG and landmarks: 
+        \begin{itemize}
+            \item It takes X time in training and X time in testing.
+            \item The model size was X.
+            \item Its training accuracy is X and testing accuracy is X.
+        \end{itemize}
+\end{itemize}
+\item For \textit{CK+} dataset \newline
+\begin{itemize}
+    \item Only CNN: 
+        \begin{itemize}
+            \item It takes X time in training and X time in testing.
+            \item The model size was X.
+            \item Its training accuracy is X and testing accuracy is X.
+        \end{itemize}
+    \item Only HOG: 
+        \begin{itemize}
+            \item It takes X time in training and X time in testing.
+            \item The model size was X.
+            \item Its training accuracy is X and testing accuracy is X.
+        \end{itemize}
+    \item Only landmarks: 
+        \begin{itemize}
+            \item It takes X time in training and X time in testing.
+            \item The model size was X.
+            \item Its training accuracy is X and testing accuracy is X.
+        \end{itemize}
+    \item HOG and landmarks: 
+        \begin{itemize}
+            \item It takes X time in training and X time in testing.
+            \item The model size was X.
+            \item Its training accuracy is X and testing accuracy is X.
+        \end{itemize}
+    \item CNN, HOG and landmarks: 
+        \begin{itemize}
+            \item It takes X time in training and X time in testing.
+            \item The model size was X.
+            \item Its training accuracy is X and testing accuracy is X.
+        \end{itemize}
+\end{itemize}
+\item For \textit{RafD} dataset \newline
+\begin{itemize}
+    \item Only CNN: 
+        \begin{itemize}
+            \item It takes X time in training and X time in testing.
+            \item The model size was X.
+            \item Its training accuracy is X and testing accuracy is X.
+        \end{itemize}
+    \item Only HOG: 
+        \begin{itemize}
+            \item It takes X time in training and X time in testing.
+            \item The model size was X.
+            \item Its training accuracy is X and testing accuracy is X .
+        \end{itemize}
+    \item Only landmarks: 
+        \begin{itemize}
+            \item It takes X time in training and X time in testing.
+            \item The model size was X.
+            \item Its training accuracy is X and testing accuracy is X.
+        \end{itemize}
+    \item HOG and landmarks: 
+        \begin{itemize}
+            \item It takes X time in training and X time in testing.
+            \item The model size was X.
+            \item Its training accuracy is X and testing accuracy is 90.2\% .
+        \end{itemize}
+    \item CNN, HOG and landmarks: 
+        \begin{itemize}
+            \item It takes X time in training and X time in testing.
+            \item The model size was X.
+            \item Its training accuracy is X and testing accuracy is X.
+        \end{itemize}
+\end{itemize}
+\item For \textit{CK+ and RafD} combination \newline
+\begin{itemize}
+    \item Only CNN: 
+        \begin{itemize}
+            \item It takes X time in training and X time in testing.
+            \item The model size was X.
+            \item Its training accuracy is X and testing accuracy is X.
+        \end{itemize}
+    \item Only HOG: 
+        \begin{itemize}
+            \item It takes X time in training and X time in testing.
+            \item The model size was X.
+            \item Its training accuracy is X and testing accuracy is X.
+        \end{itemize}
+    \item Only landmarks: 
+        \begin{itemize}
+            \item It takes X time in training and X time in testing.
+            \item The model size was X.
+            \item Its training accuracy is X and testing accuracy is X.
+        \end{itemize}
+    \item HOG and landmarks: 
+        \begin{itemize}
+            \item It takes X time in training and X time in testing.
+            \item The model size was X.
+            \item Its training accuracy is X and testing accuracy is X.
+        \end{itemize}
+    \item CNN, HOG and landmarks: 
+        \begin{itemize}
+            \item It takes X time in training and X time in testing.
+            \item The model size was X.
+            \item Its training accuracy is X and testing accuracy is X.
+        \end{itemize}
+\end{itemize}
+\end{enumerate}

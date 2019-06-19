@@ -3,7 +3,7 @@ import cv2
 # haarcascade_frontalface_alt.xml scale-factor = 1.00849, min-neighbours = 5
 # scale factor of 1.03 - 1.05 for haar seems to give good results
 
-class cacade_FaceDetector:
+class cascade_FaceDetector:
 	def __init__(self, classifier_type):
 		if classifier_type == 'haar':
 			self.classifier = cv2.CascadeClassifier('../../saved-models/face-detection/haarcascade_frontalface_alt.xml')
@@ -90,5 +90,6 @@ class cacade_FaceDetector:
 	def __display(img, boxes):
 		for box in boxes:
 			cv2.rectangle(img, box[0], box[1], (0, 255, 0), 1)
+		cv2.imwrite("result.jpg", img)
 		cv2.imshow("detected faces", img)
 		cv2.waitKey(0)

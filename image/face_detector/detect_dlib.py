@@ -1,5 +1,5 @@
 import numpy as np
-import cv2
+import cv2, time
 import dlib
 
 __dlib_detector = dlib.get_frontal_face_detector()
@@ -32,12 +32,20 @@ def _enhance_face(face):
 	face = cv2.cvtColor(face, cv2.COLOR_RGB2GRAY)
 	return face
 
+def __display(img, boxes):
+		for box in boxes:
+			cv2.rectangle(img, box[0], box[1], (0, 255, 0), 1)
+		cv2.imwrite("result.jpg", img)
+		cv2.imshow("detected faces", img)
+		cv2.waitKey(0)
 
 if __name__ == '__main__':
-	im = cv2.imread('y.jpg')
-	cv2.imshow("title", im)
-	cv2.waitKey(0)
-	res = get_faces(im)
-	for i in res:
-		cv2.imshow("df", i[0])
-		cv2.waitKey(0)
+	img = cv2.imread("example1.jpg")
+	t1 = time.time()	
+	out = get_faces(img)
+	print("execution time : %f\n" %(time.time() - t1))
+	boxes = []
+	for face in out:
+		boxes.append(face[1])
+	__display(img, boxes)
+	

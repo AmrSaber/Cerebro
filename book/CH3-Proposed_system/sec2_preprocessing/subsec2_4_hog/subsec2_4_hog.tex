@@ -1,0 +1,26 @@
+\paragraph{}
+the only tuning we needed for HOG was for the normalization parameter which the rest of parameters were taken following a paper\cite{HOG} we found which compared between other different parameters and giave us a conclusion on the best ones.\newline 
+our final configuration: \newline
+\begin{itemize}
+\item Orientation: 8 bins. 
+\item 12X12 pixels per cell. 
+\item 4X4 cells per block.
+\end{itemize}
+
+\paragraph{Normalization parameter tuning}
+we tried different normalization methods on the different datasets we had and chose the one that gave a better result on average.
+
+\begin{center}
+\begin{tabular}{ c|c|c|c }
+	  & FER & CK+ & RafD \\ \hline
+	 L1-norm & 23.16\% & 36.11\% & 89.08\% \\  
+	 L2-norm & 36.80\% & 57.33\% & \textbf{90.2\%} \\
+	 L1-sqrt & \textbf{38.61\%} & 46.83\% & 89.21\% \\
+	 L2-Hys & \textbf{38.61\%} & \textbf{57.99\%} & 88.96\% \\
+\end{tabular}
+\end{center}
+With FER \textbf{L1-sqrt} and \textbf{L2-Hys} give best result.\newline
+With CK+ we choose to work with  .\newline
+With RafD we choose to work with  \textbf{L2-norm}. \newline
+\paragraph{}
+as obvious from the results \textbf{L1-sqrt} and \textbf{L2-Hys} methods tend to show better results on average, but \textbf{L2-Hys} seems to be more effective method.
