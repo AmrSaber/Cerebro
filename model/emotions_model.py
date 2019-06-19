@@ -125,7 +125,7 @@ class EmotionsModel(object):
         
         for vector in faces:
             emotions_map = {}
-            emotions_vector = predict(vector)
+            emotions_vector = self.predict(vector)
             for emotion in emotions_vector:
                 emotions_map[emotion] = emotions_map.get(emotion, 0) + 1
             sortedEmotions = sorted(emotions_map.items(), key=lambda x: x[1], reversed=True)
