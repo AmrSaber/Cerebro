@@ -2,7 +2,7 @@
 Face landmark detection is the process of finding regions (points) of interest (ROI) in an image of a human face, those landmarks are used after wards as input features for our model.
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=\linewidth]{images/lm1.jpg}
+	\includegraphics[width=.5\linewidth]{images/lm1.jpg}
 	\caption{Landmarks Example}
 \end{figure}
 \paragraph{}
@@ -12,7 +12,7 @@ A pre-trained facial landmark detector inside the dlib library can be used to es
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=\linewidth]{images/lm2.jpg}
+	\includegraphics[width=.5\linewidth]{images/lm2.jpg}
 	\caption{68 Landmarks Distribution}
 \end{figure}
 
@@ -22,6 +22,4 @@ It used a training set of labeled facial landmarks on an image. These images are
 Given this labeled data, an ensemble of regression trees are trained to estimate the facial landmark positions directly from the pixel intensities themselves (i.e., no "feature extraction" is taking place).\newline
 The end result is a facial landmark detector that can be used to detect facial landmarks in real-time with high quality predictions.
 
-\paragraph{}
-\textbf{Effect on Performance:}\newline
-It has a good effect on performance because it is a very valuable feature in expression detection as performance (accuracy) increases after we used it as with HOG only testing accuracy was 87.54\% and when we added our Landmarks model it increased by about 10\% beside it only can achieve 85.32\% without HOG.
+
