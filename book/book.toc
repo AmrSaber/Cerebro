@@ -1,0 +1,122 @@
+\contentsline {chapter}{\numberline {1}CH1 - Introduction}{5}{chapter.1}% 
+\contentsline {section}{\numberline {1.1}Preface}{5}{section.1.1}% 
+\contentsline {subsection}{\numberline {1.1.1}Preface}{5}{subsection.1.1.1}% 
+\contentsline {section}{\numberline {1.2}Image Processing}{6}{section.1.2}% 
+\contentsline {subsection}{\numberline {1.2.1}Brief}{6}{subsection.1.2.1}% 
+\contentsline {paragraph}{definition}{6}{section*.2}% 
+\contentsline {paragraph}{impact}{6}{section*.3}% 
+\contentsline {subsection}{\numberline {1.2.2}How important is image processing?}{6}{subsection.1.2.2}% 
+\contentsline {paragraph}{}{6}{section*.4}% 
+\contentsline {subsubsection}{Noise removal}{6}{section*.5}% 
+\contentsline {paragraph}{}{6}{section*.6}% 
+\contentsline {subsubsection}{Feature extraction}{7}{section*.7}% 
+\contentsline {subsection}{\numberline {1.2.3}How is image processing important for our project}{7}{subsection.1.2.3}% 
+\contentsline {subsubsection}{Noise Removal}{8}{section*.8}% 
+\contentsline {subsubsection}{Feature Extraction}{8}{section*.9}% 
+\contentsline {section}{\numberline {1.3}Neural Networks}{8}{section.1.3}% 
+\contentsline {subsection}{\numberline {1.3.1}Breif}{8}{subsection.1.3.1}% 
+\contentsline {paragraph}{What is Neural Networks?}{8}{section*.10}% 
+\contentsline {paragraph}{}{8}{section*.11}% 
+\contentsline {paragraph}{}{8}{section*.12}% 
+\contentsline {subsection}{\numberline {1.3.2}Basics of Neural Networks.}{9}{subsection.1.3.2}% 
+\contentsline {paragraph}{a}{9}{section*.13}% 
+\contentsline {paragraph}{}{9}{section*.14}% 
+\contentsline {paragraph}{}{9}{section*.15}% 
+\contentsline {paragraph}{}{9}{section*.16}% 
+\contentsline {subsection}{\numberline {1.3.3}Why Neural networks are important? }{9}{subsection.1.3.3}% 
+\contentsline {paragraph}{}{9}{section*.17}% 
+\contentsline {subsection}{\numberline {1.3.4}Types of neural network }{10}{subsection.1.3.4}% 
+\contentsline {paragraph}{}{10}{section*.18}% 
+\contentsline {subsubsection}{\textbf feedforward neural network}{10}{section*.19}% 
+\contentsline {paragraph}{}{10}{section*.20}% 
+\contentsline {paragraph}{}{10}{section*.21}% 
+\contentsline {paragraph}{}{10}{section*.22}% 
+\contentsline {subsubsection}{Recurrent Neural Network }{10}{section*.23}% 
+\contentsline {paragraph}{}{10}{section*.24}% 
+\contentsline {subsubsection}{Convolutional Neural Network }{10}{section*.25}% 
+\contentsline {paragraph}{}{10}{section*.26}% 
+\contentsline {paragraph}{}{11}{section*.27}% 
+\contentsline {paragraph}{}{11}{section*.28}% 
+\contentsline {subsection}{\numberline {1.3.5}How Neural network is useful for Facial Emotion Detection}{11}{subsection.1.3.5}% 
+\contentsline {paragraph}{}{11}{section*.29}% 
+\contentsline {paragraph}{}{11}{section*.30}% 
+\contentsline {paragraph}{}{11}{section*.31}% 
+\contentsline {subsection}{\numberline {1.3.6}A Gentle Introduction to Convolutional Neural Network Layers }{12}{subsection.1.3.6}% 
+\contentsline {paragraph}{}{12}{section*.32}% 
+\contentsline {subsubsection}{Convolutional Layer}{12}{section*.33}% 
+\contentsline {paragraph}{}{12}{section*.34}% 
+\contentsline {paragraph}{}{12}{section*.35}% 
+\contentsline {subsubsection}{Stride}{12}{section*.36}% 
+\contentsline {subsubsection}{Padding}{13}{section*.37}% 
+\contentsline {subsubsection}{Relu}{13}{section*.38}% 
+\contentsline {paragraph}{}{13}{section*.39}% 
+\contentsline {paragraph}{}{13}{section*.40}% 
+\contentsline {paragraph}{}{13}{section*.41}% 
+\contentsline {subsubsection}{Pooling Layer}{13}{section*.42}% 
+\contentsline {paragraph}{}{13}{section*.43}% 
+\contentsline {paragraph}{}{13}{section*.44}% 
+\contentsline {subsubsection}{Fully connected Layer}{14}{section*.45}% 
+\contentsline {chapter}{\numberline {2}CH2 - Review}{15}{chapter.2}% 
+\contentsline {section}{\numberline {2.1}Preprocessing}{15}{section.2.1}% 
+\contentsline {subsection}{\numberline {2.1.1}Data sets}{15}{subsection.2.1.1}% 
+\contentsline {paragraph}{}{15}{section*.46}% 
+\contentsline {paragraph}{Training Dataset:}{15}{section*.47}% 
+\contentsline {paragraph}{Testing Dataset:}{15}{section*.48}% 
+\contentsline {subsubsection}{FER13}{15}{section*.49}% 
+\contentsline {paragraph}{}{15}{section*.50}% 
+\contentsline {paragraph}{}{16}{section*.51}% 
+\contentsline {subsubsection}{CK+}{16}{section*.52}% 
+\contentsline {paragraph}{}{16}{section*.53}% 
+\contentsline {paragraph}{}{16}{section*.54}% 
+\contentsline {subsection}{\numberline {2.1.2}Face detection}{16}{subsection.2.1.2}% 
+\contentsline {subsection}{\numberline {2.1.3}Image enhancements}{16}{subsection.2.1.3}% 
+\contentsline {paragraph}{}{16}{section*.55}% 
+\contentsline {paragraph}{}{17}{section*.56}% 
+\contentsline {paragraph}{}{17}{section*.57}% 
+\contentsline {paragraph}{}{17}{section*.58}% 
+\contentsline {paragraph}{}{18}{section*.59}% 
+\contentsline {paragraph}{}{20}{section*.60}% 
+\contentsline {paragraph}{}{21}{section*.61}% 
+\contentsline {subsection}{\numberline {2.1.4}Landmark extraction}{21}{subsection.2.1.4}% 
+\contentsline {subsection}{\numberline {2.1.5}HOG}{21}{subsection.2.1.5}% 
+\contentsline {paragraph}{}{21}{section*.62}% 
+\contentsline {paragraph}{}{23}{section*.63}% 
+\contentsline {paragraph}{Combining histogram}{23}{section*.64}% 
+\contentsline {paragraph}{}{24}{section*.65}% 
+\contentsline {paragraph}{How it\IeC {\textquoteright }ll be applied on the image?}{24}{section*.66}% 
+\contentsline {paragraph}{}{24}{section*.67}% 
+\contentsline {paragraph}{Normalization}{24}{section*.68}% 
+\contentsline {paragraph}{}{26}{section*.69}% 
+\contentsline {paragraph}{Histogram normalization}{26}{section*.70}% 
+\contentsline {subsection}{\numberline {2.1.6}Data augmentation}{26}{subsection.2.1.6}% 
+\contentsline {subsubsection}{Data Augmentation?}{26}{section*.71}% 
+\contentsline {paragraph}{}{26}{section*.72}% 
+\contentsline {paragraph}{what is Data Augmentation?}{27}{section*.73}% 
+\contentsline {paragraph}{}{27}{section*.74}% 
+\contentsline {paragraph}{}{27}{section*.75}% 
+\contentsline {paragraph}{}{27}{section*.76}% 
+\contentsline {paragraph}{}{27}{section*.77}% 
+\contentsline {paragraph}{}{27}{section*.78}% 
+\contentsline {paragraph}{}{27}{section*.79}% 
+\contentsline {subsubsection}{Results}{27}{section*.80}% 
+\contentsline {subsection}{\numberline {2.1.7}Under sampling}{27}{subsection.2.1.7}% 
+\contentsline {paragraph}{Breif}{27}{section*.81}% 
+\contentsline {paragraph}{How we used it in our project}{28}{section*.82}% 
+\contentsline {paragraph}{results}{28}{section*.83}% 
+\contentsline {section}{\numberline {2.2}model}{29}{section.2.2}% 
+\contentsline {chapter}{\numberline {3}CH3 - Proposed System}{31}{chapter.3}% 
+\contentsline {section}{\numberline {3.1}System Architecture}{31}{section.3.1}% 
+\contentsline {section}{\numberline {3.2}Preprocessing}{31}{section.3.2}% 
+\contentsline {subsection}{\numberline {3.2.1}Face Detection}{31}{subsection.3.2.1}% 
+\contentsline {subsection}{\numberline {3.2.2}Image Enhancements}{31}{subsection.3.2.2}% 
+\contentsline {subsection}{\numberline {3.2.3}Landmark Extraction}{31}{subsection.3.2.3}% 
+\contentsline {subsection}{\numberline {3.2.4}HOG}{31}{subsection.3.2.4}% 
+\contentsline {section}{\numberline {3.3}Model}{31}{section.3.3}% 
+\contentsline {section}{\numberline {3.4}Library}{31}{section.3.4}% 
+\contentsline {subsection}{\numberline {3.4.1}architecture}{31}{subsection.3.4.1}% 
+\contentsline {subsubsection}{Real Time Streaming}{32}{section*.84}% 
+\contentsline {subsubsection}{Single Image Interface}{32}{section*.85}% 
+\contentsline {section}{\numberline {3.5}Summary}{33}{section.3.5}% 
+\contentsline {chapter}{\numberline {4}CH4 - Results}{35}{chapter.4}% 
+\contentsline {chapter}{\numberline {5}CH5 - Conclusion}{37}{chapter.5}% 
+\contentsline {chapter}{\numberline {6}References}{39}{chapter.6}% 

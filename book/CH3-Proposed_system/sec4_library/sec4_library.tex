@@ -1,0 +1,57 @@
+\subsection{architecture}
+    We represent the project to be a library so that if any other project needs to use any functionality we support they can do so easily by just downloading and importing our library.
+\bigbreak
+    The library can be used by the higher level APIs or 
+    lower level methods and its structure is as follows :
+        \begin{itemize}
+             \item Emotion Recognition Interface 
+                \begin{itemize}
+                    \item Real Time Streaming
+                    \item Video
+                    \item Single Image
+                \end{itemize}
+             \item Lower Level APIs
+                \begin{itemize}
+                    \item Model API
+                    \item Feature Extraction API
+                    \item Image Processing API
+                \end{itemize}
+        \end{itemize}
+\newpage
+
+\subsubsection{Real Time Streaming}
+The Real Time Stream interface is developed in a way that works with threads so that the stream running smoothly with high efficiency with no noticed delay in processing the frames to recognize the emotions 
+\bigbreak 
+\noindent To use the stream function :
+% indentation of verbatim must be like that please don't change it
+\begin{itemize}
+\item import the module:
+\begin{verbatim}
+ from interface Import video-stream as vs
+\end{verbatim}
+\item call it:
+\begin{verbatim}
+vs.detect_stream_emotions(fps)
+\end{verbatim}
+\end{itemize}
+The frame-per-second value is an integer represents the number of frames will be processed to recognize emotion in per one second. default sit to be 40.
+\bigbreak
+
+\subsubsection{Single Image Interface}
+
+The Single Image Interface takes only one image as input and return image
+with emotions recognized 
+
+\noindent To use the Single Image Interface 
+\begin{itemize}
+\item import the module:
+\begin{verbatim}
+from interface Import process_image as pi
+\end{verbatim}
+\item call it:
+\begin{verbatim}
+pi.mark_faces_emotions(image)
+\end{verbatim}
+\end{itemize}
+\newpage
+

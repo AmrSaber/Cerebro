@@ -10,7 +10,7 @@ ETN : expected time needed
 
 1 - introduction
     1.1 Preface <SALMA> 9/6 <written>
-		this part should include 
+		this part should include
 		1 - an introduction about the problem we have
 		2 - why it's important to find a solution for it
 		3 - how would finding a solution to it help to achieve
@@ -18,12 +18,12 @@ ETN : expected time needed
 		ENP : 1
 		ETN : 2 hours
 
-	
+
     1.2 image processing <AIM> 10/6 <written>
         1.2.1 brief
 			this sections should cover
-			1 - small intro about image processing and its history. 
-			2 - how far is image processign important (e.g. being the first step for any computer 
+			1 - small intro about image processing and its history.
+			2 - how far is image processign important (e.g. being the first step for any computer
 				vision application and all)
 			ENP : 1
 			ETN : 1 hour
@@ -48,21 +48,21 @@ ETN : expected time needed
     1.3 Neural Network <WAFAA> 11/6
         1.3.1 brief (written, )
 			this section should include
-			1 - a biref history on neural networks, as well as explanation for how it 
+			1 - a biref history on neural networks, as well as explanation for how it
 	            works in general
 			2 - how far is neural networks important (e.g. it's the most used tool for all ML learning
 				applications now)
-			ENP : 1.5 
+			ENP : 1.5
 			ETN : 2 hours
 
         1.3.2 types of neural nets and their applications
 			this sections should cover
-			1 - for each type of neural networks 
-					you should state 
+			1 - for each type of neural networks
+					you should state
 					1 - a brief about it and how it works
 					2 - an example image for its structure
 					3 - what application is it most suited for.
-			ENP : 3 
+			ENP : 3
 			ETN : 6 hours
 
 
@@ -80,13 +80,13 @@ ETN : expected time needed
 				2 - explain its structure (make sure to use example graph for the network),
 				and the characteristics of this network (what is it good at, efficiency of time
 				and memory (the size of our model is a good example), ..etc).
-				
+
 				ENP : 1
 				ETN : 30 mins
-				
+
 		    1.3.4.2 how is it useful
 				<adding this section seems redundunt>
-		        explain in more details how it works, its characteristics and how those 
+		        explain in more details how it works, its characteristics and how those
 		        characteristics were most suited for our project.
 
 2 - Review <WAFAA> 15/6
@@ -98,32 +98,32 @@ ETN : expected time needed
 			- their structure ans size
 			- their problems
 			- .. etc
-			
+
 		2.1.2 face detection <AIM> 12/6
 			this section should cover:
 			1 - for each face detectection method state the following
 				1 - its principle of operation
 				2 - its effectiveness
 				3 - example image
-			ENP : 3 
+			ENP : 3
 			ETN : 6 hours
 
 		2.1.3 image enhacements <AREF> 11/6
-			this section should cover 
+			this section should cover
 			1 - the reasons why we need image enhancements (e.g. bacause input contians noise .. etc)
 			2 - for each image enchancement technique you should state
 					1 - a biref on how it works and what it's good for
 					2 - a code sample alogn with result images
-			ENP : 2 
+			ENP : 2
 			ETN : 4 hours
-			
-		2.1.4 landmark Extraction <AREF> 12/6 
-				this sections should cover 
+
+		2.1.4 landmark Extraction <AREF> 12/6
+				this sections should cover
 				1 - what is landmark extraction, why we need it
 				2 - the principle behind landmark exraction (how it works)
 				3 - [sample code with] example image
 				4 - its effect on performance
-				ENP : 1.5 
+				ENP : 1.5
 				ETN : 2 hours
 
 		2.1.5 HOG <MANAR> 13/6
@@ -143,7 +143,7 @@ ETN : expected time needed
 			4 - its effect on performance
 			ENP : 1.5
 			ETN : 2 hours
-	
+
         2.1.7 under sampling <AIM> 12/6
 			this section should cover
 			1 - the idea of undersampling XD
@@ -161,17 +161,17 @@ ETN : expected time needed
 		* include a comparison with table between different models if possible.
 		* make sure to include reference to resources used
 
-		ENP : 3 
+		ENP : 3
 		ETN : 8 hours
 
 
 3 - Proposed system
     3.1 System Architecture <AMR> 13/6
 		this section should cover:
-        1 - the black box model of our system, defining the expected input format, and 
+        1 - the black box model of our system, defining the expected input format, and
 		expected output format.
 		(a digram should be made for that)
-        2 - the system architecture, what are the parts the system is broken into, how they 
+        2 - the system architecture, what are the parts the system is broken into, how they
         fit togeather and how each of them works.
 		(another diagram should be made for this one as well)
 		ENP : 4
@@ -185,21 +185,21 @@ ETN : expected time needed
 
         3.2.1 face detection <AIM> 12/6
         3.2.2 image enhancements <AREF> 10/6
-        3.2.3 landmark Extraction <AREF> 12/6 
+        3.2.3 landmark Extraction <AREF> 12/6
         3.2.4 HOG <MANAR> 13/6
 
-    3.3 Model 
+    3.3 Model
         3.3.1 tried models <WAFAA> 18/6
-            the different structures we used for our project as well as how much increase in performance we 
+            the different structures we used for our project as well as how much increase in performance we
             get from each, we here need a table for different accurcies we got, what drives the accuracy higher
             , the no-more-learning (learning phobia) problem our model had, how we tried to address it.
 			this section should cover
 			1 - the different models we previously tried to work with
 				the performance of each of them.
-				what are the aspects that most control the performance			
-			
+				what are the aspects that most control the performance
+
         3.3.2 used model <AMR> 16/6
-            final model we used, how we reached it, final accuacy, if we are going for two models one for 
+            final model we used, how we reached it, final accuacy, if we are going for two models one for
             real time and one for accuracy state both.
 
 	3.4 library <SALMA> 14/6
@@ -208,12 +208,12 @@ ETN : expected time needed
 			3.4.2.1 real time streaming
 			3.4.2.2 video <MANAR> 14/6
 			3.4.2.3 single image
-			
+
 		3.4.3 lower level APIs
 			3.4.3.1 model API
 			3.4.3.2 feature exctracion API
 			3.4.3.3 image processing API
-			
+
 	3.5 ٍSummary <MANAR> 13/6
 		this section should cover
 		1 - the used methods for each section and why they were used.
