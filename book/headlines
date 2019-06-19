@@ -129,15 +129,9 @@ CH4, CH5 no progress
 					2 - a code sample alogn with result images
 			ENP : 2
 			ETN : 4 hours
-<<<<<<< HEAD
-
-		2.1.4 landmark Extraction <AREF> 12/6
-				this sections should cover
-=======
 			
 		2.1.4 landmark Extraction <AREF> 12/6 <written>
 				this sections should cover 
->>>>>>> f6065029b6e3b5ec289f7d45d040428bdd889623
 				1 - what is landmark extraction, why we need it
 				2 - the principle behind landmark exraction (how it works)
 				3 - [sample code with] example image
@@ -162,13 +156,8 @@ CH4, CH5 no progress
 			4 - its effect on performance
 			ENP : 1.5
 			ETN : 2 hours
-<<<<<<< HEAD
 
-        2.1.7 under sampling <AIM> 12/6
-=======
-		
 		2.1.7 under sampling <AIM> 12/6 <Written>
->>>>>>> f6065029b6e3b5ec289f7d45d040428bdd889623
 			this section should cover
 			1 - the idea of undersampling XD
 			2 - why did we try it
@@ -213,17 +202,10 @@ CH4, CH5 no progress
 		2 - comparison in performance (time, memory) and methods used by each.
 		3 - the solution we chose and why
 
-<<<<<<< HEAD
-        3.2.1 face detection <AIM> 12/6
-        3.2.2 image enhancements <AREF> 10/6
-        3.2.3 landmark Extraction <AREF> 12/6
-        3.2.4 HOG <MANAR> 13/6
-=======
         3.2.1 face detection <AIM> 12/6 <WRITTEN>
         3.2.2 image enhancements <AREF> 10/6 <WRITTEN>
         3.2.3 landmark Extraction <AREF> 12/6 
         3.2.4 HOG <MANAR> 13/6 <WRITTEN>
->>>>>>> f6065029b6e3b5ec289f7d45d040428bdd889623
 
     3.3 Model
         3.3.1 tried models <WAFAA> 18/6
@@ -250,13 +232,8 @@ CH4, CH5 no progress
 			3.4.3.1 model API
 			3.4.3.2 feature exctracion API
 			3.4.3.3 image processing API
-<<<<<<< HEAD
-
-	3.5 ٍSummary <MANAR> 13/6
-=======
 			
 	3.5 ٍSummary <MANAR> 13/6 
->>>>>>> f6065029b6e3b5ec289f7d45d040428bdd889623
 		this section should cover
 		1 - the used methods for each section and why they were used.
 		2 - final model parameter
