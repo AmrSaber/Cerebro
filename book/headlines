@@ -20,6 +20,9 @@ CH3 system architecture : NO PROGRESS
 	model, library and summary sections are not completed
 CH4, CH5 no progress
 	
+W : WRITTEN
+RV1: REVISED once
+RV2: REVISED TWICE and so on
 
 1 - introduction
     1.1 Preface <SALMA> 9/6 <written>
@@ -204,11 +207,11 @@ CH4, CH5 no progress
 
         3.2.1 face detection <AIM> 12/6 <WRITTEN>
         3.2.2 image enhancements <AREF> 10/6 <WRITTEN>
-        3.2.3 landmark Extraction <AREF> 12/6 
+        3.2.3 landmark Extraction <AREF> 12/6 <RV1>
         3.2.4 HOG <MANAR> 13/6 <WRITTEN>
 
     3.3 Model
-        3.3.1 tried models <WAFAA> 18/6
+        3.3.1 tried models <WAFAA> 18/6 <WRITTEN>
             the different structures we used for our project as well as how much increase in performance we
             get from each, we here need a table for different accurcies we got, what drives the accuracy higher
             , the no-more-learning (learning phobia) problem our model had, how we tried to address it.
@@ -217,7 +220,7 @@ CH4, CH5 no progress
 				the performance of each of them.
 				what are the aspects that most control the performance
 
-        3.3.2 used model <AMR> 16/6
+        3.3.2 used model <AMR> 16/6 <WRITTEN>
             final model we used, how we reached it, final accuacy, if we are going for two models one for
             real time and one for accuracy state both.
 
@@ -233,7 +236,7 @@ CH4, CH5 no progress
 			3.4.3.2 feature exctracion API
 			3.4.3.3 image processing API
 			
-	3.5 ٍSummary <MANAR> 13/6 
+	3.5 ٍSummary <MANAR> 13/6 <WRITTEN>
 		this section should cover
 		1 - the used methods for each section and why they were used.
 		2 - final model parameter
