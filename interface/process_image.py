@@ -28,6 +28,11 @@ def extract_faces_emotions(image, detector_type = 'dlib'):
     return items
 
 def mark_faces_emotions(image, detector_type = 'dlib', extracted_faces_emotions = None):
+    """
+    takes image(numpy array) and returns the same image with marked faces and emotions.
+    you can control detector type passing one of the available detectors (default:'dlib', 'haar', 'lbp').
+    in case of calling extracted_faces_emotions to use it, you shold pass its return here in extracted_faces_emotions parameter.
+    """
     font = cv2.FONT_HERSHEY_SIMPLEX
     font_scale = 1
     color = (72, 1, 68)
