@@ -60,7 +60,7 @@ def detect_video_emotions_tracking (video_path, output_path, tracked_frames=125)
         if it == tracked_frames :
             returned_faces, returned_cords = tracker.faceTracking(to_be_tracked, 125)
             
-            print(len(returned_faces))
+            # print(len(returned_faces))
             emotions = model.predict_with_vote(returned_faces)
             
             for j in range(len(cords[0])):

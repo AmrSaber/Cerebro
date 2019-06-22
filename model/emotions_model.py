@@ -1,15 +1,17 @@
 #! /user/bin/env python3
 
+import os
+os.environ['KERAS_BACKEND'] = 'theano'
+
 import keras
 from keras.models import Model
-from keras.optimizers import SGD
 from keras.utils import to_categorical
+# from keras.preprocessing.image import ImageDataGenerator
 from keras.layers import Input, Conv2D, MaxPooling2D, Flatten, Dense, BatchNormalization, concatenate, Dropout
 
 import pickle
 import numpy as np
 from pathlib import Path
-from keras.preprocessing.image import ImageDataGenerator
 from image.enhancement import filters
 from image import feature_extraction, utils
 
@@ -34,7 +36,7 @@ class EmotionsModel(object):
         # model numbers
         self.imageSize = 150
         self.batch_size = 128
-        self.epochs = 5
+        self.epochs = 20
 
 
         if not create_new and self.has_saved_model():

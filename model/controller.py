@@ -1,10 +1,9 @@
 #! /user/bin/env python3
 
-from  keras.utils import  to_categorical
 import argparse
 
 from model.emotions_model import *
-from model.reader import read_testing, read_training, get_emotions, set_dataset
+from model.reader import read_testing, read_training, get_emotions, set_dataset, available_datasets
 
 def main():
 	parser = argparse.ArgumentParser(description='')
@@ -18,11 +17,13 @@ def main():
 
 	parser.add_argument('--tr-count', metavar='int', type=int, default=-1, help='Set the count of the training data')
 	parser.add_argument('--ts-count', metavar='int', type=int, default=-1, help='Set the count of the testing data')
+	
+	parser.add_argument('-d', type=str, required=True, choices=available_datasets, help='Dataset to use')
 
 	args = parser.parse_args()
 	must_train = args.t
 
-	set_dataset('ck+')
+	set_dataset(args.d)
 
 	print('Reading data...')
 	x_test, y_test = read_testing(args.ts_count)

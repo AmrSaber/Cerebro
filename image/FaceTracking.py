@@ -1,6 +1,6 @@
 import cv2
 import dlib
-
+import numpy as np
 
 def faceTracking(frames, framesNumber):
 
@@ -78,11 +78,12 @@ def faceTracking(frames, framesNumber):
                 tracker = dlib.correlation_tracker()
                 tracker.start_track(frame, dlib.rectangle(x - 10, y - 20, x + w + 10, y + h + 20))
                 faceTrackers[currentFaceID] = tracker
-                faces.append(nones)
-                cords.append(nones)
+                faces.append(list(nones))
+                cords.append(list(nones))
                 faces[currentFaceID][frameCounter] = frame[y: (y + h), x: (x + w)]
                 cords[currentFaceID][frameCounter] = ((x, y), (x + w, y + h))
-
+    print(np.array(faces).shape)
+    for i in faces[0]: print(i)
     return faces, cords
 
 """
