@@ -1,5 +1,5 @@
-With the goal to detect facial expressions in images, we need to detect faces within them then extract their features so we expect the input image to have good quality, sharpness, clearness as much as possible.\newline
-Fortunately nowadays cameras have higher quality so in this case there should be no problem, however in case of low quality input photos we need to apply some enhancement techniques before we proceed to subsequent stages.
+With the goal to detect facial expressions in images, we need to detect faces within them then extract their features so we expect the input image to have \textbf{good quality, sharpness, clearness} as much as possible.\newline
+Fortunately nowadays cameras have higher quality so in this case there should be no problem, however in case of low quality input images we need to apply some enhancement techniques before we proceed to subsequent stages.
 
 \paragraph{Most common problems:}
 \subparagraph{Salt and Pepper Noise:}
@@ -11,7 +11,7 @@ The main idea of the Median Filter is  replacing each pixel with the median of
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=.5\linewidth]{images/salt_pepper.jpg}
-	\caption{I/O Example}
+	\caption{Apply Median Filter on salt and paper noise}
 	\label{fig:median}
 \end{figure}
 
