@@ -119,6 +119,7 @@ class EmotionsModel(object):
         if type(faces) is not list:
             faces = [faces]
 
+        is_one_face = False
         if type(faces[0]) is not list:
             faces = [faces]
             is_one_vector = True
@@ -131,7 +132,7 @@ class EmotionsModel(object):
             emotions_vector = self.predict(transformed_vector)
             for emotion in emotions_vector:
                 emotions_map[emotion] = emotions_map.get(emotion, 0) + 1
-            sortedEmotions = sorted(emotions_map.items(), key=lambda x: x[1], reversed=True)
+            sortedEmotions = sorted(emotions_map.items(), key=lambda x: x[1], reverse=True)
             result.append(sortedEmotions[0][0])
         
         if is_one_vector:
