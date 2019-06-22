@@ -21,10 +21,12 @@ class EmotionsModel(object):
         self,
         verbose=False,
         create_new=False,
+        use_reduced_emotions=False,
         use_hog=None,
         use_cnn=None,
         use_lm=None,
         emotions=None,
+        reduced_emotions=None,
     ):
         # pathes constants
         self.model_path = './saved-models/emotions_model.f5'
@@ -32,6 +34,7 @@ class EmotionsModel(object):
 
 
         self.verbose = verbose
+        self.use_reduced_emotions = use_reduced_emotions
         
         # model numbers
         self.imageSize = 150
@@ -43,7 +46,7 @@ class EmotionsModel(object):
             self.load_model()
             self.is_trained = True
         else:
-            if use_hog == None or use_cnn == None or use_lm == None or emotions == None:
+            if use_hog == None or use_cnn == None or use_lm == None or emotions == None or reduced_emotions == None:
                 raise Exception(
                     'When creating new model, all model specs (use_hog, use_cnn, use_lm, emotions) must be given'
                 )
@@ -53,6 +56,7 @@ class EmotionsModel(object):
             self.use_cnn = use_cnn
             self.use_lm = use_lm
             self.emotions = emotions
+            self.reduced_emotions = reduced_emotions
 
             self.model = self.__create_model__()
             self.is_trained = False
@@ -105,7 +109,10 @@ class EmotionsModel(object):
 
         if not prob_emotion:
             for i, all in enumerate(res):
-                res[i] = self.emotions[np.argmax(all)]
+                if self.use_reduced_emotions:
+                    res[i] = self.reduced_emotions[np.argmax(all)]
+                else:
+                    res[i] = self.emotions[np.argmax(all)]
 
         if is_one_face:
             res = res[0]
@@ -209,6 +216,7 @@ class EmotionsModel(object):
                     self.use_cnn,
                     self.use_lm,
                     self.emotions,
+                    self.reduced_emotions,
                 ),
                 specsFile
             )
@@ -219,7 +227,7 @@ class EmotionsModel(object):
 
         # load model specs
         with open(self.model_specs_path, 'rb') as specsFile:
-            self.use_hog, self.use_cnn, self.use_lm, self.emotions = pickle.load(specsFile)
+            self.use_hog, self.use_cnn, self.use_lm, self.emotions, self.reduced_emotions = pickle.load(specsFile)
 
     def has_saved_model(self):
         model_path = Path(self.model_path)

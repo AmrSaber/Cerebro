@@ -10,6 +10,7 @@ path_testing = './model/dataset/combined_testing.bin'
 
 # 0: neutral, 1: anger, 2: contempt, 3: disgust, 4: fear, 5: happy, 6: sadness, 7: surprise
 emotions = ['Neutral', 'Anger', 'Contempt', 'Disgust', 'Fear', 'Happy', 'Sadness', 'Surprise']
+reduced_emotions = ['Neutral', 'Unsatisfied', 'Unsatisfied', 'Unsatisfied', 'Unsatisfied', 'Satisfied', 'Unsatisfied', 'Neutral']
 
 def read_training(limit=-1):
 	return read_file(path_training, limit)
