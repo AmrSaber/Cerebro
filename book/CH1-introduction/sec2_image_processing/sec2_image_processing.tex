@@ -17,9 +17,9 @@ to act based on the content of input image.
 for this computer to do that it must be able to clearly extract feature of interest from the image, 
 in order to make use of the image, we must have 2 main tasks for image processing:
 \begin{enumerate}
-	\item noise removal: to remove the noise (like salt and pepper, or gauessian blur, ...etc) that we estimate to exist in the image so as to refine the features to be extracted from the image.
+	\item Noise Removal: to remove the noise (like salt and pepper, or gauessian blur, ...etc) that we estimate to exist in the image so as to refine the features to be extracted from the image.
 	
-	\item feature extraction: to highlight and evaluate features of interest that exist in the image to be used
+	\item Feature Extraction: to highlight and evaluate features of interest that exist in the image to be used
 	as input data for computer vision or Machine learning algorithms e.g. neural networks.
 \end{enumerate}
 these two processes are the most common use cases for image processing, and we will go over them with more detail in next section.
@@ -28,6 +28,7 @@ these two processes are the most common use cases for image processing, and we w
 %---------------------------------------------------------------------------------
 %---------------------------------------------------------------------------------
 %---------------------------------------------------------------------------------
+\begin{comment}
 \subsection{How important is image processing?}
 \paragraph{}
 The applications of image processing are many we will catch on some applications for noise removal and feature extraction.
@@ -52,7 +53,7 @@ Some other filter are used for enhancement can be sharpening filter and.
 
 \subsubsection{Feature extraction}
 this process is done to highlight features of interest in an image 
-
+\end{comment}
 
 %---------------------------------------------------------------------------------
 %---------------------------------------------------------------------------------
@@ -62,10 +63,13 @@ The purposes of our project is to recognize the facial expression from face imag
 processing techniques have been applied to the input image before extracting features like face landmarks and HOG from the image.
 
 \subsubsection{Noise Removal}
-since we don't expect the input image to be particularly corrupted we only use median filter to 
-remove white noise and salt and pepper noise a gaussian filter was being used at as well but 
+since we don't expect the input image to be particularly corrupted we  use median filter to 
+remove salt and pepper noise .
+\begin{comment}
+a gaussian filter was being used at as well but 
 it was inefficient in terms of time so the median filter took its place without a problem.
-we also use sharpening filter to make face features more clear for the landmark extraction process.
+\end{comment}
+We also use sharpening filter to make face features more clear for the landmark extraction process.
 
 \subsubsection{Feature Extraction}
 unlike CNN (convolutional neural network) model which extracts the features it needs from the image directly, 

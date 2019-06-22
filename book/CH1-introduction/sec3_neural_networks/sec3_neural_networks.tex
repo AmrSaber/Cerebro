@@ -10,12 +10,13 @@ While neural networks (also called “perceptrons”) have been around since the
 Another important advance has been the arrival of deep learning neural networks, in which different layers of a multilayer network extract different features until it can recognize what it is looking for.
 
 \subsection{Basics of Neural Networks.}
-\paragraph a basic idea of how a deep learning neural network learns, imagine a factory line. After the raw materials (the data set) are input, they are then passed down the conveyer belt, with each subsequent stop or layer extracting a different set of high-level features. If the network is intended to recognize an object, the first layer might analyze the brightness of its pixels. see figure 1.2
+\paragraph a basic idea of how a deep learning neural network learns, imagine a factory line. After the raw materials (the data set) are input, they are then passed down the conveyer belt, with each subsequent stop or layer extracting a different set of high-level features. If the network is intended to recognize an object, the first layer might analyze the brightness of its pixels. (see Figure \ref{fig:nn})
 	
-\begin{figure}{l}
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=1.0\textwidth]{CH1-introduction/sec3_neural_networks/nn.png}
 	\caption{example of neural networks}
+	\label{fig:nn}
 \end{figure} 
 
 \paragraph{}
@@ -42,12 +43,12 @@ There are multiple types of neural network, each of which come with their own sp
 \paragraph{}The most basic type of neural net is something called a feedforward neural network, in which information travels in only one direction from input to output.\newline
 neural network layers are independent of each other; hence, a specific layer can have an arbitrary number of nodes. Typically, the number of hidden nodes must be greater than the number of input nodes. When the neural network is used as a function approximation, the network will generally have one input and one output node. When the neural network is used as a classifier, the input and output nodes will match the input features and output classes.\newline
 A neural network must have at least one hidden layer but can have as many as necessary. The bias nodes are always set equal to one. In analogy, the bias nodes are similar to the offset in linear regression 
-i.e. y = mx+b. How does one select the proper number of nodes and hidden number of layers? This is the best part: there are really no rules! The modeler is free to use his or her best judgment on solving a specific problem. Experience has shown that there are best practices such as selecting an adequate number of hidden layers, activation functions, and training methods
-see figure (1.3).
-\begin{figure}
+i.e. y = mx+b. How does one select the proper number of nodes and hidden number of layers? This is the best part: there are really no rules! The modeler is free to use his or her best judgment on solving a specific problem. Experience has shown that there are best practices such as selecting an adequate number of hidden layers, activation functions, and training methods (see Figure \ref{feed_forwoard}).
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=0.7\textwidth]{rf.png}
 	\caption{Structure of Feedforward and Recurrent Neural networks.}
+	\label{feed_forwoard}
 \end{figure}
 \subsubsection{Recurrent Neural Network
 }
@@ -80,20 +81,22 @@ The innovation of convolutional neural networks is the ability to automatically 
 A CNN uses a system much like a multilayer perceptron that has been designed for reduced processing requirements. The layers of a CNN consist of an input layer, an output layer and a hidden layer that includes multiple convolutional layers, pooling layers, fully connected layers and normalization layers. The removal of limitations and increase in efficiency for image processing results in a system that is far more effective, simpler to trains limited for image processing and natural language processing.
 \subsubsection{Convolutional Layer}
 \paragraph{}
-Convolution is the first layer to extract features from an input image. Convolution preserves the relationship between pixels by learning image features using small squares of input data. It is a mathematical operation that takes two inputs such as image matrix and a filter or kernal multiply them and get another matrix as a result which  is called the feature map.
-\begin{figure}
+Convolution is the first layer to extract features from an input image. Convolution preserves the relationship between pixels by learning image features using small squares of input data. It is a mathematical operation that takes two inputs such as image matrix and a filter or kernal multiply them and get another matrix as a result which  is called the feature map (see Figure \ref{conv}).
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=0.7\textwidth]{conv_layer.png}
 	\caption{example of Convolutional layer.}
+	\label{conv}
 \end{figure}
 \paragraph{}
 Convolution of an image with different filters can perform operations such as edge detection, blur and sharpen by applying filters. The below example shows various convolution image after applying different types of filters (Kernels).
 \subsubsection{Stride}
-Stride is the number of pixels shifts over the input matrix. When the stride is 1 then we move the filters to 1 pixel at a time. When the stride is 2 then we move the filters to 2 pixels at a time and so on. The below figure shows convolution would work with a stride of 2.
-\begin{figure}
+Stride is the number of pixels shifts over the input matrix. When the stride is 1 then we move the filters to 1 pixel at a time. When the stride is 2 then we move the filters to 2 pixels at a time and so on. The below figure shows convolution would work with a stride of 2.(see Figure \ref{stride})
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=0.7\textwidth]{stride.jpg}
 	\caption{example of stride.}
+	\label{stride}
 \end{figure}
 \subsubsection{Padding}
 Sometimes filter does not fit perfectly fit the input image. We have two options:
@@ -120,11 +123,12 @@ Pooling layers section would reduce the number of parameters when the images are
 	\item Sum Pooling
 \end{enumerate}
 \paragraph{}
-Max pooling take the largest element from the rectified feature map. Taking the largest element could also take the average pooling. Sum of all elements in the feature map call as sum pooling.
-\begin{figure}
+Max pooling take the largest element from the rectified feature map. Taking the largest element could also take the average pooling. Sum of all elements in the feature map call as sum pooling. (see Figure \ref{pooling})
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=0.7\textwidth]{pooling_layer.jpg}
 	\caption{example of pooling layer}
+	\label{pooling}
 \end{figure}
 \subsubsection{Fully connected Layer}
 The layer we call as FC layer, we flattened our matrix into vector and feed it into a fully connected layer like neural network.
