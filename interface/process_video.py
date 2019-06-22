@@ -39,7 +39,7 @@ def detect_video_emotions_tracking (video_path, output_path, tracked_frames=125)
     #processing frames
     vidObj = cv2.VideoCapture(video_path)
     fps = vidObj.get(5) #fps
-    rotateCode = None #check_rotation(video_path)
+    rotateCode = check_rotation(video_path)
 
     success = 1 #checks whether frames were extracted
     it = 0
@@ -59,19 +59,25 @@ def detect_video_emotions_tracking (video_path, output_path, tracked_frames=125)
         #after calling track function that is what is supposed to be done
         if it == tracked_frames :
             returned_faces, returned_cords = tracker.faceTracking(to_be_tracked, 125)
-            
+
             # print(len(returned_faces))
             emotions = model.predict_with_vote(returned_faces)
             
-            for j in range(len(cords[0])):
-                tmp = to_be_tracked[j][0]
-                for i in range(len(cords)):
-                    if cords[i][j] != None:
-                        em = emotions[i]
-                        tmp = mark_emotion(tmp, cords[i][j], em)
-                tmp = cv2.cvtColor(tmp,cv2.COLOR_BGR2RGB)
-                img_frames.append(tmp)
-
+            if len(returned_cords) == 0:
+                for i in range(125):
+                    tmp = cv2.cvtColor(tmp,cv2.COLOR_BGR2RGB)
+                    img_frames.append(tmp)
+            else:
+                for j in range(len(returned_cords[0])): 
+                    tmp = to_be_tracked[j][0]
+                    for i in range(len(returned_cords)):
+                        if returned_cords[i][j] != None:
+                            em = emotions[i]
+                            #tmp = pi.mark_faces_emotions(tmp, extracted_faces_emotions = [None, returned_cords[i][j], em ])
+                            tmp = mark_emotion(tmp, returned_cords[i][j], em)
+                    tmp = cv2.cvtColor(tmp,cv2.COLOR_BGR2RGB)
+                    img_frames.append(tmp)
+            
             to_be_tracked = []
             it = 0
             to_be_printed += 1
@@ -90,7 +96,7 @@ def detect_video_emotions_tracking (video_path, output_path, tracked_frames=125)
     concat_clip = concatenate_videoclips(clips, method="chain")
     concat_clip_edited = concat_clip.set_audio(audio)
     concat_clip_edited.write_videofile(output_path, fps=fps)
-
+"""
 def mark_emotion(image, cords, emotion):
     font = cv2.FONT_HERSHEY_SIMPLEX
     font_scale = 1
@@ -99,13 +105,13 @@ def mark_emotion(image, cords, emotion):
     offset_y = 0
 
 
-    tmp = (i[0][0] + offset_x, i[0][1] - offset_y)
+    tmp = (cords[0][0] + offset_x, cords[0][1] - offset_y)
     size = cv2.getTextSize(emotion, font, fontScale=font_scale, thickness=1)[0]
     box_coords = (tmp, (tmp[0] + size[0] - 2, tmp[1] - size[1] - 2))
     cv2.rectangle(image, box_coords[0], box_coords[1], color, cv2.FILLED)
 
     #selected face box
-    image = cv2.rectangle(image,i[0],i[1],color,2)
+    image = cv2.rectangle(image,cords[0],cords[1],color,2)
 
     #text
     image = cv2.putText(
@@ -118,3 +124,4 @@ def mark_emotion(image, cords, emotion):
         1
     )
     return image
+"""

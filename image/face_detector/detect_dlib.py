@@ -9,10 +9,11 @@ def get_faces(img):
 	rects = __dlib_detector(img, 2)
 	res = []
 	for rect in rects:
-		face = _extract_face(img, rect)
-		face = _enhance_face(face)
 		p1 = rect.tl_corner()
 		p2 = rect.br_corner()
+		if (p1.x - p2.x == 0) or (p1.y - p2.y == 0): continue
+		face = _extract_face(img, rect)
+		face = _enhance_face(face)
 		box = [(p1.x, p1.y), (p2.x, p2.y)]
 		res.append((face, box))
 	return res

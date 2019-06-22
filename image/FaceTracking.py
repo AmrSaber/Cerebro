@@ -20,7 +20,7 @@ def faceTracking(frames, framesNumber):
     # returns numpy.int32 and the tracker requires an int
     for (frame, croppedFaces) in frames:
         frameCounter += 1
-        frame = cv2.resize(frame, (320, 240))
+        # frame = cv2.resize(frame, (320, 240))
         for ((_x1, _y1), (_x2, _y2)) in croppedFaces:
             x = int(_x1)
             y = int(_y1)
@@ -82,8 +82,8 @@ def faceTracking(frames, framesNumber):
                 cords.append(list(nones))
                 faces[currentFaceID][frameCounter] = frame[y: (y + h), x: (x + w)]
                 cords[currentFaceID][frameCounter] = ((x, y), (x + w, y + h))
-    print(np.array(faces).shape)
-    for i in faces[0]: print(i)
+    #print(np.array(faces).shape)
+    #for i in faces[0]: print(i)
     return faces, cords
 
 """
