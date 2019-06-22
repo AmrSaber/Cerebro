@@ -1,26 +1,16 @@
 \paragraph{}
-A data set (or dataset) is a collection of data, Most commonly a data set corresponds to the contents of a single database table, where each column of the table represents a particular variable(feature), when working in machine learning we need datasets for training our models, huge datasets are preferred sometimes specially for deep learning.
-
-\begin{comment}
-\paragraph{Training Dataset:}
- A dataset that we feed into our machine learning algorithm to train our model.
-\paragraph{Testing Dataset:}
-Testing Dataset: A dataset that we use to validate the accuracy of our model but is not used to train the model. It may be called the validation dataset.
-\end{comment}
-
-\subsubsection{Brief about used Datesets.}
-% Here we will give a quick brief of the data sets we used their characteristics and their problems.
-\subsubsection{FER13}
-\ref{fer_13}
+A data set (or dataset) is a collection of data, Most commonly a data set corresponds to the contents of a single database table, where each column of the table represents a particular variable(feature), when working in machine learning we need datasets for training our models, huge datasets are preferred sometimes specially for deep learning.\newline
+\subsubsection{Brief of used Datesets.}
+\textbf{FER13}
 \begin{figure}
 	\centering
-	\includegraphics[width=.5\textwidth]{images/fer2013.jpg}
+	\includegraphics[width=.7\textwidth]{images/fer2013.jpg}
 	\caption{samples from fer13 dataset.}
 \end{figure} 
 \paragraph{}
 FER2013 is a large, publicly available Facial Expression Detection dataset consisting of 35,887 face crops, The dataset is challenging as the depicted faces vary significantly in terms of person age, face pose, and other factors, reflecting realistic conditions, 
-The dataset is split into training, validation, and test sets with 28,709, 3,589, and 3,589 samples respectively.\newline
-fer13 contains seven categories (0=Angry, 1=Disgust, 2=Fear, 3=Happy, 4=Sad, 5=Surprise, 6=Neutral), Basic expression labels are provided for all samples, All images are grayscale and have a resolution of 48 by 48 pixels, The human accuracy on this dataset is around 65.5\%. Figure 2.1
+The dataset is split into training, validation, and test sets with 28,709, 3,589, and 3,589 samples respectively.(see Figure \ref{fig:fer13})\newline
+fer13 contains seven categories (0=Angry, 1=Disgust, 2=Fear, 3=Happy, 4=Sad, 5=Surprise, 6=Neutral), Basic expression labels are provided for all samples, All images are grayscale and have a resolution of 48 by 48 pixels, The human accuracy on this dataset is around 65.5\%. 
  
 \begin{figure}
 	\centering
@@ -35,16 +25,15 @@ from Figure \ref{fig:fer13} which describe the the distribution of data in the d
 	\item there is unbalanced distribution of data ("disgust" emotion has only 500 images while happy has around 7000 images)   
 \end{enumerate}
 
- This makes the classification harder because the model have to generalize well and be robust to incorrect data, The best accuracy results obtained on this dataset, as far as I know, is 75.2\% described in this paper:\cite{state_of_art}[Facial Expression Recognition using Convolutional Neural Networks: State of the Art, Pramerdorfer \& al. 2016] using CNN .
+ This makes the classification harder because the model have to generalize well and be robust to incorrect data, The best accuracy results obtained on this dataset is 75.2\% according to this paper:\cite{state_of_art}[Facial Expression Recognition using Convolutional Neural Networks: State of the Art, Pramerdorfer \& al. 2016] using CNN .
 
 \subsubsection{CK+}
-\ref{ck+}
 \paragraph{}
 Extended cohen kandle dataset is a small dataset ,publicly available Facial Expression Detection dataset Participants are 18 to 50 years of age, 69\% female, 81\% Euro-American 
 13\% Afro-Americn and 6\% other groups .
 \paragraph{}
-Image sequances for frontal views and 30-degree views were digitalized into either 640*940 or 640*480 pixel arrays with 8-bit gray scale or 124 color value.contains eight categories neutral, sadness, surprise, happiness, fear, anger, contempt and disgust.	
+Image sequances for frontal views and 30-degree views were digitalized into either 640*940 or 640*480 pixel arrays with 8-bit gray scale or 124 color value.contains eight categories neutral, sadness, surprise, happiness, fear, anger, contempt and disgust.
 
 \subsubsection{Radrubd}
-\textcolor{red}{\textbf{TBD}}
-
+\paragraph{}
+an academic dataset contain 1308 image for 8 emotions each emotion have 200 image , each person in this dataset asked to make 8 emotion then record his emotion from three directions with good resolution .
