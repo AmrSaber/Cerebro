@@ -45,6 +45,7 @@ class EmotionsModel(object):
         if not create_new and self.has_saved_model():
             self.load_model()
             self.is_trained = True
+            self.model._make_predict_function()
         else:
             if use_hog == None or use_cnn == None or use_lm == None or emotions == None or reduced_emotions == None:
                 raise Exception(
