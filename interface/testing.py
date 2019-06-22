@@ -3,7 +3,6 @@
 from interface import video_stream as vs
 
 def main():
-	 fps = 40
-	 vs.detect_stream_emotions(fps)
+	 vs.detect_stream_emotions()
 
 if __name__ == '__main__': main()
