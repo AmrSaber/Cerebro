@@ -2,13 +2,13 @@ from distutils.core import setup
 import setuptools
 setup(
     name = 'CEREBRO1',
-    version = '1.0',
+    version = '1.1',
     license='gpl-3.0',
     description = 'recognizing facial expressions from images, videos and real-time stream',
     author = 'AmrSaber, WafaaIsmail, MohamedAhmed, SalmaSayed, MohamedAref, ManarArabi',
     author_email = 'amr.m.saber.mail@gmail.com, wafaaismail595@gmail.com, mohamedmaim97@gmail.com, Salmasayed797@gmail.com, muhammad.aref224@gmail.com, manar.araby.ma@gmail.com',
     url = 'https://github.com/AmrSaber/Cerebro',
-    download_url = 'https://github.com/AmrSaber/Cerebro/archive/v1.0.tar.gz',
+    download_url = 'https://github.com/AmrSaber/Cerebro/archive/v1.1.tar.gz',
     keywords = ['emotions', 'expressions', 'real-time stream'],
     packages=setuptools.find_packages(),
     
