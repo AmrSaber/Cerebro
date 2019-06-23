@@ -86,7 +86,7 @@ def detect_video_emotions_with_tracking (video_path, output_path, batch_size=125
                         if returned_cords[i][j] != None:
                             em = emotions[i]
                             extracted_faces_emotions.append((returned_faces[i][j], returned_cords[i][j], em))
-                            #tmp = mark_emotion(tmp, returned_cords[i][j], em)
+                            
                     tmp = pi.mark_faces_emotions(tmp, extracted_faces_emotions=extracted_faces_emotions)
                     tmp = cv2.cvtColor(tmp,cv2.COLOR_BGR2RGB)
                     img_frames.append(tmp)
@@ -111,31 +111,54 @@ def detect_video_emotions_with_tracking (video_path, output_path, batch_size=125
     concat_clip_edited = concat_clip.set_audio(audio)
     concat_clip_edited.write_videofile(output_path, fps=fps)
 
-def mark_emotion(image, cords, emotion):
-    font = cv2.FONT_HERSHEY_SIMPLEX
-    font_scale = 1
-    color = (72, 1, 68)
-    offset_x = 5
-    offset_y = 0
+def detect_video_emotions(video_path, output_path, skip = 50, detector_type = 'dlib', verbose=False):
+    """
+    skip >> determines number of skipped frames during procerssing
+    in normal video speed skip=50 means detect emotions every 2 seconds
+    higher skip means faster processing but less accurate
+    -----------------------------------------
+    output_path >> include output name & extension
+    the output video extension should be mp4
+    """
+    #saving audio 
+    video = VideoFileClip(video_path)
+    audio = video.audio
 
+    #processing frames
+    vidObj = cv2.VideoCapture(video_path)
+    fps = vidObj.get(5) #fps
+    rotateCode = check_rotation(video_path)
 
-    tmp = (cords[0][0] + offset_x, cords[0][1] - offset_y)
-    size = cv2.getTextSize(emotion, font, fontScale=font_scale, thickness=1)[0]
-    box_coords = (tmp, (tmp[0] + size[0] - 2, tmp[1] - size[1] - 2))
-    cv2.rectangle(image, box_coords[0], box_coords[1], color, cv2.FILLED)
+    success = 1 #checks whether frames were extracted
+    real_frame_counter = 1 #to check with sampling
+    sampled_frame_counter = 1 #to print frame number for user
+    prev_frame_data = None
 
-    #selected face box
-    image = cv2.rectangle(image,cords[0],cords[1],color,2)
+    img_frames = []
 
-    #text
-    image = cv2.putText(
-        image,
-        emotion,
-        tmp,
-        font,
-        font_scale,
-        (255, 255, 255),
-        1
-    )
-    return image
+    #getting frames
+    while success:
+        success, image = vidObj.read()
 
+        if rotateCode is not None:
+            image = cv2.rotate(image, rotateCode)
+
+        if not success :
+            break
+        #processing frames
+        if not(real_frame_counter % skip):
+            prev_frame_data = pi.extract_faces_emotions(image, detector_type)
+            if verbose: print("process frame: ", sampled_frame_counter)
+            sampled_frame_counter += 1
+
+        image = pi.mark_faces_emotions(image,None, prev_frame_data)
+        real_frame_counter += 1
+        image = cv2.cvtColor(image,cv2.COLOR_BGR2RGB)
+        img_frames.append(image)
+    
+    #making output video
+    if verbose: print("making output video...")
+    clips = [ImageClip(m).set_duration(1/fps) for m in img_frames]
+    concat_clip = concatenate_videoclips(clips, method="chain")
+    concat_clip_edited = concat_clip.set_audio(audio)
+    concat_clip_edited.write_videofile(output_path, fps=fps)

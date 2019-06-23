@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 
 from interface import video_stream as vs
-
+from interface import process_video as pv
 def main():
-	vs.detect_stream_emotions()
+	#vs.detect_stream_emotions()
 	# imagePathes = [
 	# 	'./samples/baby_sad.jpg'
 	# 	'./samples/baby_sad2.jpg'	
@@ -24,6 +24,6 @@ def main():
 	# if args.c:
 	# 	vs.detect_stream_emotions(fps)
 
-	pv.detect_video_emotions_with_tracking('interface/y.mp4', 'interface/y_output.mp4')
-
+	#pv.detect_video_emotions_with_tracking('interface/y.mp4', 'interface/y_output.mp4')
+	pv.detect_video_emotions('interface/y.mp4', 'interface/y_output.mp4', skip = 125)
 if __name__ == '__main__': main()
