@@ -6,9 +6,11 @@ from moviepy.editor import *
 
 from interface import process_image as pi
 from image import FaceTracking as tracker
-from image.face_detector import detect_dlib as detector
 from model.emotions_model import EmotionsModel
 import ffmpeg 
+from image.face_detector import detect_dlib
+from image.face_detector import detect_haar
+from image.face_detector import detect_lbp
 
 model = EmotionsModel()
 
@@ -31,10 +33,18 @@ def check_rotation(path_video_file):
 
     return rotateCode
 
-def detect_video_emotions_tracking (video_path, output_path, tracked_frames=125):
+def detect_video_emotions_with_tracking (video_path, output_path, batch_size=125, detector_type='dlib', verbose=False):
     #saving audio 
     video = VideoFileClip(video_path)
     audio = video.audio
+
+    #detector
+    if detector_type == 'dlib':
+        detector = detect_dlib
+    elif detector_type =='haar':
+        detector = detect_haar
+    elif detector_type =='lbp':
+        detector = detect_lbp
 
     #processing frames
     vidObj = cv2.VideoCapture(video_path)
@@ -57,8 +67,8 @@ def detect_video_emotions_tracking (video_path, output_path, tracked_frames=125)
             break
 
         #after calling track function that is what is supposed to be done
-        if it == tracked_frames :
-            returned_faces, returned_cords = tracker.faceTracking(to_be_tracked, tracked_frames)
+        if it == batch_size :
+            returned_faces, returned_cords = tracker.faceTracking(to_be_tracked, batch_size)
             
             print(len(returned_faces))
 
@@ -85,7 +95,8 @@ def detect_video_emotions_tracking (video_path, output_path, tracked_frames=125)
             to_be_tracked = []
             it = 0
             to_be_printed += 1
-            print(to_be_printed)
+            if verbose:
+                print("batch: ", to_be_printed)
 
 
         face_boxes = []
