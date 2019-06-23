@@ -29,7 +29,7 @@ class cascade_FaceDetector:
 		res = []
 		for box in boxes:
 			face = self.__extract_face(img, box)
-			face = self.__enhance_face(face)
+			# face = self.__enhance_face(face)
 			res.append((face, box))
 		return res
 
@@ -71,18 +71,6 @@ class cascade_FaceDetector:
 		"""
 		p1, p2 = box
 		face = img[p1[1]:p2[1], p1[0]:p2[0]]
-		return face
-
-	def __enhance_face(self, face):
-		"""
-		this function puts the image for the face in the correct format
-		:param faces: a list of faces detected in the image
-		:return: faces: a list of faces after applying the required enhancements
-		1 - reshaped to 48 * 48
-		2 - turn into greyscale
-		"""
-		face = cv2.resize(face, (48, 48))
-		face = cv2.cvtColor(face, cv2.COLOR_RGB2GRAY)
 		return face
 
 	@staticmethod

@@ -31,7 +31,7 @@ def get_face_landmarks(img):
 	shape = face_utils.shape_to_np(shape)
 	return shape
 
-def hog_with_sliding_window(img, window_step=6, orientations=8, pixels_per_cell=(12, 12)):
+def hog_with_sliding_window(img, window_step=6, orientations=8, pixels_per_cell=(12, 12), cells_per_block=(1, 1), block_norm='L2-Hys'):
 	"""
 	window_step = 6
 	img 48*48 gray scale
@@ -43,6 +43,7 @@ def hog_with_sliding_window(img, window_step=6, orientations=8, pixels_per_cell=
 	orientations = 12
 	pixels_per_cell = (12, 12) >>output length : 1728
 	pixels_per_cell = (12, 12) >>output length : 3888
+	any change in the default parameters would change the output length
 	"""
 	window_size = 24
 	hog_windows =[]
@@ -53,8 +54,8 @@ def hog_with_sliding_window(img, window_step=6, orientations=8, pixels_per_cell=
 			window,
 			orientations=orientations,
 			pixels_per_cell=pixels_per_cell,
-			cells_per_block=(1, 1),
-			block_norm='L2-Hys',
+			cells_per_block=cells_per_block,
+			block_norm=block_norm,
 			visualize=False
 			))
 	return hog_windows
