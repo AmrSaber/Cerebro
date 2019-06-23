@@ -3,7 +3,7 @@
 import argparse
 
 from model.emotions_model import *
-from model.reader import read_testing, read_training, get_emotions, set_dataset, available_datasets
+from model.reader import read_testing, read_training, get_emotions, get_reduced_emotions, set_dataset, available_datasets
 
 def main():
 	parser = argparse.ArgumentParser(description='')
@@ -35,6 +35,7 @@ def main():
 				use_cnn=args.c,
 				create_new=args.n,
 				emotions=get_emotions(),
+				reduced_emotions=get_reduced_emotions(),
 				verbose=True,
 			)
 

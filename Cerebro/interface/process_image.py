@@ -1,22 +1,29 @@
 from model import emotions_model as model
 import cv2
+import threading
+
+from image.face_detector import detect_dlib
+from image.face_detector import detect_haar
+from image.face_detector import detect_lbp
+
+emotionsModel = model.EmotionsModel()
 
 def extract_faces_emotions(image, detector_type = 'dlib'):
 
     items= []
     if detector_type == 'dlib':
-        from image.face_detector import detect_dlib as detector
+        detector = detect_dlib
     elif detector_type =='haar':
-        from image.face_detector import detect_haar as detector
+        detector = detect_haar
     elif detector_type =='lbp':
-        from image.face_detector import detect_lbp as detector
+        detector = detect_lbp
     else :
         raise Exception("invalid detector")
 
     faces = detector.get_faces(image)
 
     # emotions_count = len(set(emotions_map))
-    emotionsModel = model.EmotionsModel()
+    # emotionsModel = model.EmotionsModel()
     for i in range (len(faces)) :
         item = []
         item.append(faces[i][0]) #face

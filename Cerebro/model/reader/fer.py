@@ -1,68 +1,72 @@
 #! /user/bin/env python3
 
-import cv2
 import numpy as np
 
-from image.face_detector import detect_dlib as dlib
+from image.utils import normalize_channels, normalize_image
+from model.reader.utils import save_parsed_data, read_file
 
-data_all = './model/dataset/fer2013.csv'
-data_test = './model/dataset/fer2013_testing.csv'
-data_training = './model/dataset/fer2013_train.csv'
+path_all = './model/dataset/fer2013.csv'
+path_testing = './model/dataset/fer2013_testing.csv'
+path_training = './model/dataset/fer2013_train.csv'
 
-emotions = ["Angry", "Disgust", "Fear", "Happy", "Sad", "Surprise", "Neutral"]
+emotions = ['Neutral', 'Anger', 'Contempt', 'Disgust', 'Fear', 'Happy', 'Sadness', 'Surprise']
+reduced_emotions = ['Neutral', 'Unsatisfied', 'Unsatisfied', 'Unsatisfied', 'Unsatisfied', 'Satisfied', 'Unsatisfied', 'Neutral']
+
+# their_emotions = ["Angry", "Disgust", "Fear", "Happy", "Sad", "Surprise", "Neutral"]
+# our_emotions = ['Neutral', 'Anger', 'Contempt', 'Disgust', 'Fear', 'Happy', 'Sadness', 'Surprise']
+emotions_map = [1, 3, 4, 5, 6, 7, 0]
 
 def read_testing(limit=-1):
-	return read_from_file(data_test, limit)
+	return read_file(path_testing, limit)
 
 def read_training(limit=-1):
-	return read_from_file(data_training, limit)
+	return read_file(path_training, limit)
 
-def read_from_file(path, limit=-1):
+def split_data(quite, filter):
 	xs, ys = [], []
-	with open(path) as file:
-		count = 0
-		for line in file:
-			if limit != -1 and count >= limit: break
-			count += 1
-			emotion, image = parse_line(line)
-			xs.append(image)
-			ys.append(emotion)
-	return np.array(xs), np.array(ys)
 
-def parse_line(line):
+	if not quite:
+		print()
+		done_count = 0
+
+	with open(path_all) as input:
+		for line in input:
+			# ignore header
+			if line[0].isalpha(): continue
+			
+			try:
+				x, y = parse_line(line, filter)
+			except IndexError as error:
+				continue
+
+			y = emotions_map[y]
+
+			xs.append(x)
+			ys.append(y)
+
+			if not quite:
+				done_count += 1
+				print(f'\rProcessed: {done_count}', end='')
+			
+	if not quite: print()
+	save_parsed_data(xs, ys, path_testing, path_training, emotions)
+
+def parse_line(line, filter):
 	emotion, pxls, usage = line.split(',')
 	emotion, pxls = int(emotion), list(map(int, pxls.split()))
 
 	image = np.reshape(pxls, (48, 48))
 	image = np.array(image, dtype=np.uint8)
 
-	return emotion, image
+	image_size = 150
 
-def split_data(quite, filter):
-	tests, trains = [], []
-	with open(data_all) as input:
-		for line in input:
-			# ignore header
-			if line[0].isalpha(): continue
+	if filter:
+		image = normalize_image(image, image_size, True, 'haar')
+	else:
+		image = normalize_image(image, image_size, False)
 
-			_, image = parse_line(line)
+	image = normalize_channels(image)
+	
+	image = np.resize(image, (image_size, image_size, 1))
 
-			if filter:
-				# filter non-face images
-				if dlib.is_one_face(image):
-					if not quite: print('Face')
-				else:
-					if not quite: print('Not Face')
-					# cv2.imshow('', image)
-					# cv2.waitKey(0)
-					continue
-
-			# add image to its category
-			if 'test' in line.lower(): tests.append(line)
-			if 'train' in line.lower(): trains.append(line)
-
-	print('Training size:', len(trains))
-	print('Testing size:', len(tests))
-
-	with open(data_test, 'w') as f: f.writelines(tests)
-	with open(data_training, 'w') as f: f.writelines(trains)
+	return image, emotion

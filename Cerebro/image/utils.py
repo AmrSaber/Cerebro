@@ -1,8 +1,8 @@
-#! /usr/bin/env python3 
+#! /usr/bin/env python3
 
-import numpy as np 
-import cv2 
-import matplotlib.pyplot as plt
+import numpy as np
+import cv2
+# import matplotlib.pyplot as plt
 
 import image.face_detector.detect_dlib as dlib_detector
 import image.face_detector.detect_haar as haar_detector
@@ -23,7 +23,7 @@ def extend(img):
     if img.shape[0] > img.shape[1]:
         diff = img.shape[0] - img.shape[1]
         add = np.array([[[0] * 3] * diff] * img.shape[0])
-        ret = np.hstack((add, img))    
+        ret = np.hstack((add, img))
     return ret
 
 def normalize_image(img, n, detect=False, detector='dlib'):
@@ -47,11 +47,11 @@ def normalize_image(img, n, detect=False, detector='dlib'):
     elif ret.shape[0] > ret.shape[1]:
         diff = ret.shape[0] - ret.shape[1]
         ret = cv2.copyMakeBorder(ret,0,diff,0,0,cv2.BORDER_CONSTANT,value=[0,0,0])
-    
+
     # resize image to given size
     if ret.shape[0] != n:
         ret = cv2.resize(ret, (n, n))
-    
+
     return ret
 
 def normalize_channels(image):

@@ -21,10 +21,12 @@ class EmotionsModel(object):
         self,
         verbose=False,
         create_new=False,
+        use_reduced_emotions=False,
         use_hog=None,
         use_cnn=None,
         use_lm=None,
         emotions=None,
+        reduced_emotions=None,
     ):
         # pathes constants
         self.model_path = './saved-models/emotions_model.f5'
@@ -32,6 +34,7 @@ class EmotionsModel(object):
 
 
         self.verbose = verbose
+        self.use_reduced_emotions = use_reduced_emotions
         
         # model numbers
         self.imageSize = 150
@@ -42,8 +45,9 @@ class EmotionsModel(object):
         if not create_new and self.has_saved_model():
             self.load_model()
             self.is_trained = True
+            self.model._make_predict_function()
         else:
-            if use_hog == None or use_cnn == None or use_lm == None or emotions == None:
+            if use_hog == None or use_cnn == None or use_lm == None or emotions == None or reduced_emotions == None:
                 raise Exception(
                     'When creating new model, all model specs (use_hog, use_cnn, use_lm, emotions) must be given'
                 )
@@ -53,6 +57,7 @@ class EmotionsModel(object):
             self.use_cnn = use_cnn
             self.use_lm = use_lm
             self.emotions = emotions
+            self.reduced_emotions = reduced_emotions
 
             self.model = self.__create_model__()
             self.is_trained = False
@@ -105,7 +110,10 @@ class EmotionsModel(object):
 
         if not prob_emotion:
             for i, all in enumerate(res):
-                res[i] = self.emotions[np.argmax(all)]
+                if self.use_reduced_emotions:
+                    res[i] = self.reduced_emotions[np.argmax(all)]
+                else:
+                    res[i] = self.emotions[np.argmax(all)]
 
         if is_one_face:
             res = res[0]
@@ -119,6 +127,7 @@ class EmotionsModel(object):
         if type(faces) is not list:
             faces = [faces]
 
+        is_one_face = False
         if type(faces[0]) is not list:
             faces = [faces]
             is_one_vector = True
@@ -127,10 +136,11 @@ class EmotionsModel(object):
         
         for vector in faces:
             emotions_map = {}
-            emotions_vector = predict(vector)
+            transformed_vector = [face for face in vector if type(face) != type(None)]
+            emotions_vector = self.predict(transformed_vector)
             for emotion in emotions_vector:
                 emotions_map[emotion] = emotions_map.get(emotion, 0) + 1
-            sortedEmotions = sorted(emotions_map.items(), key=lambda x: x[1], reversed=True)
+            sortedEmotions = sorted(emotions_map.items(), key=lambda x: x[1], reverse=True)
             result.append(sortedEmotions[0][0])
         
         if is_one_vector:
@@ -207,6 +217,7 @@ class EmotionsModel(object):
                     self.use_cnn,
                     self.use_lm,
                     self.emotions,
+                    self.reduced_emotions,
                 ),
                 specsFile
             )
@@ -217,7 +228,7 @@ class EmotionsModel(object):
 
         # load model specs
         with open(self.model_specs_path, 'rb') as specsFile:
-            self.use_hog, self.use_cnn, self.use_lm, self.emotions = pickle.load(specsFile)
+            self.use_hog, self.use_cnn, self.use_lm, self.emotions, self.reduced_emotions = pickle.load(specsFile)
 
     def has_saved_model(self):
         model_path = Path(self.model_path)

@@ -26,3 +26,6 @@ def read_testing(limit=-1):
 
 def get_emotions():
 	return used_module.emotions
+
+def get_reduced_emotions():
+    return used_module.reduced_emotions
