@@ -27,7 +27,7 @@ def main():
 	# if args.c:
 	# 	vs.detect_stream_emotions(fps)
 
-	pv.detect_video_emotions_tracking('interface/y.mp4', 'interface/y_output.mp4')
+	pv.detect_video_emotions_with_tracking('interface/y.mp4', 'interface/y_output.mp4')
 
 	
 if __name__ == '__main__': main()

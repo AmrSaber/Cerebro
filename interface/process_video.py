@@ -85,7 +85,7 @@ def detect_video_emotions_with_tracking (video_path, output_path, batch_size=125
                     for i in range(len(returned_cords)):
                         if returned_cords[i][j] != None:
                             em = emotions[i]
-                            extracted_faces_emotions.append(returned_faces[i][j], returned_cords[i][j], em)
+                            extracted_faces_emotions.append((returned_faces[i][j], returned_cords[i][j], em))
                             #tmp = mark_emotion(tmp, returned_cords[i][j], em)
                     tmp = pi.mark_faces_emotions(tmp, extracted_faces_emotions=extracted_faces_emotions)
                     tmp = cv2.cvtColor(tmp,cv2.COLOR_BGR2RGB)
