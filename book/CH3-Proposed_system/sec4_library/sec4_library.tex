@@ -1,70 +1,230 @@
 \subsection{architecture}
-    We represent the project to be a library so that if any other project needs to use any functionality we support they can do so easily by just downloading and importing our library.
+We represent the project to be a library so that if any other project needs to use any functionality we support they can do so easily by just downloading and importing our library.
 \bigbreak
-    The library can be used by the higher level APIs or 
-    lower level methods and its structure is as follows :
-        \begin{itemize}
-             \item Emotion Recognition Interface 
-                \begin{itemize}
-                    \item Real Time Streaming
-                    \item Video
-                    \item Single Image
-                \end{itemize}
-             \item Lower Level APIs
-                \begin{itemize}
-                    \item Model API
-                    \item Feature Extraction API
-                    \item Image Processing API
-                \end{itemize}
-        \end{itemize}
+The library can be used by the higher level APIs or 
+lower level methods and its structure is as follows :
+\begin{itemize}
+	\item Emotion Recognition Interface 
+	\begin{itemize}
+		\item Real Time Streaming
+		\item Video
+		\item Single Image
+	\end{itemize}
+	\item Lower Level APIs
+	\begin{itemize}
+		\item Model API
+		\item Feature Extraction API
+		\item Image Processing API
+	\end{itemize}
+\end{itemize}
+
+\newpage
+
+\begin{center}
+	\subsection{Emotion Recognition Interface}
+	this is an interface provides to user three modules may be needed as a block in their applications without getting deeper and deeper in the details of the model or the feature extraction methods or even in the preprocessing we did.   
+\end{center}
 \newpage
 
 \subsubsection{Real Time Streaming}
 The Real Time Stream interface is developed in a way that works with threads so that the stream running smoothly with high efficiency with no noticed delay in processing the frames to recognize the emotions 
 \bigbreak 
-\noindent To use the stream function :
+\noindent\textbf{\textit{Input}}:
+\begin{itemize}
+	\item \textbf{skip}:\newline
+	The skip value is an integer represents the number of frames will be skipped without processing defaults to 40.
+\end{itemize}
+\noindent\textbf{\textit{Output}}:
+\begin{itemize}
+	\item there is no return for that function it shows the stream with recognized faces emotions once it is called.
+\end{itemize}
+\noindent\textbf{\textit{To use the stream function}}:
 % indentation of verbatim must be like that please don't change it
 \begin{itemize}
-\item import the module:
-\begin{verbatim}
- from interface Import video-stream as vs
-\end{verbatim}
-\item call it:
-\begin{verbatim}
-vs.detect_stream_emotions(fps)
-\end{verbatim}
+	\item import the module:
+	\begin{verbatim}
+	from interface Import video-stream as vs
+	\end{verbatim}
+	\item call it:
+	\begin{verbatim}
+	vs.detect_stream_emotions(skip)
+	\end{verbatim}
 \end{itemize}
-The frame-per-second value is an integer represents the number of frames will be processed to recognize emotion in per one second. default sit to be 40.
-\bigbreak
 
-\subsubsection{Single Image Interface}
-
-The Single Image Interface takes only one image as input and return image
-with emotions recognized 
-
-\noindent To use the Single Image Interface 
-\begin{itemize}
-\item import the module:
-\begin{verbatim}
-from interface Import process_image as pi
-\end{verbatim}
-\item call it:
-\begin{verbatim}
-pi.mark_faces_emotions(image)
-\end{verbatim}
-\end{itemize}
 \newpage
 
-\subsection{Processing video}
-It works by calling detect\_video\_emotion from process\_video.py.
+\subsubsection{Video}
+
 \newline \textbf{\textit{Input}}: 
 \begin{itemize}
-\item  \textbf{video\_path}: the video which supposed to be processed.
-\item  \textbf{output\_path}: output video path, should contain output video name with its extension (must be mp4).
-\item  \textbf{skip}: how many frames you want it to be skipped without emotion detection, be careful by increasing this parameter the output would be less accurate but the processing would be faster, its default value is 50 and that mean detect emotion every 2 seconds in normal video speed.
-\item \textbf{detector\_type}: the default is dlib detector but it can be controlled to be HAAR or LBP classifiers.
-\item  \textbf{verbose}: to follow processing operation by some print line this should be true, its default value is false.
+	\item  \textbf{video\_path}: the video which supposed to be processed.
+	\item  \textbf{output\_path}: output video path, should contain output video name with its extension (must be mp4).
+	\item  \textbf{skip}: how many frames will be skipped without emotion recognition , be careful by increasing this parameter the output would be less accurate but the processing would be faster, it defaults to 50 which mean detect emotion every 2 seconds in normal video speed.
+	\item \textbf{detector\_type}: the default is dlib detector but it can be controlled to be haar or lbp classifiers.
+	\item  \textbf{verbose}: that bool is set to True to give you information about processing operation, it defualts to False.
 \end{itemize}
 \textbf{\textit{Output}}: it doesn't return anything as its output directly saved to the output path.
 \newline\textbf{\textit{ Rule}}: it divides the video into frames and audio, applies analysis on it then gathers them again.
 \newline 
+\noindent \textbf{\textit{To use the Single Image Interface }}:
+\begin{itemize}
+	\item import the module:
+	\begin{verbatim}
+	from interface Import process_video as pv
+	\end{verbatim}
+	\item call it:
+	\begin{verbatim}
+	pv.detect_video_emotion(video_path, output_path, skip,detector_type, verbose)
+	\end{verbatim}
+\end{itemize}
+
+
+\newpage
+\subsubsection{Single Image}
+
+The Single Image Interface process only one image.
+\newline
+\noindent\textbf{\textit{Input}}:
+\begin{itemize}
+	\item \textbf{image}:\newline
+	image of any size to recognize emotions of faces in it with type [Numpy.ndarray].
+	\item \textbf{detector\_type}: the default is dlib detector but it can be controlled to be haar or lbp classifiers.
+\end{itemize}
+\noindent\textbf{\textit{Output}}:
+\begin{itemize}
+	\item \textbf{image}:\newline
+	return image [Numpy.ndarray] with emotions recognized 
+\end{itemize}
+
+\noindent \textbf{\textit{To use the Single Image Interface }}:
+\begin{itemize}
+	\item import the module:
+	\begin{verbatim}
+	from interface Import process_image as pi
+	\end{verbatim}
+	\item call it:
+	\begin{verbatim}
+	pi.mark_faces_emotions(image)
+	\end{verbatim}
+\end{itemize}
+
+\newpage
+
+\begin{center}
+	\subsection{Lower Level APIs}
+	This is a more flexible option we provide to users of our library, by which you can use the core methods we rely upon for building our interface.
+\end{center}
+
+\newpage 
+
+\subsubsection{Model API}
+It provide you two methods with more options than interface.\newline
+but first we need to create object of our model.
+\bigbreak
+
+\textbf{Model Creation}
+
+
+\begin{itemize}
+	\item import the module:
+	\begin{verbatim}
+	from model.emotions_model import *
+	\end{verbatim}
+	\item create new object:
+	\begin{verbatim}
+	model = EmotionsModel(
+	verbose=False,
+	create_new=False,
+	use_hog=None,
+	use_cnn=None,
+	use_lm=None,
+	emotions=None)
+	\end{verbatim}
+	
+	
+	\noindent\textbf{\textit{Input}}:
+	\begin{itemize}
+		\item verbose: \newline
+		that bool is set to True to give you information about training, testing and feature extraction, it defualts to False.
+		\item create\_new: \newline
+		bool value set to be True if you want to delete the saved model and retrain the model 
+		\item model specs:\newline
+		must be assigned if \textbf{create\_new = True} OR there is no model saved.
+		\newline
+		\textbf{\textit{Note}}: if assigned without creating new model or there is file saved the model will neglect the values assigned
+		\begin{itemize}
+			\item use\_hog: \newline
+			bool value set to True to use Histogram of Oriented Gradient in model training or False if needn't
+			\item use\_cnn: \newline
+			bool value set to True to use Convolutional Neural Network in model training or False if needn't
+			\item use\_lm: \newline
+			bool value set to True to use landmarks in model training or False if needn't
+			\item emotions: \newline
+			list of emotions as strings to map each index to one emotion 
+			
+		\end{itemize}
+		
+	\end{itemize}
+\end{itemize}
+
+
+\newpage
+
+
+
+\noindent\textbf{1- predict(faces, prob\_emotion=False)}:
+\paragraph{It can optimize the code by working on batches if your usage doesn't need to process image by image.\newline}
+\bigbreak
+\noindent\textbf{\textit{Input}}:
+\begin{itemize}
+	\item \textbf{list of images}:\newline
+	it takes a list of [Numpy.ndarray] images and predict the emotion of each image.
+	\item \textbf{prob\_emotion}\textit{(optional)}:\newline
+	it's value tells if we want the method to return the probability of each emotion in a numpy array at the index corresponding to the image in the input list. 
+\end{itemize}
+\noindent\textbf{\textit{Output}}:
+\begin{itemize}
+	\item \textbf{if prob\_emotion=False:}:\newline
+	will return list of emotions each emotion is a string at the index of each image in the input list.
+	\item \textbf{if prob\_emotion=True:}:\newline
+	will return list of Numpy arrays each array consists of the probability of emotions.
+\end{itemize}
+
+
+\textbf{\textit{To use the predict method}}:
+\bigbreak
+from model created in section 1.3.1
+
+\begin{itemize}
+	\item call method:
+	\begin{verbatim}
+	model.predict(faces, prob_emotion=False)
+	\end{verbatim}
+\end{itemize}
+
+\newpage
+
+\noindent\textbf{2- predict\_with\_vote(faces)}:
+\paragraph{this method helps in recognizing the accurate emotion of one face by making a vote of ten sequential frames and get the most appearant emotion. \newline}
+
+\noindent\textbf{\textit{Input}}:
+\begin{itemize}
+	\item \textbf{2D list }:\newline
+	each list in it is 1D list for each person. each element in that list is an image the method evaluate the image and votes for the most emotion appears in the array then return that emotion.
+\end{itemize}
+\noindent\textbf{\textit{Output}}:
+\begin{itemize}
+	\item \textbf{list}:\newline
+	will return 1D list with winner emotion in the index corresponding to the list it came from.
+\end{itemize}
+
+\textbf{\textit{To use the predict\_with\_vote method}}:
+\bigbreak
+from model created in section 1.3.1
+
+\begin{itemize}
+	\item call method:
+	\begin{verbatim}
+	model.predict_with_vote(faces)
+	\end{verbatim}
+\end{itemize}
