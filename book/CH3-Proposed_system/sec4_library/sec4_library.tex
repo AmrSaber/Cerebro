@@ -19,13 +19,13 @@ lower level methods and its structure is as follows :
 	\end{itemize}
 \end{itemize}
 
-\newpage
+%\newpage
 
 \begin{center}
 	\subsection{Emotion Recognition Interface}
 	this is an interface provides to user three modules may be needed as a block in their applications without getting deeper and deeper in the details of the model or the feature extraction methods or even in the preprocessing we did.   
 \end{center}
-\newpage
+%\newpage
 
 \subsubsection{Real Time Streaming}
 The Real Time Stream interface is developed in a way that works with threads so that the stream running smoothly with high efficiency with no noticed delay in processing the frames to recognize the emotions 
@@ -52,11 +52,10 @@ The Real Time Stream interface is developed in a way that works with threads so 
 	\end{verbatim}
 \end{itemize}
 
-\newpage
+% \newpage
 
 \subsubsection{Video}
-
-\newline \textbf{\textit{Input}}: 
+\textbf{\textit{Input}}: 
 \begin{itemize}
 	\item  \textbf{video\_path}: the video which supposed to be processed.
 	\item  \textbf{output\_path}: output video path, should contain output video name with its extension (must be mp4).
@@ -80,7 +79,7 @@ The Real Time Stream interface is developed in a way that works with threads so 
 \end{itemize}
 
 
-\newpage
+% \newpage
 \subsubsection{Single Image}
 
 The Single Image Interface process only one image.
@@ -109,14 +108,14 @@ The Single Image Interface process only one image.
 	\end{verbatim}
 \end{itemize}
 
-\newpage
+% \newpage
 
 \begin{center}
 	\subsection{Lower Level APIs}
 	This is a more flexible option we provide to users of our library, by which you can use the core methods we rely upon for building our interface.
 \end{center}
 
-\newpage 
+% \newpage 
 
 \subsubsection{Model API}
 It provide you two methods with more options than interface.\newline
@@ -169,10 +168,10 @@ but first we need to create object of our model.
 \end{itemize}
 
 
+% \newpage
+
+
 \newpage
-
-
-
 \noindent\textbf{1- predict(faces, prob\_emotion=False)}:
 \paragraph{It can optimize the code by working on batches if your usage doesn't need to process image by image.\newline}
 \bigbreak
@@ -191,7 +190,6 @@ but first we need to create object of our model.
 	will return list of Numpy arrays each array consists of the probability of emotions.
 \end{itemize}
 
-
 \textbf{\textit{To use the predict method}}:
 \bigbreak
 from model created in section 1.3.1
@@ -203,7 +201,7 @@ from model created in section 1.3.1
 	\end{verbatim}
 \end{itemize}
 
-\newpage
+% \newpage
 
 \noindent\textbf{2- predict\_with\_vote(faces)}:
 \paragraph{this method helps in recognizing the accurate emotion of one face by making a vote of ten sequential frames and get the most appearant emotion. \newline}
