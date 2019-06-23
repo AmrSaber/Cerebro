@@ -27,6 +27,9 @@ def extend(img):
     return ret
 
 def normalize_image(img, n, detect=False, detector='dlib'):
+    assert isinstance(img, np.ndarray), "image must be of type np.ndarray"
+    assert isinstance(n, int), "n must be integer"
+    # print(img.shape)
     ret = img.copy()
 
     # apply face detection if asked

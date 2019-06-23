@@ -127,7 +127,7 @@ class EmotionsModel(object):
         if type(faces) is not list:
             faces = [faces]
 
-        is_one_face = False
+        is_one_vector = False
         if type(faces[0]) is not list:
             faces = [faces]
             is_one_vector = True
