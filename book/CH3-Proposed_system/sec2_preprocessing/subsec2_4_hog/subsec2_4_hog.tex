@@ -1,5 +1,5 @@
 \paragraph{}
-the only tuning we needed for HOG was for the normalization parameter which the rest of parameters were taken following a paper\cite{HOG} we found which compared between other different parameters and giave us a conclusion on the best ones.\newline 
+To extract HOG features from the input image we used a function provided by \textbf{scikit-image} package in python, as for the parameters we only tuned the normalization method parameter, as for the rest of parameters were taken following a paper\cite{hog} which compared between other different parameters and gave us insights on the best ones to use.\newline 
 our final configuration: \newline
 \begin{itemize}
 \item Orientation: 8 bins. 
@@ -24,3 +24,5 @@ With CK+ we choose to work with  .\newline
 With RafD we choose to work with  \textbf{L2-norm}. \newline
 \paragraph{}
 as obvious from the results \textbf{L1-sqrt} and \textbf{L2-Hys} methods tend to show better results on average, but \textbf{L2-Hys} seems to be more effective method.
+\newline \newline We also tried hog with sliding window to increase accuracy in case of using FER dataset, it captures more features than normal hog by passing window throughout the whole image and apply hog to pixels but unfortunately we got test accuracy XX so we decided to not use it for the rest datasets.
+

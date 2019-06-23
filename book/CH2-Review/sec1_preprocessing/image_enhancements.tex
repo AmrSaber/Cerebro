@@ -1,5 +1,5 @@
-With the goal to detect facial expressions in images, we need to detect faces within them then extract their features so we expect the input image to have good quality, sharpness, clearness as much as possible.\newline
-Fortunately nowadays cameras have higher quality so in this case there should be no problem, however in case of low quality input photos we need to apply some enhancement techniques before we proceed to subsequent stages.
+With the goal to detect facial expressions in images, we need to detect faces within them then extract their features so we expect the input image to have \textbf{good quality, sharpness, clearness} as much as possible.\newline
+Fortunately nowadays cameras have higher quality so in this case there should be no problem, however in case of low quality input images we need to apply some enhancement techniques before we proceed to subsequent stages.
 
 \paragraph{Most common problems:}
 \subparagraph{Salt and Pepper Noise:}
@@ -11,7 +11,7 @@ The main idea of the Median Filter is  replacing each pixel with the median of
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=.5\linewidth]{images/salt_pepper.jpg}
-	\caption{I/O Example}
+	\caption{Apply Median Filter on salt and paper noise}
 	\label{fig:median}
 \end{figure}
 
@@ -28,13 +28,13 @@ The blue patches in the image looks the similar. Green patches looks similar. So
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=.5\linewidth]{images/gaussian.jpg}
-	\caption{I/O Example}
+	\caption{Gaussian noise and patch concept example}
 	\label{fig:Gnoise}
 \end{figure}
 
 \subparagraph{Smoothed Images:}
 Some images can be blurred which hides small details within them, an effective noise reduction method for this type of noise is a \textbf{Laplacian Filter (Sharpening Spatial Filter)}.\newline
-Sharpening spatial filters seek to highlight small details by Removing blur from images and Highlighting edges within them.(see Figure~\ref{figure:laplacian})\newline
+Sharpening spatial filters seek to \textbf{highlight small details by Removing blur from images and Highlighting edges} within them.(see Figure~\ref{figure:laplacian})\newline
 Sharpening filters are based on spatial differentiation.\newline
 The Laplacian is defined as follows:
 \[\nabla^{2} f = \frac{\partial^{2}f}{\partial^{2}x} + \frac{\partial^{2}f}{\partial^{2}y}\]
@@ -77,8 +77,8 @@ sharpening filters has multiple similar variations we use the one below as it gi
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.5\linewidth]{images/Sharpened.jpg}
+	\caption{Laplacian Filter Example}
 	\label{figure:laplacian}
-	\caption{I/O Example}
 \end{figure}
 
 \subparagraph{Motion Blurred Images:}

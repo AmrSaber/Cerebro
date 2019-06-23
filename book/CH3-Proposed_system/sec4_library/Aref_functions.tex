@@ -1,0 +1,47 @@
+\paragraph{laplacian}
+Where: Cerebro.image.enhancement.filters.laplacian \newline
+Parameters: img (source image) -> numpay array \newline
+Returned value: image -> numpay array \newline
+Exceptions: None \newline
+Role: Sharpen the input image and return the sharpened image
+\paragraph{median}
+Where: Cerebro.image.enhancement.filters.median \newline
+Parameters: img (source image) -> numpay array \newline
+(Optional): size (filter_size and it must be odd and greater than 1) -> integer \newline
+Returned value: image -> numpay array \newline
+Exceptions: None \newline
+Role: Remove salt and pepper noise from the input image and return the denoised image
+\paragraph{fastNLMeans}
+Where: Cerebro.image.enhancement.filters.fastNLMeans(img, h=15, templateWindowSize=7, searchWindowSize=21) \newline
+Parameters: img (source image) -> numpay array \newline
+(Optional): \newline
+h (regulating filter strength. Big h value perfectly removes noise but also removes image details, smaller h value preserves details but also preserves some noise) -> integer \newline
+templateWindowSize (size in pixels of the template patch that is used to compute weights. Should be odd. Recommended value 7 pixels) -> integer \newline
+searchWindowSize (size in pixels of the window that is used to compute weighted average for given pixel. Should be odd. Recommended value 21 pixels) -> integer \newline
+Returned value: image -> numpay array \newline
+Exceptions: None \newline
+Role: Remove gaussian noise from the input image and return the denoised image
+\paragraph{get_face_landmarks}
+Where: Cerebro.image.feature_extraction.get_face_landmarks \newline
+Parameters: img (source image[face]) -> numpay array \newline
+Returned value: list of coordinates where coordinate -> tuple(pair), first: x-coordinate -> integer, second: y-coordinate -> integer \newline
+Exceptions: None \newline
+Role: Compute coordinates of facial landmarks of the input face and return these coordinates
+\paragraph{align_faces}
+Where: Cerebro.image.enhancement.alignment.align_faces(img) \newline
+Parameters: img (source image[face]) -> numpay array \newline
+Returned value: image -> numpay array \newline
+Exceptions: None \newline
+Role: Align (Scale and Rotate) the input face (where eyes become horizontal) and return the aligned face
+\paragraph{faceTracking}
+Where: Cerebro.image.FaceTracking.faceTracking \newline
+Parameters: frames (sequence of frames and coordinates of faces in each frame) -> \newline
+list of tuples(pairs), first: frame -> numpy array, second: coordinates -> \newline
+list of tuples(pair), first: tuple(pair), first: left -> integer, second: top -> integer, second: tuple(pair), first: right -> integer, second: bottom -> integer \newline
+framesNumber (frames number) -> integer \newline
+Returned value: \newline
+faces (2D list where each row has all faces of the same person in each frame) -> 2D list of faces where face -> numpay array \newline
+cords (2D list where each row has all faces coordinates of the same person in each frame) -> 2D list of coordinates where coordinate -> \newline
+tuple(pair), first: tuple(pair), first: left -> integer, second: top -> integer, second: tuple(pair), first: right -> integer, second: bottom -> integer \newline
+Exceptions: None \newline
+Role: Track faces in the sequence of the input frames and return tracked faces and thier coordinates 

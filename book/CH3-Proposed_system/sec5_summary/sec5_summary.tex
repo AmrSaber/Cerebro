@@ -22,7 +22,7 @@ With this challenging data set we had to apply some enhancement to remove the no
 Used methods: \newline
 
 \begin{itemize}
-	\item \textbf{For face detection} \newline We worked with pre-trained models like \textit{HAAR}, \textit{LBP cascading classifiers} and \textit{DLIB detector}. \newline All of them works with frontal face and each one has its own advantages, HAAR is quite accurate but slow, LBP is faster than HAAR but less accurate and DLIB detector is more accurate than HAAR without any increase in detection time so our default classifier is DLIB detector. 
+	\item \textbf{For face detection} \newline We worked with pre-trained models like \textit{HAAR}, \textit{LBP cascading classifiers} and \textit{DLIB detector}. \newline All of them works with frontal face and each one has its own advantages, HAAR is quite accurate but slow, LBP is faster than HAAR but less accurate and DLIB detector is more accurate than HAAR and detection time depends on the image size so our default classifier is DLIB detector. 
 	\item \textbf{For image enhancement} \newline In the training phase we have to ensure that all the input image is gray scale and all of them is the same size. \newline For noise removal, we can’t cover all kinds of noise so after searching we found that the most common noise is gaussian and salt \& pepper. \newline  We remove gaussian noise by fastNLMeans algorithm and salt \& pepper with median filter. \newline
 \end{itemize}
 
