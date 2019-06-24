@@ -2,8 +2,8 @@
 
 import os
 
-from model.reader import ck, rafd
-from model.reader.utils import *
+from Cerebro.model.reader import ck, rafd
+from Cerebro.model.reader.utils import *
 
 path_training = './model/dataset/combined_training.bin'
 path_testing = './model/dataset/combined_testing.bin'

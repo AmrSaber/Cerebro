@@ -1,4 +1,4 @@
-from image.face_detector.__cascade_face_detector import cascade_FaceDetector
+from Cerebro.image.face_detector.__cascade_face_detector import cascade_FaceDetector
 
 __lbp_facedetector = cascade_FaceDetector("lbp")
 

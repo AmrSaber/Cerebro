@@ -1,6 +1,6 @@
 import argparse
 
-from model.reader import fer, ck, rafd, combined
+from Cerebro.model.reader import fer, ck, rafd, combined
 
 available_datasets = ['fer', 'ck+', 'rafd', 'combined']
 used_module = None

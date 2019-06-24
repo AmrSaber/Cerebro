@@ -3,14 +3,15 @@
 import cv2
 import numpy as np
 from moviepy.editor import *
-
-from interface import process_image as pi
-from image import FaceTracking as tracker
-from model.emotions_model import EmotionsModel
 import ffmpeg 
-from image.face_detector import detect_dlib
-from image.face_detector import detect_haar
-from image.face_detector import detect_lbp
+
+from Cerebro.interface import process_image as pi
+from Cerebro.image import FaceTracking as tracker
+from Cerebro.model.emotions_model import EmotionsModel
+
+from Cerebro.image.face_detector import detect_dlib
+from Cerebro.image.face_detector import detect_haar
+from Cerebro.image.face_detector import detect_lbp
 
 model = EmotionsModel()
 

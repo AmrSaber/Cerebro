@@ -2,8 +2,8 @@
 
 import argparse
 
-from model.emotions_model import *
-from model.reader import read_testing, read_training, get_emotions, get_reduced_emotions, set_dataset, available_datasets
+from Cerebro.model.emotions_model import *
+from Cerebro.model.reader import read_testing, read_training, get_emotions, get_reduced_emotions, set_dataset, available_datasets
 
 def main():
 	parser = argparse.ArgumentParser(description='')

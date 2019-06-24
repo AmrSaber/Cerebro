@@ -4,7 +4,7 @@ import pickle, random
 import numpy as np
 import cv2
 
-from image.utils import normalize_channels, normalize_image
+from Cerebro.image.utils import normalize_channels, normalize_image
 
 def read_file(path, limit):
     with open(path, 'rb') as f: 

@@ -2,7 +2,7 @@
 
 import os
 
-from model.reader.utils import *
+from Cerebro.model.reader.utils import *
 
 path_all_data = './model/dataset/RafD'
 path_training = './model/dataset/rafd_training.bin'

@@ -5,7 +5,7 @@ import time
 import cv2
 from imutils.video import VideoStream
 
-from interface import process_image as pi
+from Cerebro.interface import process_image as pi
 
 frame_data = []
 def detect_stream_emotions(skip=10):

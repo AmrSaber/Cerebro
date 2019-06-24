@@ -2,9 +2,9 @@ from model import emotions_model as model
 import cv2
 import threading
 
-from image.face_detector import detect_dlib
-from image.face_detector import detect_haar
-from image.face_detector import detect_lbp
+from Cerebro.image.face_detector import detect_dlib
+from Cerebro.image.face_detector import detect_haar
+from Cerebro.image.face_detector import detect_lbp
 
 emotionsModel = model.EmotionsModel()
 

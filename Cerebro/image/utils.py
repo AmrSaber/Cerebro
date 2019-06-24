@@ -4,9 +4,9 @@ import numpy as np
 import cv2
 # import matplotlib.pyplot as plt
 
-import image.face_detector.detect_dlib as dlib_detector
-import image.face_detector.detect_haar as haar_detector
-import image.face_detector.detect_lbp as lbp_detector
+import Cerebro.image.face_detector.detect_dlib as dlib_detector
+import Cerebro.image.face_detector.detect_haar as haar_detector
+import Cerebro.image.face_detector.detect_lbp as lbp_detector
 
 def get_squared(img, n):
     ret = img.copy()

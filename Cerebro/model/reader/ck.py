@@ -2,7 +2,7 @@
 
 import os
 
-from model.reader.utils import *
+from Cerebro.model.reader.utils import *
 
 path_all_faces = './model/dataset/CK+/faces'
 path_all_emotions = './model/dataset/CK+/emotions'

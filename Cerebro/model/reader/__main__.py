@@ -1,5 +1,5 @@
 import argparse
-import model.reader as reader
+import Cerebro.model.reader as reader
 
 parser = argparse.ArgumentParser(
 	description='Read, filter and separate the data to testing and training data (filtering is optional)'

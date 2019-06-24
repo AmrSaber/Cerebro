@@ -2,8 +2,8 @@
 
 import numpy as np
 
-from image.utils import normalize_channels, normalize_image
-from model.reader.utils import save_parsed_data, read_file
+from Cerebro.image.utils import normalize_channels, normalize_image
+from Cerebro.model.reader.utils import save_parsed_data, read_file
 
 path_all = './model/dataset/fer2013.csv'
 path_testing = './model/dataset/fer2013_testing.csv'

@@ -12,8 +12,8 @@ from keras.layers import Input, Conv2D, MaxPooling2D, Flatten, Dense, BatchNorma
 import pickle
 import numpy as np
 from pathlib import Path
-from image.enhancement import filters
-from image import feature_extraction, utils
+from Cerebro.image.enhancement import filters
+from Cerebro.image import feature_extraction, utils
 
 class EmotionsModel(object):
 
