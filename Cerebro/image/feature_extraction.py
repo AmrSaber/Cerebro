@@ -4,7 +4,7 @@ import cv2
 from skimage.feature import hog
 from imutils import face_utils
 import dlib
-from os
+import os
 import Cerebro
 
 landmarks_model_path = os.join(
