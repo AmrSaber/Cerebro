@@ -1,0 +1,30 @@
+\paragraph{}
+At the beginning of this book, we stated 2 key questions as our motivation for the project, now after a year-work we would like to answer these 3 questions considering our gained practical knowledge, first we restate these 3 question for convenience:
+\begin{itemize}
+	\item  What is the best way to detect emotions in a real time stream?
+	\item  What is the best performance that can be reached? and how?
+\end{itemize}
+
+\paragraph{First Question}
+we found that there are 2 ways for emotion recognition and they are:
+\begin{itemize}
+	\item  Using advanced neural networks (namely CNN).
+	\item  Using old fashioned feature extraction methods combined with artificial neural networks (MLP).
+\end{itemize}
+
+We found both methods to be -almost- equivalent for our problem in terms of accuracy;
+nevertheless, we found a trade-off between the 2 methods:
+\begin{itemize}
+	\item The CNN was found to be easier to use as it requires no previous dependencies and it extracts the important features as a part of training but it is considerably slow and the trained model is always huge reaching about 100 MBs of saved weights. So it was found impractical for real-time applications as speed is a critical criteria.
+	\item The old-fashioned method was harder to implement because it needs a lot of dependencies like: landmarks extraction model (which is 100 MB on its own), and HOG extraction techniques (which requires tuning). but the old fashioned techniques was found to be fast enough for usage in our application of the real-time recognition and gave higher accuracy.
+\end{itemize}
+
+\paragraph{Second Question}
+we recommend (and use) old fashioned techniques, By performance we mean accuracy and speed, we found that performance depends on
+several factors which are (used techniques, model specifications, training dataset (and its specs) and preprocessing on images), these factors weren't decided arbitrarily but with trial and error; our final conclusion was to use the following:
+\begin{itemize}
+	\item HOG and Landmarks feature extraction techniques.
+	\item Model details are as specified in model section.
+	\item CK+ combined with RafD datasets.
+	\item For preprocessing we applied median filter followed by sharpening filter.
+\end{itemize}
