@@ -7,10 +7,10 @@ import dlib
 import os
 import Cerebro
 
-landmarks_model_path = os.join(
+landmarks_model_path = os.path.join(
 	Cerebro.__cwd__,
 	'saved-models/face-landmarks/shape_predictor_68_face_landmarks.dat'
-	)
+)
 if not os.path.isfile(landmarks_model_path):
 	raise Exception("shape_predictor_68_face_landmarks.dat doesn't exist.")
 

@@ -31,8 +31,8 @@ class EmotionsModel(object):
         reduced_emotions=None,
     ):
         # pathes constants
-        self.model_path = os.join(Cerebro.__cwd__,'saved-models/emotions_model.f5')
-        self.model_specs_path = os.join(Cerebro.__cwd__,'saved-models/emotions_model_specs.bin')
+        self.model_path = os.path.join(Cerebro.__cwd__,'saved-models/emotions_model.f5')
+        self.model_specs_path = os.path.join(Cerebro.__cwd__,'saved-models/emotions_model_specs.bin')
 
         if not os.path.isfile(self.model_path):
             raise Exception("emotions_model.f5 doesn't exist.") 
