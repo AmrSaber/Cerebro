@@ -1,15 +1,24 @@
 \paragraph{HOG\_with\_sliding\_window}
-It works by calling hog\_with\_sliding\_window from feature\_extraction.py.
-\newline \textbf{\textit{Input}}: 
+% It works by calling hog\_with\_sliding\_window from feature\_extraction.py.
+\subparagraph{Input}:
+\begin{changemargin}{0.5cm}{0cm}
 \begin{itemize}
-\item  \textbf{img}: the input image, numpy array.
-\item  \textbf{window\_step}: sliding window forward step, the default value is 6 .
-\item  \textbf{orientations}: number of histogram bins, the default value is 8.
-\item \textbf{pixels\_per\_cell}: number of pixels in each cell, the default value is (12, 12).
-\item  \textbf{cells\_per\_block}: number of cells in each block, the default value is (1, 1).
-\item  \textbf{block\_norm}: the method used to normalize each block, the default value is 'L2-Hys'.\newline The available values for block normalization is [‘L1’, ‘L1-sqrt’, ‘L2’, ‘L2-Hys’]
+\item  \textbf{img}: [numpy.ndarray] the input image.
+\item  \textbf{window\_step}: [int, default = 6]sliding window forward step.
+\item  \textbf{orientations}: [int, default = 8]number of histogram bins.
+\item \textbf{pixels\_per\_cell}: [tuple (int, int), default = (12, 12)]number of pixels in each cell.
+\item  \textbf{cells\_per\_block}: [tuple (int, int), default = (1, 1)], number of cells in each block.
+\item  \textbf{block\_norm}: [string, default = "L2-Hys"]the method used to normalize each block, The available values for block normalization is [‘L1’, ‘L1-sqrt’, ‘L2’, ‘L2-Hys’]
 \end{itemize}
-The default values is chosen according to which is more describing the image in the facial expression recognition field and you can find different combination in the code itself. 
-\newline \textbf{\textit{Output}}: list of combined successive histograms for the whole image.
-\newline\textbf{\textit{Rule}}: a window passing through the whole image and apply hog on the window each time to capture more features, for more information about hog and sliding window see 2.1.5, 3.2.4.
-\newline 
+\end{changemargin}
+
+% The default values is chosen according to which is more describing the image in the facial expression recognition field and you can find different combination in the code itself. 
+\subparagraph{Returns:}
+\begin{changemargin}{0.5cm}{0cm}
+list of combined successive histograms for the whole image.
+\end{changemargin}
+
+\subparagraph{Rule:} 
+\begin{changemargin}{0.5cm}{0cm}
+a window passing through the whole image and apply hog feature extraction on the window each time to capture more features, for more information about hog and sliding window see 2.1.5, 3.2.4.
+\end{changemargin}

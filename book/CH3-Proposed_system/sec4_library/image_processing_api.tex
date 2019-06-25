@@ -1,19 +1,48 @@
 \paragraph{laplacian}
-Where: Cerebro.image.enhancement.filters.laplacian \newline
-Parameters: img (source image) -> numpay array \newline
-Returned value: image -> numpay array \newline
-Exceptions: None \newline
-Role: Sharpen the input image and return the sharpened image
+Where: Cerebro.image.enhancement.filters.laplacian
+\subparagraph{Parameters:}
+\begin{changemargin}{0.5cm}{0cm}
+\begin{enumerate} 
+	\item \textbf{img}: [numpy.ndarray] the source image to be sharpened
+\end{enumerate}
+\end{changemargin}
+
+\subparagraph{Returned value:}
+\begin{changemargin}{1cm}{0cm}
+	image [numpay.ndarray] the sharpened image.
+\end{changemargin}
+
+\subparagraph{Role:}
+\begin{changemargin}{1cm}{0cm}
+	Sharpen the input image and return the sharpened image
+\end{changemargin}
+
 \paragraph{median}
 Where: Cerebro.image.enhancement.filters.median \newline
-Parameters: img (source image) -> numpay array \newline
-(Optional): size (filter_size and it must be odd and greater than 1) -> integer \newline
-Returned value: image -> numpay array \newline
-Exceptions: None \newline
-Role: Remove salt and pepper noise from the input image and return the denoised image
+\subparagraph{Parameters:}
+\begin{changemargin}{0.5cm}{0cm}
+	\begin{enumerate}
+		\item img (source image) -> numpay array \newline
+		\item (Optional): size (filter\_size and it must be odd and greater than 1) -> integer \newline
+	\end{enumerate}
+\end{changemargin}
+
+\subparagraph{Returned value:}
+\begin{changemargin}{1cm}{0cm}
+	image -> numpay array \newline
+\end{changemargin}
+
+\subparagraph{Role:}
+\begin{changemargin}{1cm}{0cm}
+ 	Remove salt and pepper noise from the input image and return the denoised image
+\end{changemargin}
+ 	
 \paragraph{fastNLMeans}
 Where: Cerebro.image.enhancement.filters.fastNLMeans(img, h=15, templateWindowSize=7, searchWindowSize=21) \newline
-Parameters: img (source image) -> numpay array \newline
+
+Parameters: 
+img (source image) -> numpay array \newline
+
 (Optional): \newline
 h (regulating filter strength. Big h value perfectly removes noise but also removes image details, smaller h value preserves details but also preserves some noise) -> integer \newline
 templateWindowSize (size in pixels of the template patch that is used to compute weights. Should be odd. Recommended value 7 pixels) -> integer \newline
@@ -21,14 +50,14 @@ searchWindowSize (size in pixels of the window that is used to compute weighted 
 Returned value: image -> numpay array \newline
 Exceptions: None \newline
 Role: Remove gaussian noise from the input image and return the denoised image
-\paragraph{get_face_landmarks}
-Where: Cerebro.image.feature_extraction.get_face_landmarks \newline
+\paragraph{get\_face\_landmarks}
+Where: Cerebro.image.feature\_extraction.get\_face\_landmarks \newline
 Parameters: img (source image[face]) -> numpay array \newline
 Returned value: list of coordinates where coordinate -> tuple(pair), first: x-coordinate -> integer, second: y-coordinate -> integer \newline
 Exceptions: None \newline
 Role: Compute coordinates of facial landmarks of the input face and return these coordinates
-\paragraph{align_faces}
-Where: Cerebro.image.enhancement.alignment.align_faces(img) \newline
+\paragraph{align\_faces}
+Where: Cerebro.image.enhancement.alignment.align\_faces(img) \newline
 Parameters: img (source image[face]) -> numpay array \newline
 Returned value: image -> numpay array \newline
 Exceptions: None \newline
