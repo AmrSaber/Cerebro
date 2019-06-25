@@ -11,6 +11,8 @@ from keras.layers import Input, Conv2D, MaxPooling2D, Flatten, Dense, BatchNorma
 
 import pickle
 import numpy as np
+import os
+import Cerebro
 from pathlib import Path
 from Cerebro.image.enhancement import filters
 from Cerebro.image import feature_extraction, utils
@@ -29,9 +31,14 @@ class EmotionsModel(object):
         reduced_emotions=None,
     ):
         # pathes constants
-        self.model_path = './saved-models/emotions_model.f5'
-        self.model_specs_path = './saved-models/emotions_model_specs.bin'
+        self.model_path = os.join(Cerebro.__cwd__,'saved-models/emotions_model.f5')
+        self.model_specs_path = os.join(Cerebro.__cwd__,'saved-models/emotions_model_specs.bin')
 
+        if not os.path.isfile(self.model_path):
+            raise Exception("emotions_model.f5 doesn't exist.") 
+
+        if not os.path.isfile(self.model_specs_path):
+            raise Exception("emotions_model_specs.bin doesn't exist.") 
 
         self.verbose = verbose
         self.use_reduced_emotions = use_reduced_emotions

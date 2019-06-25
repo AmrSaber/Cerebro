@@ -4,8 +4,17 @@ import cv2
 from skimage.feature import hog
 from imutils import face_utils
 import dlib
+from os
+import Cerebro
 
-__dlib_landmark_predictor = dlib.shape_predictor("./saved-models/face-landmarks/shape_predictor_68_face_landmarks.dat")
+landmarks_model_path = os.join(
+	Cerebro.__cwd__,
+	'saved-models/face-landmarks/shape_predictor_68_face_landmarks.dat'
+	)
+if not os.path.isfile(landmarks_model_path):
+	raise Exception("shape_predictor_68_face_landmarks.dat doesn't exist.")
+
+__dlib_landmark_predictor = dlib.shape_predictor(landmarks_model_path)
 
 def sk_get_hog(img, orientations=8, pixels_per_cell=(12, 12)):
 	"""

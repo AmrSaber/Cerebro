@@ -1,5 +1,6 @@
 import cv2
-
+import Cerebro
+import os 
 # haarcascade_frontalface_alt.xml scale-factor = 1.00849, min-neighbours = 5
 # scale factor of 1.03 - 1.05 for haar seems to give good results
 
@@ -7,10 +8,19 @@ class cascade_FaceDetector:
 	def __init__(self, classifier_type):
 		self.min_neighbors = 5
 		if classifier_type == 'haar':
-			self.classifier = cv2.CascadeClassifier('./saved-models/face-detection/haarcascade_frontalface_alt.xml')
+			path = os.path.join(Cerebro.__cwd__,
+					'saved-models/face-detection/haarcascade_frontalface_alt.xml'
+					)
+			if not os.path.isfile(path):
+				raise Exception("haarcascade_frontalface_alt.xml doesn't exist.")
+			self.classifier = cv2.CascadeClassifier(path)
 			self.scale_factor = 1.0303035
 		elif classifier_type == 'lbp':
-			self.classifier = cv2.CascadeClassifier('./saved-models/face-detection/lbpcascade_frontalface_improved.xml')
+			path = os.path.join(Cerebro.__cwd__,
+				'saved-models/face-detection/lbpcascade_frontalface_improved.xml')
+			if not os.path.isfile(path):
+				raise Exception("lbpcascade_frontalface_improved.xml doesn't exist.")
+			self.classifier = cv2.CascadeClassifier(path)
 			self.scale_factor = 1.2
 		else:
 			raise Exception("unknown classifier type")

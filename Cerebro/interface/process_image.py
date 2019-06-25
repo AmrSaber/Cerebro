@@ -1,7 +1,8 @@
-from model import emotions_model as model
+
 import cv2
 import threading
 
+from Cerebro.model import emotions_model as model
 from Cerebro.image.face_detector import detect_dlib
 from Cerebro.image.face_detector import detect_haar
 from Cerebro.image.face_detector import detect_lbp

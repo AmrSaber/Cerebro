@@ -82,36 +82,6 @@ def faceTracking(frames, framesNumber):
                 cords.append(list(nones))
                 faces[currentFaceID][frameCounter] = frame[y: (y + h), x: (x + w)]
                 cords[currentFaceID][frameCounter] = ((x, y), (x + w, y + h))
-    #print(np.array(faces).shape)
-    #for i in faces[0]: print(i)
+
     return faces, cords
 
-"""
-if __name__ == '__main__':
-    faceCascade = cv2.CascadeClassifier('C:/Users/Aref/PycharmProjects/trial/venv\Lib/site-packages/cv2/data/haarcascade_frontalface_default.xml')
-    capture = cv2.VideoCapture(0)
-    cv2.namedWindow("base-image", cv2.WINDOW_AUTOSIZE)
-    cv2.startWindowThread()
-    frames = []
-    for i in range(100):
-        rc, x = capture.read()
-        x = cv2.resize(x, (320, 240))
-        gray = cv2.cvtColor(x, cv2.COLOR_BGR2GRAY)
-        y = faceCascade.detectMultiScale(gray, 1.3, 5)
-        if i%10 == 0:
-            frames.append((x, y))
-        cv2.imshow('frame', x)
-        if cv2.waitKey(1) & 0xFF == ord('q'):
-            break
-
-    # When everything done, release the capture
-    capture.release()
-    cv2.destroyAllWindows()
-    z = faceTracking(frames)
-    print(len(z))
-    for i in range(len(z)):
-        for j in range(len(z[i])):
-            if z[i][j] is None:
-                print(j)
-        print("\n")
-"""
