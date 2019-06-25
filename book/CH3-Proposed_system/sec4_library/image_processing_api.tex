@@ -9,7 +9,7 @@ Where: Cerebro.image.enhancement.filters.laplacian
 
 \subparagraph{Returned value:}
 \begin{changemargin}{1cm}{0cm}
-	image [numpay.ndarray] the sharpened image.
+	image [numpay.ndarray] the sharpened image
 \end{changemargin}
 
 \subparagraph{Role:}
@@ -18,18 +18,18 @@ Where: Cerebro.image.enhancement.filters.laplacian
 \end{changemargin}
 
 \paragraph{median}
-Where: Cerebro.image.enhancement.filters.median \newline
+Where: Cerebro.image.enhancement.filters.median
 \subparagraph{Parameters:}
 \begin{changemargin}{0.5cm}{0cm}
 	\begin{enumerate}
-		\item img (source image) -> numpay array \newline
-		\item (Optional): size (filter\_size and it must be odd and greater than 1) -> integer \newline
+		\item \textbf{img}: [numpy.ndarray] the source image to be denoised
+		\item \textbf{(Optional)} \textbf{size}: [int] the filter size and it must be odd and greater than 1. Its default value is 3
 	\end{enumerate}
 \end{changemargin}
 
 \subparagraph{Returned value:}
 \begin{changemargin}{1cm}{0cm}
-	image -> numpay array \newline
+	image [numpay.ndarray] the denoised image
 \end{changemargin}
 
 \subparagraph{Role:}
@@ -38,39 +38,84 @@ Where: Cerebro.image.enhancement.filters.median \newline
 \end{changemargin}
  	
 \paragraph{fastNLMeans}
-Where: Cerebro.image.enhancement.filters.fastNLMeans(img, h=15, templateWindowSize=7, searchWindowSize=21) \newline
+Where: Cerebro.image.enhancement.filters.fastNLMeans
+\subparagraph{Parameters:}
+\begin{changemargin}{0.5cm}{0cm}
+	\begin{enumerate} 
+		\item \textbf{img}: [numpy.ndarray] the source image to be denoised
+		\item \textbf{(Optional)} \textbf{h}: [int] regulating filter strength. Big h value perfectly removes noise but also removes image details, smaller h value preserves details but also preserves some noise. Its default value is 15
+		\item \textbf{(Optional)} \textbf{templateWindowSize}: [int] size in pixels of the template patch that is used to compute weights. Should be odd. Its default value is 7
+		\item \textbf{(Optional)} \textbf{searchWindowSize}: [int] size in pixels of the window that is used to compute weighted average for given pixel. Should be odd. Its default value is 21
+	\end{enumerate}
+\end{changemargin}
 
-Parameters: 
-img (source image) -> numpay array \newline
+\subparagraph{Returned value:}
+\begin{changemargin}{1cm}{0cm}
+	image [numpay.ndarray] the denoised image
+\end{changemargin}
 
-(Optional): \newline
-h (regulating filter strength. Big h value perfectly removes noise but also removes image details, smaller h value preserves details but also preserves some noise) -> integer \newline
-templateWindowSize (size in pixels of the template patch that is used to compute weights. Should be odd. Recommended value 7 pixels) -> integer \newline
-searchWindowSize (size in pixels of the window that is used to compute weighted average for given pixel. Should be odd. Recommended value 21 pixels) -> integer \newline
-Returned value: image -> numpay array \newline
-Exceptions: None \newline
-Role: Remove gaussian noise from the input image and return the denoised image
+\subparagraph{Role:}
+\begin{changemargin}{1cm}{0cm}
+	Remove gaussian noise from the input image and return the denoised image
+\end{changemargin}
+
 \paragraph{get\_face\_landmarks}
-Where: Cerebro.image.feature\_extraction.get\_face\_landmarks \newline
-Parameters: img (source image[face]) -> numpay array \newline
-Returned value: list of coordinates where coordinate -> tuple(pair), first: x-coordinate -> integer, second: y-coordinate -> integer \newline
-Exceptions: None \newline
-Role: Compute coordinates of facial landmarks of the input face and return these coordinates
+Where: Cerebro.image.feature\_extraction.get\_face\_landmarks
+\subparagraph{Parameters:}
+\begin{changemargin}{0.5cm}{0cm}
+	\begin{enumerate} 
+		\item \textbf{img}: [numpy.ndarray] the source image (detected face) to apply landmarks on it
+	\end{enumerate}
+\end{changemargin}
+
+\subparagraph{Returned value:}
+\begin{changemargin}{1cm}{0cm}
+	coordinates [list] the 68 points of coordinates of landmarks, where: its element [tuple] point (x,y), where: x and y [int]
+\end{changemargin}
+
+\subparagraph{Role:}
+\begin{changemargin}{1cm}{0cm}
+	Compute coordinates of facial landmarks of the input face and return these coordinates
+\end{changemargin}
+
 \paragraph{align\_faces}
-Where: Cerebro.image.enhancement.alignment.align\_faces(img) \newline
-Parameters: img (source image[face]) -> numpay array \newline
-Returned value: image -> numpay array \newline
-Exceptions: None \newline
-Role: Align (Scale and Rotate) the input face (where eyes become horizontal) and return the aligned face
+Where: Cerebro.image.enhancement.alignment.align\_faces
+\subparagraph{Parameters:}
+\begin{changemargin}{0.5cm}{0cm}
+	\begin{enumerate} 
+		\item \textbf{img}: [numpy.ndarray] the source image (detected face) to align it
+	\end{enumerate}
+\end{changemargin}
+
+\subparagraph{Returned value:}
+\begin{changemargin}{1cm}{0cm}
+	image [numpay.ndarray] the aligned image
+\end{changemargin}
+
+\subparagraph{Role:}
+\begin{changemargin}{1cm}{0cm}
+	Align (Scale and Rotate) the input face (where eyes become horizontal) and return the aligned face
+\end{changemargin}
+
 \paragraph{faceTracking}
-Where: Cerebro.image.FaceTracking.faceTracking \newline
-Parameters: frames (sequence of frames and coordinates of faces in each frame) -> \newline
-list of tuples(pairs), first: frame -> numpy array, second: coordinates -> \newline
-list of tuples(pair), first: tuple(pair), first: left -> integer, second: top -> integer, second: tuple(pair), first: right -> integer, second: bottom -> integer \newline
-framesNumber (frames number) -> integer \newline
-Returned value: \newline
-faces (2D list where each row has all faces of the same person in each frame) -> 2D list of faces where face -> numpay array \newline
-cords (2D list where each row has all faces coordinates of the same person in each frame) -> 2D list of coordinates where coordinate -> \newline
-tuple(pair), first: tuple(pair), first: left -> integer, second: top -> integer, second: tuple(pair), first: right -> integer, second: bottom -> integer \newline
-Exceptions: None \newline
-Role: Track faces in the sequence of the input frames and return tracked faces and thier coordinates 
+Where: Cerebro.image.FaceTracking.faceTracking
+\subparagraph{Parameters:}
+\begin{changemargin}{0.5cm}{0cm}
+	\begin{enumerate} 
+		\item \textbf{frames}: [list] sequence of frames and coordinates of faces in each frame, where: its element [tuple], where: its 1st element [numpy.ndarray] frame and its 2nd element [list] coordinates, where: its element [tuple], where: its 1st element [tuple] top-left point (x,y) and its 2nd element [tuple] bottom-right point (x,y), where: x and y [int]
+		\item \textbf{framesNumber}: [int] frames number
+	\end{enumerate}
+\end{changemargin}
+
+\subparagraph{Returned value:}
+\begin{changemargin}{1cm}{0cm}
+	\begin{enumerate} 
+		\item faces [list] faces of each person, where: its element [list] faces of the same person in each frame, where: its element [numpy.ndarray] face
+		\item cords [list] faces coordinates of each person, where: its element [list] faces coordinates of the same person in each frame, where: its element [tuple], where: its 1st element [tuple] top-left point (x,y) and its 2nd element [tuple] bottom-right point (x,y), where: x and y [int]
+	\end{enumerate}
+\end{changemargin}
+
+\subparagraph{Role:}
+\begin{changemargin}{1cm}{0cm}
+	Track faces in the sequence of the input frames and return tracked faces and their coordinates
+\end{changemargin}
