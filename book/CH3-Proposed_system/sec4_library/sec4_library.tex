@@ -1,69 +1,285 @@
 \subsection{architecture}
-    We represent the project to be a library so that if any other project needs to use any functionality we support they can do so easily by just downloading and importing our library.
-\bigbreak
-    The library can be used by the higher level APIs or 
-    lower level methods and its structure is as follows :
-        \begin{itemize}
-             \item Emotion Recognition Interface 
-                \begin{itemize}
-                    \item Real Time Streaming
-                    \item Video
-                    \item Single Image
-                \end{itemize}
-             \item Lower Level APIs
-                \begin{itemize}
-                    \item Model API
-                    \item Feature Extraction API
-                    \item Image Processing API
-                \end{itemize}
-        \end{itemize}
+As our project concluded we made a library that holds the functionality of the proposed system, as well some lower level APIs that can be used as building blocks or similar projects tuned with default values suited for our application, the structure of it is as follows:
+\begin{itemize}
+	\item Emotion Recognition Interface 
+	\begin{itemize}
+		\item Real Time Streaming
+		\item Video
+		\item Single Image
+	\end{itemize}
+	\item Lower Level APIs
+	\begin{itemize}
+		\item Model API
+		\item Feature Extraction API
+		\item Image Processing API
+	\end{itemize}
+\end{itemize}
+
+\subsection{Emotion Recognition Interface}
+this interface provides user with three modules, that allow them to directly use the model we tuned to recognize Facial expressions in a given image, video or real-time stream to the purpose that suits his application.\newline
+these function all go under \textbf{Cerebro.interface.video\_stream} module.
 
 \subsubsection{Real Time Streaming}
-The Real Time Stream interface is developed in a way that works with threads so that the stream running smoothly with high efficiency with no noticed delay in processing the frames to recognize the emotions 
+The Real Time Stream interface was developed using multi-threading to run smoothly with without a noticed delay in processing the frames to recognize the Facial Expressions. 
 \bigbreak 
-\noindent To use the stream function :
-% indentation of verbatim must be like that please don't change it
+
+%\begin{addmargin}[1em]{2em}
+\paragraph{detect\_stream\_emotions} \mbox{} \\
+\subparagraph{Parameters}:
+\begin{changemargin}{0.5cm}{0cm} 
+	\begin{itemize}
+		\item\textbf{skip}:[int, default = 40] The skip value is a positive integer representing the number of frames skipped without processing, skipping more frames can reduce the accuracy, but it reduce the execution time, so it speeds up streaming the result .
+	\end{itemize}
+\end{changemargin}
+
+\subparagraph{Returns}:
+\begin{changemargin}{0.5cm}{0cm}
 \begin{itemize}
-\item import the module:
-\begin{verbatim}
- from interface Import video-stream as vs
-\end{verbatim}
-\item call it:
-\begin{verbatim}
-vs.detect_stream_emotions(fps)
-\end{verbatim}
+	\item none, no return value since this function works on the stream directly and shows the recognized faces labeled with their recognized Facial Expression on them.
 \end{itemize}
-The frame-per-second value is an integer represents the number of frames will be processed to recognize emotion in per one second. default sit to be 40.
+\end{changemargin}
+		
+\subparagraph{Usage}:
+\begin{changemargin}{0.5cm}{0cm}
+\begin{itemize}
+	\item import the module:
+	\begin{lstlisting}[language=Python]
+	from Cerebro.interface Import video_stream as vs\end{lstlisting}
+	\item call it:
+	\begin{lstlisting}[language=Python]
+	vs.detect_stream_emotions(skip)\end{lstlisting}
+\end{itemize}
+\end{changemargin}
+\hrulefill
+
+
+\subsubsection{Facial Expression Recognition in a Video}
+\paragraph{detect\_video\_emotion}
+\subparagraph{Parameters:}
+\begin{changemargin}{0.5cm}{0cm} 
+	\begin{itemize}
+		\item  \textbf{video\_path}: [string] path to input video.
+		\item  \textbf{output\_path}: [string] path to output video, should contain output video name with its extension (must be mp4).
+		\item  \textbf{skip}: [int, default = 50] number of frames skipped without emotion recognition, be careful by increasing this parameter the output would be less accurate but the processing would be faster.
+		\item \textbf{detector\_type}: [string, default = "dlib"] "dlib" for face detector detector used by DLIB library, "haar" for HAAR claissifier, and "lbp" for LBP face dtector.
+		\item  \textbf{verbose}: that bool is set to True to give you information about processing operation, it defualts to False.
+	\end{itemize}
+\end{changemargin}
+
+\subparagraph{Returns:} 
+\begin{changemargin}{1cm}{0cm} 
+No return value
+\end{changemargin}
+
+\subparagraph{Rule:}
+\begin{changemargin}{1cm}{0cm} 
+it reads the video from given \textbf{input\_path}, divides it into frames and audio, then it operates on each frame marking the faces in it with the recognized Facial Expression they have, gathers frames and audio back again, then save the new video in the given output path.
+\end{changemargin}
+
+\subparagraph{Usage:}
+\begin{changemargin}{0.5cm}{0cm} 
+	\begin{itemize}
+		\item import the module:
+		\begin{lstlisting}[language=Python, caption=Python example]
+		from Cerebro.interface Import process_video as pv\end{lstlisting}
+		\item call it:
+		\begin{lstlisting}[language=Python, caption=Python example]
+		pv.detect_video_emotion(video_path, output_path, skip,detector_type, verbose)\end{lstlisting}
+	\end{itemize}
+\end{changemargin}
+
+
+% \newpage
+\subsubsection{Facial Expression Recognition in a Single Image}
+\paragraph{mark\_faces\_emotions}
+
+\subparagraph{Parameters:}
+\begin{changemargin}{0.5cm}{0cm}
+\begin{itemize}
+	\item \textbf{image}:[numpy.ndarray]image of any size to recognize emotions of faces in it with type.
+	\item \textbf{detector\_type}: [string, default = "dlib"]the default is dlib detector but it can be controlled to be "haar" or "lbp" classifiers.	
+\end{itemize}
+\end{changemargin}
+
+\subparagraph{Returns:}
+\begin{changemargin}{0.5cm}{0cm}
+\begin{itemize}
+	\item \textbf{image}:\newline
+	image[numpy.ndarray] with emotions recognized 
+\end{itemize}
+\end{changemargin}
+
+\subparagraph{Usage:}
+\begin{changemargin}{0.5cm}{0cm}
+\begin{itemize}
+	\item import the module:
+	\begin{lstlisting}[language=Python]
+	from interface Import process_image as pi\end{lstlisting}
+	
+	\item call it:
+	\begin{lstlisting}[language=Python]
+	pi.mark_faces_emotions(image)\end{lstlisting}
+\end{itemize}
+\end{changemargin}
+% \newpage
+
+%\begin{center}
+\subsection{Lower Level APIs}
+This is a more flexible option we provide to users of our library, by which you can use the core methods we rely upon for building our interface, these functionalities are divided into
+\begin{enumerate}
+	\item \textbf{model API}: provided by package \textbf{Cerebro.model}, it supplies the user with tools to train and build his own model, by selecting multiple variations of model, training data, and testing data user can make a new model of his own. 
+	\item \textbf{Feature Extraction API}: provided by module \textbf{Cerebro.image.feature\_extraction}, it provides modules for extracting features from the face like \textbf{HOG} and \textbf{Facial landmarks}.
+	\item \textbf{Image Processing API}: it provides methods for \textbf{image enhancement}
+\end{enumerate}
+% \end{center}
+
+% \newpage 
+
+\subsubsection{Model API}
+It provide you two methods with more options than interface.\newline
+but first we need to create object of our model.
 \bigbreak
 
-\subsubsection{Single Image Interface}
+\paragraph{Model Constructor}
 
-The Single Image Interface takes only one image as input and return image
-with emotions recognized 
+\subparagraph{Parameters}:
+\begin{changemargin}{0.5cm}{0cm}
+\begin{itemize}
+	\item \textbf{verbose}: [bool, default = False] if True, it prints information about training, testing and feature extraction, to the console, if False it doesn't.
+	
+	\item \textbf{create\_new}: [bool, default = False] if True, it would delete the model and retrained, otherwise it would use previousy trained and saved model.
+	
+	\item Model Specs: must be assigned if \textbf{create\_new = True} OR there is no model saved.
+		\newline
+		\textbf{\textit{Note}}: if assigned without creating new model or there is file saved the model will neglect the values assigned
+		\begin{itemize}
+			\item \textbf{use\_hog}: [bool, default = False] if True, the model is trained using  Histogram of Oriented Gradient, otherwise it won't use it.
 
-\noindent To use the Single Image Interface 
+			\item \textbf{use\_cnn}: [bool, default = False] if value set to True, then Convolutional Neural Network will be part of the model, if False it won't be part of the model.
+			
+			\item \textbf{use\_lm}: [bool, default = False] set to True to use landmarks in model training or False if needn't.
+			
+			% TBR
+			\item \textbf{emotions}: [list of strings, ex=["Satisfied", "Unsatisfied"]]list of emotions as strings to map each index to one emotion 
+		\end{itemize}
+		
+\end{itemize}
+\end{changemargin}
+
+\subparagraph{Usage:}
+\begin{changemargin}{0.5cm}{0cm}
 \begin{itemize}
 \item import the module:
-\begin{verbatim}
-from interface Import process_image as pi
-\end{verbatim}
-\item call it:
-\begin{verbatim}
-pi.mark_faces_emotions(image)
-\end{verbatim}
-\end{itemize}
-\newpage
+\begin{lstlisting}[language=Python]
+from model.emotions_model import *\end{lstlisting}
 
-\subsection{Processing video}
-It works by calling detect\_video\_emotion from process\_video.py.
-\newline \textbf{\textit{Input}}: 
-\begin{itemize}
-\item  \textbf{video\_path}: the video which supposed to be processed.
-\item  \textbf{output\_path}: output video path, should contain output video name with its extension (must be mp4).
-\item  \textbf{skip}: how many frames you want it to be skipped without emotion detection, be careful by increasing this parameter the output would be less accurate but the processing would be faster, its default value is 50 and that mean detect emotion every 2 seconds in normal video speed.
-\item \textbf{detector\_type}: the default is dlib detector but it can be controlled to be HAAR or LBP classifiers.
-\item  \textbf{verbose}: to follow processing operation by some print line this should be true, its default value is false.
+\item create new object:
+\begin{lstlisting}[language=Python]
+model = EmotionsModel(
+		verbose=False,
+		create_new=False,
+		use_hog=None,
+		use_cnn=None,
+		use_lm=None,
+		emotions=None
+)\end{lstlisting}
+
 \end{itemize}
-\textbf{\textit{Output}}: it doesn't return anything as its output directly saved to the output path.
-\newline\textbf{\textit{ Rule}}: it divides the video into frames and audio, applies analysis on it then gathers them again.
-\newline 
+\end{changemargin}
+
+% \newpage
+% \noindent\textbf{1- predict(faces, prob\_emotion=False)}:
+\paragraph{predict}It can optimize the code by working on batches if your usage doesn't need to process image by image.
+
+\subparagraph{Parameters}:
+\begin{changemargin}{0.5cm}{0cm}
+\begin{itemize}
+	\item \textbf{list of images}:\newline
+	it takes a list of [Numpy.ndarray] images and predict the emotion of each image.
+	\item \textbf{prob\_emotion}\textit{(optional)}:\newline
+	it's value tells if we want the method to return the probability of each emotion in a numpy array at the index corresponding to the image in the input list. 
+\end{itemize}
+\end{changemargin}
+
+\subparagraph{Returns}:
+\begin{changemargin}{0.5cm}{0cm}
+\begin{itemize}
+	\item \textbf{if prob\_emotion=False:}:\newline
+	will return list of emotions each emotion is a string at the index of each image in the input list.
+	\item \textbf{if prob\_emotion=True:}:\newline
+	will return list of Numpy arrays each array consists of the probability of emotions.
+\end{itemize}
+\end{changemargin}
+
+\textbf{\textit{To use the predict method}}:
+\bigbreak
+from model created in section 1.3.1
+
+\begin{itemize}
+	\item call method:
+	\begin{lstlisting}[language=Python]
+	model.predict(faces, prob_emotion=False)\end{lstlisting}
+\end{itemize}
+
+% \newpage
+
+\paragraph{2- predict\_with\_vote(faces)}:
+this method helps in recognizing the accurate emotion of one face by making a vote of ten sequential frames and get the most appearant emotion. \newline
+
+\subparagraph{Parameters:}
+\begin{changemargin}{0.5cm}{0cm}
+\begin{itemize}
+	\item \textbf{2D list }:\newline
+	each list in it is 1D list for each person. each element in that list is an image the method evaluate the image and votes for the most emotion appears in the array then return that emotion.
+\end{itemize}
+\end{changemargin}
+
+\subparagraph{Output:}
+\begin{changemargin}{0.5cm}{0cm}
+\begin{itemize}
+	\item \textbf{list}:\newline
+	will return 1D list with winner emotion in the index corresponding to the list it came from.
+\end{itemize}
+\end{changemargin}
+
+\subparagraph{Usage}:
+\begin{changemargin}{0.5cm}{0cm}
+from model created in section 1.3.1
+
+\begin{itemize}
+	\item call method:
+	\begin{lstlisting}[language=Python]
+	model.predict_with_vote(faces)\end{lstlisting}
+\end{itemize}
+\end{changemargin}
+
+\paragraph{detect\_video\_emotions\_with\_tracking}
+% It works by calling detect\_video\_emotions\_with\_tracking from process\_video.py
+\subparagraph{Input:}
+\begin{changemargin}{0.5cm}{0cm} 
+\begin{itemize}
+	\item  \textbf{video\_path}: the video which supposed to be processed.
+	\item  \textbf{output\_path}: output video path, should contain output video name with its extension (must be mp4).
+	\item  \textbf{batch\_size}: number of frames to be processed together to track in them, the default value is 125. \newline It shouldn't be smaller than 10.
+	\item \textbf{detector\_type}: the default is dlib detector but it can be controlled to be HAAR or LBP classifiers.
+	\item  \textbf{verbose}: to follow processing operation by some print line this should be true, its default value is false.
+\end{itemize}
+\end{changemargin}
+
+\subparagraph{Returns:}
+\begin{changemargin}{0.5cm}{}
+	it doesn't return anything as its output directly saved to the output path.
+\end{changemargin}
+
+
+\subparagraph{Rule:}
+\begin{changemargin}{0.5cm}{}
+it works by dividing video into frames, processing a batch of frames together to track people in them batch by batch till the frames end then gathering them together with the audio.
+\end{changemargin}
+
+\subsubsection{Feature Extracion API}
+\import{CH3-Proposed_system/sec4_library/}{hog_with_sliding_window.tex}
+
+\subsubsection{Image Processing API}
+all functions here go under \textbf{Cerebro.image} package, it supports multiple methods for noise removal, and image enhancement. 
+\import{CH3-Proposed_system/sec4_library/}{image_processing_api.tex}

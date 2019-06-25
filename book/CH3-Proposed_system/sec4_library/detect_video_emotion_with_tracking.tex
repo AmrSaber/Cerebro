@@ -1,0 +1,13 @@
+\paragraph{detect\_video\_emotions\_with\_tracking}
+It works by calling detect\_video\_emotions\_with\_tracking from process\_video.py
+\newline \textbf{\textit{Input}}: 
+\begin{itemize}
+\item  \textbf{video\_path}: the video which supposed to be processed.
+\item  \textbf{output\_path}: output video path, should contain output video name with its extension (must be mp4).
+\item  \textbf{batch\_size}: number of frames to be processed together to track in them, the default value is 125. \newline It shouldn't be smaller than 10.
+\item \textbf{detector\_type}: the default is dlib detector but it can be controlled to be HAAR or LBP classifiers.
+\item  \textbf{verbose}: to follow processing operation by some print line this should be true, its default value is false.
+\end{itemize}
+\newline \textbf{\textit{Output}}: it doesn't return anything as its output directly saved to the output path.
+\newline\textbf{\textit{Rule}}: it works by dividing video into frames, processing a batch of frames together to track people in them batch by batch till the frames end then gathering them together with the audio.
+\newline 

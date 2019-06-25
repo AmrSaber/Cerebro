@@ -18,7 +18,7 @@ CH2:
 - Written except:
 1 - facedetection\PCN needs to be improved
 2 - adding an example to the of face tracking subsection
-3 - we need to include a section here for the libraries we used 
+3 - we need to include a section here for the libraries we used
 	tensorflow, dlib, theano, opencv, moviepy, ..etc
 	only important ones should be included
 - will be revised by wafaa
@@ -35,7 +35,7 @@ missing parts:
 
 CH4: NO progress
 CH5: NO progress
-__________________________________________________________________________________	
+__________________________________________________________________________________
 W : WRITTEN
 RV1: REVISED once
 RV2: REVISED TWICE and so on
@@ -148,9 +148,9 @@ RV2: REVISED TWICE and so on
 					2 - a code sample alogn with result images
 			ENP : 2
 			ETN : 4 hours
-			
+
 		2.1.4 landmark Extraction <AREF> 12/6 <written>
-				this sections should cover 
+				this sections should cover
 				1 - what is landmark extraction, why we need it
 				2 - the principle behind landmark exraction (how it works)
 				3 - [sample code with] example image
@@ -183,9 +183,9 @@ RV2: REVISED TWICE and so on
 			3 - its effect on performance
 			ENP : 1
 			ETN : 30 mins
-	
+
 		2.1.8 Face tracking <AREF>
-			this section should cover 
+			this section should cover
 			1 - the idea of face tracking
 			2 - how it works, with example frames (i want muliple frames in same image side by side
 				face in the image has a box and an id for it to show the work of face tracking)
@@ -251,7 +251,7 @@ RV2: REVISED TWICE and so on
 			3.4.3.1 model API
 			3.4.3.2 feature exctracion API
 			3.4.3.3 image processing API
-			
+
 	3.5 ٍSummary <MANAR> 13/6 <WRITTEN>
 		this section should cover
 		1 - the used methods for each section and why they were used.
