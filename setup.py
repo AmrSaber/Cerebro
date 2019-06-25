@@ -8,7 +8,7 @@ setup(
     author = 'AmrSaber, WafaaIsmail, MohamedAhmed, SalmaSayed, MohamedAref, ManarArabi',
     author_email = 'amr.m.saber.mail@gmail.com, wafaaismail595@gmail.com, mohamedmaim97@gmail.com, Salmasayed797@gmail.com, muhammad.aref224@gmail.com, manar.araby.ma@gmail.com',
     url = 'https://github.com/AmrSaber/Cerebro',
-    download_url = 'https://github.com/AmrSaber/Cerebro/archive/v1.3.tar.gz',
+    download_url = 'https://github.com/AmrSaber/Cerebro/archive/v1.4.tar.gz',
     keywords = ['emotions', 'expressions', 'real-time stream'],
     packages=setuptools.find_packages(),
     include_package_data=True,
