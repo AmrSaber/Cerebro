@@ -1,10 +1,4 @@
-\paragraph{}
-Face Tracking is a tool for tracking moving faces in a video stream.
-\paragraph{}
-\textbf{It’s importance:}\newline
-We need to track the same person faces in a set of frames to extract expressions from them then use the most common expression from them as the main expression of this person in this set of frames as this will be more accurate from using a single frame for expression detection as person has a casual unreal expression. We do this for every person in the same frame individually.
-\paragraph{}
-\textbf{How it works:}\newline
-We give it the bounding box of the face in the first frame (using face detection method that we talked about before) and it attempts to track the face in the box from frame to frame for each face in the same frame.\newline
+\paragraph{Impact:} We need to track the same person faces in a set of frames to extract expressions from them then use the most common expression from them as the main expression of this person in this set of frames as this will be more accurate from using a single frame for expression detection as person has a casual unreal expression. We do this for every person in the same frame individually.
+\paragraph{Operation:} We give it the bounding box of the face in the first frame (using face detection method that we talked about before) and it attempts to track the face in the box from frame to frame for each face in the same frame.\newline
 And that tracking is generally works by comparing features extracted of each boundary of faces from first frame or the frame that we start tracking from it with the features extracted from the current frame then accept these matched features of each boundary as an individual tracker.
 

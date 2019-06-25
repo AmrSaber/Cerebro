@@ -9,7 +9,7 @@ Used methods: \newline
 \newline Our HOG parameters are: 8 bins for the histogram, 12X12 pixels per cell, 4X4 cells per block with disabled multichannel as we train the model on gray scale images. 
 \newline All parameters are chosen according to \cite{hog},this paper makes combinations of the whole parameters except normalization, so it gives us the best configuration.
 \newline
-In block normalization we choose \textbf{L2} method by try and error.
+In block normalization we choose \textbf{L2} method by trial and error.
 \item \textbf{Face landmarks }
 \newline It extracts the key features of the face and its position and this could have a strong impact on our work. 
 \newline We use \textbf{DLIB} library with trained model to extract 68 face landmarks from each face we pass to it. 
@@ -29,14 +29,10 @@ Used methods: \newline
 We find 5 combinations in out model architecture and here is the summary: 
 
 \begin{enumerate}
+	
 \item For \textit{FER} dataset \newline
-\begin{itemize}
-    \item Only CNN: 
-        \begin{itemize}
-            %\item It takes X time in training and X time in testing.
-            %\item The model size was X.
-            \item Its training accuracy is 90.07\% and testing accuracy is 75.38\%.
-        \end{itemize}
+\begin{itemize}[noitemsep,nolistsep]
+    \item Only CNN: Its training accuracy is 90.07\% and testing accuracy is 75.38\%.
 
 	\begin{comment}
     \item Only HOG: 
@@ -53,27 +49,13 @@ We find 5 combinations in out model architecture and here is the summary:
         \end{itemize}
 	\end{comment}
 
-    \item HOG and landmarks: 
-        \begin{itemize}
-            %\item It takes X time in training and X time in testing.
-            %\item The model size was X.
-            \item Its training accuracy is 86.1\% and testing accuracy is 55\%.
-        \end{itemize}
-    \item CNN, HOG and landmarks: 
-        \begin{itemize}
-            %\item It takes X time in training and X time in testing.
-            %\item The model size was X.
-            \item Its training accuracy is 94.17\% and testing accuracy is 58.08\%.
-        \end{itemize}
+    \item HOG and landmarks: Its training accuracy is 86.1\% and testing accuracy is 55\%.
+    \item CNN, HOG and landmarks: Its training accuracy is 94.17\% and testing accuracy is 58.08\%.
 \end{itemize}
+
 \item For \textit{CK+} dataset \newline
-\begin{itemize}
-    \item Only CNN: 
-        \begin{itemize}
-            %\item It takes X time in training and X time in testing.
-            %\item The model size was X.
-            \item using 5 Expochs, Its training accuracy is 100\% and testing accuracy is 85.13\%.
-        \end{itemize}
+\begin{itemize}[noitemsep,nolistsep]
+    \item Only CNN: using 5 Expochs, Its training accuracy is 100\% and testing accuracy is 85.13\%.
 
 	\begin{comment}
     \item Only HOG: 
@@ -90,27 +72,12 @@ We find 5 combinations in out model architecture and here is the summary:
         \end{itemize}
 	\end{comment}
 
-    \item HOG and landmarks: 
-        \begin{itemize}
-            %\item It takes X time in training and X time in testing.
-            %\item The model size was X.
-            \item Its training accuracy is 100\% and testing accuracy is 88.4\%.
-        \end{itemize}
-    \item CNN, HOG and landmarks: 
-        \begin{itemize}
-            %\item It takes X time in training and X time in testing.
-            %\item The model size was X.
-            \item Its training accuracy is 92\% and testing accuracy is 85\%.
-        \end{itemize}
+    \item HOG and landmarks: Its training accuracy is 100\% and testing accuracy is 88.4\%.
+    \item CNN, HOG and landmarks: Its training accuracy is 92\% and testing accuracy is 85\%.
 \end{itemize}
 \item For \textit{RafD} dataset \newline
-\begin{itemize}
-    \item Only CNN: 
-        \begin{itemize}
-            %\item It takes X time in training and X time in testing.
-            %\item The model size was X.
-            \item Its training accuracy is 95\% and testing accuracy is 89.04\%.
-        \end{itemize}
+\begin{itemize}[noitemsep,nolistsep]
+    \item Only CNN: Its training accuracy is 95\% and testing accuracy is 89.04\%.
 
 	\begin{comment}
     \item Only HOG: 
@@ -127,27 +94,13 @@ We find 5 combinations in out model architecture and here is the summary:
         \end{itemize}
 	\end{comment}
 
-    \item HOG and landmarks: 
-        \begin{itemize}
-            %\item It takes X time in training and X time in testing.
-            %\item The model size was X.
-            \item Its training accuracy is 100\% and testing accuracy is 92.83\% .
-        \end{itemize}
-    \item CNN, HOG and landmarks: 
-        \begin{itemize}
-            %\item It takes X time in training and X time in testing.
-            %\item The model size was X.
-            \item Its training accuracy is 100\% and testing accuracy is 93\%.
-        \end{itemize}
+    \item HOG and landmarks: Its training accuracy is 100\% and testing accuracy is 92.83\% .
+    \item CNN, HOG and landmarks: Its training accuracy is 100\% and testing accuracy is 93\%.
 \end{itemize}
+
 \item For \textit{CK+ and RafD} combination \newline
-\begin{itemize}
-    \item Only CNN: 
-        \begin{itemize}
-            %\item It takes X time in training and X time in testing.
-            %\item The model size was X.
-            \item Its training accuracy is 98.2\% and testing accuracy is 87.8\%.
-        \end{itemize}
+\begin{itemize}[noitemsep,nolistsep]
+    \item Only CNN: Its training accuracy is 98.2\% and testing accuracy is 87.8\%.
 
 	\begin{comment}
     \item Only HOG: 
@@ -164,17 +117,7 @@ We find 5 combinations in out model architecture and here is the summary:
         \end{itemize}
 	\end{comment}
 
-    \item HOG and landmarks: 
-        \begin{itemize}
-            %\item It takes X time in training and X time in testing.
-            %\item The model size was X.
-            \item Its training accuracy is 99.89\% and testing accuracy is 98.43\%.
-        \end{itemize}
-    \item CNN, HOG and landmarks: 
-       \begin{itemize}
-            %\item It takes X time in training and X time in testing.
-            %\item The model size was X.
-            \item Its training accuracy is 100% and testing accuracy is 89.74\%.
-        \end{itemize}
+    \item HOG and landmarks: training accuracy is 99.89\% and testing accuracy is 98.43\%.
+    \item CNN, HOG and landmarks: training accuracy is 100\% and testing accuracy is 89.74\%.
 \end{itemize}
 \end{enumerate}
