@@ -1,18 +1,10 @@
-the face detection step is an essential step before facial expression recognition, as we must first extract the faces from the image before further used for feature extraction (HOG and landmarks) then it's passed to the model.
-\newline
-we tried multiple face detection approaches that are discussed below.
+the face detection step is an essential step before facial expression recognition, as we must first extract the faces from the image before further used for feature extraction (HOG and landmarks) then it's passed to the model, we tried multiple face detection approaches that are discussed below.
 \subsubsection{lBP classifier face detector}
-
 \paragraph{theory}
-Local Binary Pattern (LBP) features have performed very well in various applications, including texture classification and segmentation, image retrieval and surface inspection, for the application of face detection we can make it micro visual patterns in the face.
-
-this classifier divides a given image into blocks, for each block the LBP classifier will consider one window (3X3 window) at a time.\newline
-
-for each window it will compare the center pixel with all other pixels, if a pixel is below the value of centeral pixel its value becomes 0, and 1 otherwise, then the value will be read in clockwise order and form a binary number, which will be the new value of the center pixel as shown in figure \ref{fig:LBP_calculation}.\newline
-
-Then, it converts each block values into a histogram, so now we have gotten one histogram for each block in an image, which are then concatenated together to create a feature vector for the image, this is how LBP features are extracted from the image.
-
-the classifier is then trained on those features with labeled images as faces or non-faces.
+Local Binary Pattern (LBP) features have performed very well in various applications, including texture classification and segmentation, for the application of face detection we can detect micro visual patterns in the face.\newline
+this classifier divides a given image into blocks, each block will be considered one window (3X3 window) at a time, for each window it will compare the center pixel with all other pixels, if a neighbor pixel is below the value of center pixel its value becomes 0, and 1 otherwise, then the value will be read in clockwise order and form a binary number, which will be the new value of the center pixel as shown in figure \ref{fig:LBP_calculation}.\newline
+Then, it converts each block values into a histogram, so now we have gotten one histogram for each block in an image, which are then concatenated together to create a feature vector for the image.\newline
+a classifier is then trained on those features with labeled images as faces or non-faces.
 \begin{figure}
 	\centering
 	\includegraphics{images/LBP_classifier.png}
@@ -21,7 +13,7 @@ the classifier is then trained on those features with labeled images as faces or
 \end{figure}
 
 \paragraph{performance}
-we used the openCV implementation of the LBP classifier, among other methods we tried this was by far \textbf{the the fastest one}, it has an average execution time of 0.812753 seconds, this execution time and performance makes \textbf{it suitable for mobile apps and real time applications} alot, however it's \textbf{very lacking in accuracy and when it comes to small faces mostly wouldn't detect them at all}.
+we used the openCV implementation of the LBP classifier, among other methods we tried this was by far the fastest one, it has an average execution time of 0.812753 seconds which makes it suitable for mobile apps and real time applications alot, however it isn't accurate specially with small faces.
 
 \begin{figure}
 	\centering

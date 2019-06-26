@@ -25,7 +25,7 @@ The Real Time Stream interface was developed using multi-threading to run smooth
 %\begin{addmargin}[1em]{2em}
 \paragraph{detect\_stream\_emotions}% \mbox{} \\
 \subparagraph{Parameters}:
-\begin{changemargin}{0.5cm}{0cm} 
+\begin{changemargin}{0.5cm}{0cm}
 	\begin{itemize}[noitemsep,nolistsep]
 		\item\textbf{skip}:[int, default = 40] The skip value is a positive integer representing the number of frames skipped without processing, skipping more frames can reduce the accuracy, but it reduce the execution time, so it speeds up streaming the result .
 	\end{itemize}
@@ -38,7 +38,7 @@ The Real Time Stream interface was developed using multi-threading to run smooth
 \end{itemize}
 \end{changemargin}
 	
-%\begin{comment}
+\begin{comment}
 \subparagraph{Usage}:
 \begin{changemargin}{0.5cm}{0cm}
 \begin{itemize}
@@ -50,7 +50,7 @@ The Real Time Stream interface was developed using multi-threading to run smooth
 	vs.detect_stream_emotions(skip)\end{lstlisting}
 \end{itemize}
 \end{changemargin}
-%\end{comment}
+\end{comment}
 
 % \hrulefill
 
@@ -78,7 +78,7 @@ No return value
 it reads the video from given \textbf{input\_path}, divides it into frames and audio, then it operates on each frame marking the faces in it with the recognized Facial Expression they have, gathers frames and audio back again, then save the new video in the given output path.
 \end{changemargin}
 
-%\begin{comment}
+\begin{comment}
 \subparagraph{Usage:}
 \begin{changemargin}{0.5cm}{0cm} 
 	\begin{itemize}
@@ -90,7 +90,7 @@ it reads the video from given \textbf{input\_path}, divides it into frames and a
 		pv.detect_video_emotion(video_path, output_path, skip,detector_type, verbose)\end{lstlisting}
 	\end{itemize}
 \end{changemargin}
-%\end{comment}
+\end{comment}
 
 % \newpage
 \subsubsection{Facial Expression Recognition in a Single Image}
@@ -111,7 +111,7 @@ it reads the video from given \textbf{input\_path}, divides it into frames and a
 \end{itemize}
 \end{changemargin}
 
-%\begin{comment}
+\begin{comment}
 \subparagraph{Usage:}
 \begin{changemargin}{0.5cm}{0cm}
 \begin{itemize}
@@ -124,7 +124,7 @@ it reads the video from given \textbf{input\_path}, divides it into frames and a
 	pi.mark_faces_emotions(image)\end{lstlisting}
 \end{itemize}
 \end{changemargin}
-%\end{comment}
+\end{comment}
 % \newpage
 
 %\begin{center}
@@ -170,7 +170,7 @@ but first we need to create object of our model.
 \end{itemize}
 \end{changemargin}
 
-%\begin{comment}
+\begin{comment}
 \subparagraph{Usage:}
 \begin{changemargin}{0.5cm}{0cm}
 \begin{itemize}
@@ -191,7 +191,7 @@ model = EmotionsModel(
 
 \end{itemize}
 \end{changemargin}
-%\end{comment}
+\end{comment}
 
 % \newpage
 % \noindent\textbf{1- predict(faces, prob\_emotion=False)}:
@@ -216,7 +216,7 @@ model = EmotionsModel(
 \end{changemargin}
 
 
-%\begin{comment}
+\begin{comment}
 %\textbf{\textit{To use the predict method}}: \bigbreak from model created in section 1.3.1
 
 \begin{itemize}
@@ -224,7 +224,7 @@ model = EmotionsModel(
 	\begin{lstlisting}[language=Python]
 	model.predict(faces, prob_emotion=False)\end{lstlisting}
 \end{itemize}
-%\end{comment}
+\end{comment}
 % \newpage
 
 \paragraph{predict\_with\_vote(faces)}:
@@ -246,7 +246,7 @@ this method helps in recognizing the accurate emotion of one face by making a vo
 \end{itemize}
 \end{changemargin}
 
-%\begin{comment}
+\begin{comment}
 \subparagraph{Usage}:
 \begin{changemargin}{0.5cm}{0cm}
 %from model created in section 1.3.1
@@ -257,7 +257,7 @@ this method helps in recognizing the accurate emotion of one face by making a vo
 	model.predict_with_vote(faces)\end{lstlisting}
 \end{itemize}
 \end{changemargin}
-%\end{comment}
+\end{comment}
 
 \paragraph{detect\_video\_emotions\_with\_tracking}
 % It works by calling detect\_video\_emotions\_with\_tracking from process\_video.py

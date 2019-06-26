@@ -1,29 +1,25 @@
 \subsection{Brief}
 \paragraph{definition}
-Image processing is the process of applying some operations to an image to reach an enhanced image
+Image processing is the application of some operations on an image to reach an enhanced image
 that satisfies a certain goal depending on the application in hand.
-for example if we need to make an application that detects edges within an image we use an image processing
-technique that is capable of highlighting those edges and make them stand out.
-the result image is not necessarily a beautiful one from the perspective of a human, but it has to highlight
-the features of interest within the image that would be used for further processing.
+for example if we need to mark edges within an image we use an image processing
+technique that can highlight edges and make them stand out.
+the result image is not necessarily a beautiful one, but it has to highlight
+the features of interest within the image to be used for further processing.
 
 \paragraph{impact}
-Apart from the rule image processing plays in graphics enhancement to make image more visually appealing,
-Image processing is very important tool that is used for the specially preparation for computer vision and Machine learning, image processing a key preprocessing step to be taken before start in any of the two fields.
+Apart from the rule image processing plays in image enhancement to make images more visually appealing,
+image processing is an essential step before computer vision and Machine learning.
 the key difference between those two purposes is that when we want the image to be more visually appealing
-our target is a human, a human is the one who should view that image in the end.
-but when it comes to fields like computer vision or Machine Learning, the target is a computer that is programmed 
-to act based on the content of input image.
-for this computer to do that it must be able to clearly extract feature of interest from the image, 
-in order to make use of the image, we must have 2 main tasks for image processing:
+our target is a human, but when it comes to fields like computer vision or Machine Learning, the target is a computer that is programmed 
+to act based on the content of input image, so we need to extract feature of interest from the image prior to that, 
+we have 2 main uses for image processing:
 \begin{enumerate}
-	\item Noise Removal: to remove the noise (like salt and pepper, or gauessian blur, ...etc) that we estimate to exist in the image so as to refine the features to be extracted from the image.
+	\item Noise Removal: to remove the noise (like salt and pepper, or gauessian blur, ...etc) that we estimate to exist in the image.
 	
-	\item Feature Extraction: to highlight and evaluate features of interest that exist in the image to be used
-	as input data for computer vision or Machine learning algorithms e.g. neural networks.
+	\item Feature Extraction: to highlight features of interest that exist in the image to be used
+	as input data for computer vision or Machine learning algorithms.
 \end{enumerate}
-these two processes are the most common use cases for image processing, and we will go over them with more detail in next section.
-
 
 %---------------------------------------------------------------------------------
 %---------------------------------------------------------------------------------
@@ -64,7 +60,7 @@ processing techniques have been applied to the input image before extracting fea
 
 \subsubsection{Noise Removal}
 since we don't expect the input image to be particularly corrupted we  use median filter to 
-remove salt and pepper noise .
+remove salt and pepper noise.
 \begin{comment}
 a gaussian filter was being used at as well but 
 it was inefficient in terms of time so the median filter took its place without a problem.
@@ -76,6 +72,6 @@ unlike CNN (convolutional neural network) model which extracts the features it n
 one of the approaches we took requires preprocessing to extract some features from input image
 we needed two types of features in particular:
 \begin{enumerate}
-	\item HOG (Histogram of Oriented Gradients) : feature descriptor which means that it generalize the object in a way that the same object (in this case a person) produces as close as possible to the same feature descriptor when viewed under different conditions.
+	\item HOG (Histogram of Oriented Gradients) : a feature descriptor used to generalize the photographed object so that it can be correctly detected under different conditions.
 	\item Face Landmarks : those are points in the face that represent the face main features and we need those to estimate the emotion as well.
 \end{enumerate}

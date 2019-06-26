@@ -47,23 +47,20 @@ Using the FER dataset with adadelta optimizer, we get a result of 95\% training 
 	\item Dealing with dataset problems.
 \end{enumerate}
 \subsection{Update Model Layers}
-Here we try to update layers of our model making it simpler to get the feature we need from each image as fast as we can and try to make the gap between training and testing accuracies small and acceptable.
-\textbf{Keep in mind that we were working on FER13 dataset which is a challenging dataset so we had a big problem.}
 \subsubsection{New Structure}
-We update our structure to be as described in figure \ref{arch}.
+We update our structure as in figure \ref{arch}. 
+We use HOG and Landmarks path as feature extraction methods.\newline
+Result of this section (without normalization) (mentioned above) is 33\%,
+with normalization we get \textbf{testing accuracy of 56.93\%} and \textbf{training accuracy of 74\%} in 10 epochs. 
+
 \begin{figure}
 	\centering
 	\includegraphics[width=.7\textwidth]{images/Arch.png}
 	\caption{model new Architecture}
 	\label{arch}
-\end{figure} 
-\paragraph{}
-We use HOG and Landmarks path as feature extraction methods.\newline
-Result of this section without normalization (mentioned above) is 33\%,
-with normalization we get \textbf{testing accuracy of 56.93\%} and \textbf{training accuracy of 74\%} after 10 epochs. 
+\end{figure}
 
 \subsection{Dealing With Dataset Problems}
-\paragraph{}
 One of the datasets we worked on "FER13" was imbalanced, which made the trained model more biased towards negative emotions (which were more presented in the dataset), the solution for this is to balance the data by :
 \begin{enumerate}
 	\item Undersampling.

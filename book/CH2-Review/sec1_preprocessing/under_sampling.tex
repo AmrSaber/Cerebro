@@ -1,14 +1,11 @@
-\paragraph{}
-first we define what an "imbalance" is, Data is called imbalanced if the output class values aren't evenly represented, for example let's say we study data with output feature having 2 possible values, either 0 or 1, the value 0 happens 80\% of the time while the value 1 is represented by only 20\% of the data, if we start training on this data right away we can expect the trained model to be biased towards the value 0 which appears to be the most common outcome, so even if he value 0 is not ha frequent, the model will assume so because that's what the data say. \newline
-
+Data is called imbalanced if the output class values aren't evenly represented, for example if we study data with output feature having 2 possible values, either 0 or 1, the value 0 comes 80\% of the time while the value 1 only comes 20\% of the time, ta model trained on this data would be biased towards the value 0 which appears to be the most common outcome.\newline
 the solution for this is to balance the data by :
 \begin{enumerate}
 	\item UnderSampling.
 	\item Data Augmentation
 \end{enumerate}
 \subsubsection{Under Sampling}
-\paragraph{Breif}
-it's a technique we can use when the data distribution is imbalanced it is happened by removing some instances from the large class(s) until they are close enough to the smaller classes, this way we can decrease the bias of our model towards the large classes.\newline 
+it's a technique we can use when the data distribution is imbalanced, by removing some instances from the large class(s) until they are close enough to the smaller classes, this way we can decrease the bias of our model towards the large classes.\newline 
 
-under sampling should solve the problem with bias in the trained model, but at he cost of decreasing the size of the data set when you drop large portion of it, hence decreasing what he model learns, so it can decrease the accuracy as well, if the biggest problem for your model is bias then under sampling can solve it, however if te biggest problem is in learning itself then under sampling shall make it worse.
+under sampling should solve the problem with bias in the trained model, but at the cost of decreasing the size of the dataset hence decreasing what the model learns, so it can decrease the accuracy as well, if the biggest problem for your model is bias then under sampling can solve it, however if the biggest problem is in learning itself then under sampling shall make it worse.
 

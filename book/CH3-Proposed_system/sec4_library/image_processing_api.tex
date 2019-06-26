@@ -1,10 +1,8 @@
 \paragraph{laplacian} \mbox{} \\
 Where: Cerebro.image.enhancement.filters.laplacian
 \subparagraph{Parameters:}
-\begin{changemargin}{0.5cm}{0cm}
-\begin{enumerate} 
-	\item \textbf{img}: [numpy.ndarray] the source image to be sharpened
-\end{enumerate}
+\begin{changemargin}{1cm}{0cm}
+	\textbf{img}: [numpy.ndarray] the source image to be sharpened
 \end{changemargin}
 
 \subparagraph{Returned value:}
@@ -23,7 +21,7 @@ Where: Cerebro.image.enhancement.filters.laplacian
 Where: Cerebro.image.enhancement.filters.median
 \subparagraph{Parameters:}
 \begin{changemargin}{0.5cm}{0cm}
-	\begin{enumerate}
+	\begin{enumerate}[noitemsep,nolistsep]
 		\item \textbf{img}: [numpy.ndarray] the source image to be denoised
 		\item \textbf{(Optional)} \textbf{size}: [int] the filter size and it must be odd and greater than 1. Its default value is 3
 	\end{enumerate}
@@ -68,10 +66,8 @@ Where: Cerebro.image.enhancement.filters.fastNLMeans
 \paragraph{align\_faces} \mbox{} \\
 Where: Cerebro.image.enhancement.alignment.align\_faces
 \subparagraph{Parameters:}
-\begin{changemargin}{0.5cm}{0cm}
-	\begin{enumerate} 
-		\item \textbf{img}: [numpy.ndarray] the source image (detected face) to align it
-	\end{enumerate}
+\begin{changemargin}{1cm}{0cm}
+	\textbf{img}: [numpy.ndarray] the source image (detected face) to align it
 \end{changemargin}
 
 \subparagraph{Returned value:}
@@ -90,7 +86,7 @@ Where: Cerebro.image.enhancement.alignment.align\_faces
 Where: Cerebro.image.FaceTracking.faceTracking
 \subparagraph{Parameters:}
 \begin{changemargin}{0.5cm}{0cm}
-	\begin{enumerate} 
+	\begin{enumerate}[noitemsep,nolistsep]
 		\item \textbf{frames}: [list] sequence of frames and coordinates of faces in each frame, where: its element [tuple], where: its 1st element [numpy.ndarray] frame and its 2nd element [list] coordinates, where: its element [tuple], where: its 1st element [tuple] top-left point (x,y) and its 2nd element [tuple] bottom-right point (x,y), where: x and y [int]
 		\item \textbf{framesNumber}: [int] frames number
 	\end{enumerate}
