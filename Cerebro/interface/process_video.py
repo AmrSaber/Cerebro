@@ -17,7 +17,6 @@ model = EmotionsModel()
 
 def check_rotation(path_video_file):
 
-    print (path_video_file)
     # this returns meta-data of the video file in form of a dictionary
     meta_dict = ffmpeg.probe(path_video_file)
     print(meta_dict['streams'][0]['tags'])
