@@ -7,7 +7,7 @@ It takes input image of object (face in our case) and produces Output vector rep
 	\caption{calculating gradient}
 	\label{fig:calculating gradient}
 \end{figure}
-In Figure ~\ref{fig:calculating gradient} this is a grayscale image, so the pixel values just range from 0 (black) : 255 (white), we compute the change in x-direction as the difference in colour values between pixels to left and right of current pixel, so in this case it would be 38 (94 $ \neg $ 56), note that the subtraction can be from left to right or from right to left but which ever order we take we must use it for the entire image, similarly the change along y-direction is computed as 38 (93 $ \neg $ 55), and Now we have our gradient vector:
+In Figure ~\ref{fig:calculating gradient} this is a grayscale image, so the pixel values just range from 0 (black) : 255 (white), we compute the change in x-direction as the difference in colour values between pixels to left and right of current pixel, so in this case it would be 38 ($94 - 56$), note that the subtraction can be from left to right or from right to left but which ever order we take we must use it for the entire image, similarly the change along y-direction is computed as 38 ($93 - 55$), and Now we have our gradient vector:
 \[ \begin{bmatrix}
 38\\
 38\\
@@ -16,7 +16,7 @@ The gradient vector for current pixel can be represented with the given magnitud
 \newline \newline
 \begin{math}
 \mathit{Magnitude} = 
-\sqrt{38^2 +  38^2} = 53.47 \newline Angle = arctan(\frac{38}{38}) = 0.785 rad = 45 degree.
+\sqrt{38^2 +  38^2} = 53.47 \newline Angle = arctan(\frac{38}{38}) = 0.785 rad = 45 \degree.
 \end{math}
 \newline \newline
 The angles are between 0 and 180 degrees instead of 0 to 360 degrees. These are called \textbf{“unsigned” gradients} because a gradient and its negative are represented by the same numbers, we don’t use the 0 – 360 degrees because Empirically unsigned gradients work better than signed gradients.

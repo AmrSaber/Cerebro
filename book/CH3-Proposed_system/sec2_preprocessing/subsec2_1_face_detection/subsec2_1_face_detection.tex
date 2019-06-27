@@ -8,7 +8,7 @@ for the face detection step we had multiple solutions to consider out of them th
 table \ref{tab:facedetectors_compared} shows a comparison between the PROS and CONS of those techniques.\newline
 
 in the end we decided to use \textbf{DLIB face detector} as it gave us enough accuracy at an acceptable execution time, 
-we couldn't used PCN detector because it was not compatible with python programming, being implemented in c++, we tried the C/python API to make an interface between the two programs so that our python program can use C/C++ dynamic library of PCN but it didn't work out, and since it was too time consuming for our development time we decided not to use it.
+we couldn't used PCN detector because it's implemented in C++ hence incompatible with python programming, we tried the C/python API to make an interface between the two programs so that our python program can use C/C++ dynamic library of PCN but it didn't work out, and since it was too time consuming for our development time we decided not to use it.
 
 \begin{table}[h!]
 	\centering
@@ -45,11 +45,11 @@ we couldn't used PCN detector because it was not compatible with python programm
 		& 
 		\begin{itemize}
 			\item it's very accurate even more than HAAR classifier.
-			\item its execution time is not as bad as HAAR classifier.
+			\item its execution time is small with small image.
 		\end{itemize}
 		& 
 		\begin{itemize}
-			\item its execution time is not good enough for smooth real time.
+			\item its execution time is really bad as image gets larger.
 			\item can only work with frontal faces.
 		\end{itemize}
 		\\ \hline
