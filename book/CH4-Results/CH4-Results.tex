@@ -1,35 +1,35 @@
-\paragraph{}
 We choose to work with 3 datasets and combination of 2 of them (section 2.1) \newline
 In preprocessing data, we decide to use image processing to enhance image and extract features in order to speed up our model. \newline
 Used methods: \newline
 \begin{itemize}
-\item \textbf{HOG \textit{“histogram of gradients”} }
-\newline It generalizes the image in a way makes the output of this as close as possible for the same image under different conditions and capture most of image features. 
-\newline We use \textbf{skimage} library to handle this because it makes us control HOG parameters as we want. 
-\newline Our HOG parameters are: 8 bins for the histogram, 12X12 pixels per cell, 4X4 cells per block with disabled multichannel as we train the model on gray scale images. 
-\newline All parameters are chosen according to \cite{hog},this paper makes combinations of the whole parameters except normalization, so it gives us the best configuration.
-\newline
-In block normalization we choose \textbf{L2} method by trial and error.
-\item \textbf{Face landmarks }
-\newline It extracts the key features of the face and its position and this could have a strong impact on our work. 
-\newline We use \textbf{DLIB} library with trained model to extract 68 face landmarks from each face we pass to it. 
-\newline We have to choose this model because the size is important to us as its size is acceptable according to what it represents to us. 
-\newline There are 2 models also, one with 5 landmarks and this isn’t enough for our model and one with 194 landmarks “this could be perfect, but it is size is too large”.
-\end{itemize}
-\textbf{\textit{Important note }} we use hog and face landmarks according to instructions in this paper \cite{method_5}  \newline
-We get this from \cite{state_of_art} (paper compares papers in facial emotion recognition), this paper supposes that its accuracy 70\% but after following it and only get 57.63 \% with FER dataset. \newline
-With this challenging data set we had to apply some enhancement to remove the noise and remove images with distorted faces. \newline
-Used methods: \newline
+\item \textbf{HOG \textit{“histogram of gradients”} } We use \textbf{skimage} library to handle this because it allow more control over HOG parameters, our HOG parameters are: 8 bins for the histogram, 12X12 pixels per cell, 4X4 cells per block with disabled multichannel as we train the model on gray scale images.
+we tried different normalization methods on the different datasets we had and chose the one that gave a better result on average.
 
-\begin{itemize}
-	\item \textbf{For face detection} \newline We worked with pre-trained models like \textit{HAAR}, \textit{LBP cascading classifiers} and \textit{DLIB detector}. \newline All of them works with frontal face and each one has its own advantages, HAAR is quite accurate but slow, LBP is faster than HAAR but less accurate and DLIB detector is more accurate than HAAR and detection time depends on the image size so our default classifier is DLIB detector. 
-	\item \textbf{For image enhancement} \newline In the training phase we have to ensure that all the input image is gray scale and all of them is the same size. \newline For noise removal, we can’t cover all kinds of noise so after searching we found that the most common noise is gaussian and salt \& pepper. \newline  We remove gaussian noise by fastNLMeans algorithm and salt \& pepper with median filter. \newline
-\end{itemize}
+\begin{center}
+	\begin{tabular}{ c|c|c|c }
+		& FER & CK+ & RafD \\ \hline
+		L1-norm & 23.16\% & 36.11\% & 89.08\% \\  
+		L2-norm & 36.80\% & 57.33\% & \textbf{90.2\%} \\
+		L1-sqrt & \textbf{38.61\%} & 46.83\% & 89.21\% \\
+		L2-Hys & \textbf{38.61\%} & \textbf{57.99\%} & 88.96\% \\
+	\end{tabular}
+\end{center}
+With FER \textbf{L1-sqrt} and \textbf{L2-Hys} give best result.\newline
+With CK+ we choose to work with  .\newline
+With RafD we choose to work with  \textbf{L2-norm}. (we chose this as it gave best results on \textbf{RafD} dataset and very acceptable results on average)\newline
+as obvious from the results \textbf{L1-sqrt} and \textbf{L2-Hys} methods tend to show better results on average, but \textbf{L2-Hys} seems to be more effective method.\newline
 
-We find 5 combinations in out model architecture and here is the summary: 
+\item \textbf{Face landmarks } We use \textbf{DLIB} library with trained model to extract \textbf{68 face landmarks} from each face we pass to it, There are 2 models also, one with 5 landmarks and this isn’t enough for our model and one with 194 landmarks “this could be perfect, but it is size is too large”\footnote{
+	we use hog and face landmarks according to instructions paper\cite{method_5}, we get this from \cite{state_of_art} (paper compares papers in facial emotion recognition), this paper claims that its accuracy 70\% but after many trials we only reached a maximum accuracy of 57.63\% with FER dataset.
+}.
 
-\begin{enumerate}
+	\item \textbf{Face detection} We worked with pre-trained models like \textit{HAAR}, \textit{LBP} cascading classifiers and \textit{DLIB detector}, they work with frontal face and each one has its own advantages, HAAR is quite accurate but slow, LBP is faster than HAAR but less accurate and DLIB detector is more accurate than HAAR and detection time depends on the image size so our default classifier is DLIB detector. 
 	
+	\item \textbf{Image enhancement} In the training phase we have to ensure that all the input image is gray scale and all of them is the same size, For noise removal, we only work with gaussian noise(by fastNLMeans algorithm) and salt \& pepper noise(with median filter).
+\end{itemize}
+
+\paragraph{Model Results}
+\begin{enumerate}
 \item For \textit{FER} dataset \newline
 \begin{itemize}[noitemsep,nolistsep]
     \item Only CNN: Its training accuracy is 90.07\% and testing accuracy is 75.38\%.

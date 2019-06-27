@@ -1,4 +1,5 @@
 \documentclass[a4paper]{book}
+%\documentclass[parskip]{scrbook}
 \usepackage{blindtext}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
@@ -12,7 +13,7 @@
 \usepackage{array}
 \usepackage{enumitem}
 \usepackage{gensymb}
-
+\usepackage[export]{adjustbox}
 %---------------------------------------
 \usepackage{listings}
 \usepackage{color}
@@ -45,6 +46,7 @@
 %--------------------------------
 
 \usepackage{scrextend}
+\usepackage{subcaption}
 % \usepackage{lipsum}% for demo only!
 
 \usepackage{booktabs}% http://ctan.org/pkg/booktabs
@@ -73,6 +75,39 @@
 \date{\today}
 
 \begin{document}
+
+\begin{titlepage}
+	\centering
+	\includegraphics[width=0.2\textwidth]{images/benha.jpeg}
+	\par\vspace{1cm}
+	\textbf{Faculty of Engineering at Shoubra}\par 
+	\vspace{0.5cm}
+	\textbf{Electrical Engineering Department} \par
+	\vspace{1cm}
+	{\scshape\Large Graduation Project\par}
+	\vspace{1.5cm}
+	{\huge\bfseries Facial Expression Recognition\par}
+	\vspace{2cm}
+	{\Large\itshape Team Members\par}
+	\vspace{1cm}
+	{\renewcommand{\arraystretch}{2}
+	\begin{tabular}[width=0.9\textwidth]{c  c}
+		Amr Mohamed Saber & Salma Sayed Husein \\
+		Manar Arabi & Mohamed Ahmed Abd-elmagid Kheder \\
+		Mohamed Aref & Wafaa Ismail 
+	\end{tabular}
+	}
+	
+	\vfill
+	supervised by\par
+	Dr. Shaimaa \textsc{Ibrahim}
+	
+	\vfill
+	
+	% Bottom of the page
+	{\large \today\par}
+\end{titlepage}
+	
 	\maketitle
 	\tableofcontents
 	\chapter{CH1 - Introduction}
