@@ -24,14 +24,14 @@ The Real Time Stream interface was developed using multi-threading to run smooth
 
 %\begin{addmargin}[1em]{2em}
 \paragraph{detect\_stream\_emotions}% \mbox{} \\
-\subparagraph{Parameters}:
+\subparagraph{Parameters}
 \begin{changemargin}{0.5cm}{0cm}
 	\begin{itemize}[noitemsep,nolistsep]
 		\item\textbf{skip}:[int, default = 40] The skip value is a positive integer representing the number of frames skipped without processing, skipping more frames can reduce the accuracy, but it reduce the execution time, so it speeds up streaming the result .
 	\end{itemize}
 \end{changemargin}
 
-\subparagraph{Returns}:
+\subparagraph{Returns}
 \begin{changemargin}{0.5cm}{0cm}
 \begin{itemize}[noitemsep,nolistsep]
 	\item None, no return value since this function works on the stream directly and shows the recognized faces labeled with their recognized Facial Expression on them.
@@ -57,7 +57,7 @@ The Real Time Stream interface was developed using multi-threading to run smooth
 
 \subsubsection{Facial Expression Recognition in a Video}
 \paragraph{detect\_video\_emotion}
-\subparagraph{Parameters:}
+\subparagraph{Parameters}
 \begin{changemargin}{0.5cm}{0cm} 
 	\begin{itemize}
 		\item  \textbf{video\_path}: [string] path to input video.
@@ -68,12 +68,12 @@ The Real Time Stream interface was developed using multi-threading to run smooth
 	\end{itemize}
 \end{changemargin}
 
-\subparagraph{Returns:} 
+\subparagraph{Returns} 
 \begin{changemargin}{1cm}{0cm} 
 No return value, its output is saved directly to the output path.
 \end{changemargin}
 
-\subparagraph{Rule:}
+\subparagraph{Operation}
 \begin{changemargin}{1cm}{0cm} 
 It reads the video from given \textbf{input\_path}, divides it into frames and audio, then it operates on each frame marking the faces in it with the recognized Facial Expression they have, gathers frames and audio back again, then save the new video in the given output path.
 \end{changemargin}
@@ -96,7 +96,7 @@ It reads the video from given \textbf{input\_path}, divides it into frames and a
 \subsubsection{Facial Expression Recognition in a Single Image}
 \paragraph{mark\_faces\_emotions}
 
-\subparagraph{Parameters:}
+\subparagraph{Parameters}
 \begin{changemargin}{0.5cm}{0cm}
 \begin{itemize}
 	\item \textbf{image}:[numpy.ndarray]image of any size to recognize emotions of faces in it with type.
@@ -104,7 +104,7 @@ It reads the video from given \textbf{input\_path}, divides it into frames and a
 \end{itemize}
 \end{changemargin}
 
-\subparagraph{Returns:}
+\subparagraph{Returns}
 \begin{changemargin}{0.5cm}{0cm}
 \begin{itemize}[noitemsep,nolistsep]
 	\item \textbf{image}: image[numpy.ndarray] with emotions recognized and marked on it.
@@ -145,7 +145,7 @@ It provides you two methods with more options than interface, but first we need 
 
 \paragraph{Model Constructor}
 
-\subparagraph{Parameters}:
+\subparagraph{Parameters}
 \begin{changemargin}{0.5cm}{0cm}
 \begin{itemize}
 	\item \textbf{verbose}: [bool, default = False] if True, it prints information about training, testing and feature extraction, to the console, if False it doesn't.
@@ -196,7 +196,7 @@ model = EmotionsModel(
 % \noindent\textbf{1- predict(faces, prob\_emotion=False)}:
 \paragraph{predict}It can optimize the process by working on batches if your usage doesn't need to process image by image or work on single image as you prefer.
 
-\subparagraph{Parameters}:
+\subparagraph{Parameters}
 \begin{changemargin}{0.5cm}{0cm}
 \begin{itemize}
 	\item \textbf{list of images}:it takes a list of [Numpy.ndarray] images and predict the emotion of each image.
@@ -204,7 +204,7 @@ model = EmotionsModel(
 \end{itemize}
 \end{changemargin}
 
-\subparagraph{Returns}:
+\subparagraph{Returns}
 \begin{changemargin}{0.5cm}{0cm}
 \begin{itemize}[nolistsep]
 	\item \textbf{if prob\_emotion=False:}:\newline
@@ -229,7 +229,7 @@ model = EmotionsModel(
 \paragraph{predict\_with\_vote(faces)}:
 This method helps in recognizing the accurate emotion of one face by making a vote of several sequential images and get the most appearant emotion. \newline
 
-\subparagraph{Parameters:}
+\subparagraph{Parameters}
 \begin{changemargin}{0.5cm}{0cm}
 \begin{itemize}
 	\item \textbf{2D list }:\newline
@@ -237,7 +237,7 @@ This method helps in recognizing the accurate emotion of one face by making a vo
 \end{itemize}
 \end{changemargin}
 
-\subparagraph{Returns:}
+\subparagraph{Returns}
 \begin{changemargin}{0.5cm}{0cm}
 \begin{itemize}
 	\item \textbf{list}:\newline
@@ -260,7 +260,7 @@ This method helps in recognizing the accurate emotion of one face by making a vo
 
 \paragraph{detect\_video\_emotions\_with\_tracking}
 % It works by calling detect\_video\_emotions\_with\_tracking from process\_video.py
-\subparagraph{Parameters:}
+\subparagraph{Parameters}
 \begin{changemargin}{0.5cm}{0cm} 
 \begin{itemize}
 	\item  \textbf{video\_path}: the video which supposed to be processed.
@@ -271,13 +271,13 @@ This method helps in recognizing the accurate emotion of one face by making a vo
 \end{itemize}
 \end{changemargin}
 
-\subparagraph{Returns:}
+\subparagraph{Returns}
 \begin{changemargin}{1cm}{0cm}
 	it doesn't return anything as its output directly saved to the output path.
 \end{changemargin}
 
 
-\subparagraph{Rule:}
+\subparagraph{Operation}
 \begin{changemargin}{1cm}{0cm}
 it works by dividing video into frames, processing a batch of frames together to track people in them batch by batch till the frames end then gathering them together with the audio.
 \end{changemargin}

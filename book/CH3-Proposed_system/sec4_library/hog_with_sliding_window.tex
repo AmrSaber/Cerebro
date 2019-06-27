@@ -1,6 +1,6 @@
 \paragraph{HOG\_with\_sliding\_window}
 % It works by calling hog\_with\_sliding\_window from feature\_extraction.py.
-\subparagraph{Input}:
+\subparagraph{Input}
 \begin{changemargin}{0.5cm}{0cm}
 \begin{itemize}
 \item  \textbf{img}: [numpy.ndarray] the input image.
@@ -13,12 +13,12 @@
 \end{changemargin}
 
 % The default values is chosen according to which is more describing the image in the facial expression recognition field and you can find different combination in the code itself. 
-\subparagraph{Returns:}
+\subparagraph{Returns}
 \begin{changemargin}{0.5cm}{0cm}
 list of combined successive histograms for the whole image.
 \end{changemargin}
 
-\subparagraph{Rule:} 
+\subparagraph{Operation} 
 \begin{changemargin}{0.5cm}{0cm}
 a window passing through the whole image and apply hog feature extraction on the window each time to capture more features, for more information about hog and sliding window see 2.1.5, 3.2.4.
 \end{changemargin}
@@ -26,19 +26,19 @@ a window passing through the whole image and apply hog feature extraction on the
 %-------------------------------------------------------------
 \paragraph{get\_face\_landmarks}
 Where: Cerebro.image.feature\_extraction.get\_face\_landmarks
-\subparagraph{Parameters:}
+\subparagraph{Parameters}
 \begin{changemargin}{0.5cm}{0cm}
 	\begin{enumerate} 
 		\item \textbf{img}: [numpy.ndarray] the source image (detected face) to apply landmarks on it
 	\end{enumerate}
 \end{changemargin}
 
-\subparagraph{Returned value:}
+\subparagraph{Returns}
 \begin{changemargin}{1cm}{0cm}
 	coordinates [list] the 68 points of coordinates of landmarks, where: its element [tuple] point (x,y), where: x and y [int]
 \end{changemargin}
 
-\subparagraph{Role:}
+\subparagraph{Operation}
 \begin{changemargin}{1cm}{0cm}
 	Compute coordinates of facial landmarks of the input face and return these coordinates
 \end{changemargin}

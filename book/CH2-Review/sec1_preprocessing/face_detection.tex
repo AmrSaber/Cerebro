@@ -1,10 +1,10 @@
 Face detection is an essential step before facial expression recognition, as we must first extract the faces from the image before further used for feature extraction (HOG and landmarks) then it's passed to the model, we tried multiple face detection approaches that are discussed below.
-\subsubsection{lBP classifier face detector}
+\subsubsection{LBP classifier face detector}
 \paragraph{theory}
 Local Binary Pattern (LBP) features have performed very well in various applications, including texture classification and segmentation, for the application of face detection we can detect micro visual patterns in the face.\newline
-this classifier divides a given image into blocks, each block will be considered one window (3X3 window) at a time, for each window it will compare the center pixel with all other pixels, if a neighbor pixel is below the value of center pixel its value becomes 0, and 1 otherwise, then the value will be read in clockwise order and form a binary number, which will be the new value of the center pixel as shown in figure \ref{fig:LBP_calculation}.\newline
+This classifier divides a given image into blocks, each block will be considered one window (3X3 window) at a time, for each window it will compare the center pixel with all other pixels, if a neighbor pixel is below the value of center pixel its value becomes 0, and 1 otherwise, then the value will be read in clockwise order and form a binary number, which will be the new value of the center pixel as shown in figure \ref{fig:LBP_calculation}.\newline
 Then, it converts each block values into a histogram, so we get one histogram for each block in the image, which are then concatenated together to create a feature vector for the image.\newline
-a classifier is then trained on those features with labeled images as faces or non-faces.
+A classifier is then trained on those features with labeled images as faces or non-faces.
 \begin{figure}
 	\centering
 	\includegraphics{images/LBP_classifier.png}
@@ -13,7 +13,7 @@ a classifier is then trained on those features with labeled images as faces or n
 \end{figure}
 
 \paragraph{performance}
-we used the openCV implementation of the LBP classifier, it was by far the fastest detector, it has an average execution time of 0.81 seconds which makes it suitable for mobile apps and real time applications, but it lacks accuracy, specially with small faces.
+We used the openCV implementation of the LBP classifier, it was by far the fastest detector, it has an average execution time of 0.81 seconds which makes it suitable for mobile apps and real time applications, but it lacks accuracy, specially with small faces.
 
 \begin{figure}
 	\centering
@@ -37,11 +37,11 @@ To build the classifier we need a lot of positive images (face images) and negat
 	\label{fig:haar_features}
 \end{figure}
 
-this classifier is a weighed sum of multiple weak classifiers each of which is responsible to detect different features in the face, each of those classifiers has its own threshold value and was trained separately on the given images.
+This classifier is a weighed sum of multiple weak classifiers each of which is responsible to detect different features in the face, each of those classifiers has its own threshold value and was trained separately on the given images, 
 but with too many features (up to 160000+) which is very time consuming, we need a cascade style classifier, so that we don't need to test all features in a window, if the strongest feature isn't there, then we can simply discard it, after few features have been tested we would end up with considerably few face-candidates windows, hence greatly increasing the performance, once enough number of features is found we can accept the candidate window as a face.
 
-\paragraph{performance}
-we used the openCV implementation of the HAAR classifier, it has higher accuracy than LBP as in Figure \ref{fig:haar_example} it can even detect most small faces without a problem, however it comes at the cost of execution time which greatly increased to 1.28 seconds, it's still possible to work with it for real time at soft constraints.
+\paragraph{Performance}
+We used the openCV implementation of the HAAR classifier, it has higher accuracy than LBP as in Figure \ref{fig:haar_example} it can even detect most small faces without a problem, however it comes at the cost of execution time which greatly increased to 1.28 seconds, it's still possible to work with it for real time at soft constraints.
 \begin{figure}
 	\centering
 	\includegraphics[width=0.75\textwidth]{images/haar_example.jpg}
@@ -53,14 +53,14 @@ we used the openCV implementation of the HAAR classifier, it has higher accuracy
 
 \subsubsection{Dlib face detector}
 \paragraph{theory}
-This face detector is made using the Histogram of Oriented Gradients (HOG) feature combined with a linear classifier (linear SVM classifier), an image pyramid, and sliding window detection scheme.
-the image pyramid is used to detect faces of different sizes, as it creates multiple images of different resolutions and applies the operation we want to all of them, they are called a pyramid because when the images of different resolutions are stacked with high resolution images at the bottom while low resolution images at he bottom it looks like a pyramid (see Figure \ref{fig:gaussian_pyramid} shows an example of those image pyramid output).
+This face detector is made using the Histogram of Oriented Gradients (HOG) feature combined with a linear classifier (linear SVM classifier), an image pyramid, and sliding window detection scheme. \newline
+The image pyramid is used to detect faces of different sizes, as it creates multiple images of different resolutions and applies the operation we want to all of them, they are called a pyramid because when the images of different resolutions are stacked with high resolution images at the bottom while low resolution images at he bottom it looks like a pyramid (see Figure \ref{fig:gaussian_pyramid} shows an example of those image pyramid output).
 \newline
 %to build the pyramid we start by a high resolution image and then reduce its resolution a step by step, each pixel in an image with lower resolution (higher level in the pyramid) would be formed by the contribuion of 5 pixels in the underlying layer using Gaussian weights, so if we start with an $N * M$ image we end up with $N/2 * M/2$ image, so we reduce the image ares to one fourth each time, Figure \ref{fig:gaussian_pyramid} shows an example of those image pyramid output.
 
-the sliding window algorithm is a method used to pass over the image with a window, at each time only working with one window searching for the object of interest(face) within it.
-
-together those 4 techniques (sliding window algorithm, image pyramid, HOG, SVM) can be used for object detection in general depending on the data set used, of course their parameters would change to match the application of interest.
+The sliding window algorithm is a method used to pass over the image with a window, at each time only working with one window searching for the object of interest(face) within it.
+\newline
+Together those 4 techniques (sliding window algorithm, image pyramid, HOG, SVM) can be used for object detection in general depending on the data set used, of course their parameters would change to match the application of interest.
 
 \begin{figure}
 	\centering
@@ -69,8 +69,8 @@ together those 4 techniques (sliding window algorithm, image pyramid, HOG, SVM) 
 	\label{fig:gaussian_pyramid}
 \end{figure}
 
-\paragraph{performance}
-this is a pre-trained model within the Dlib library, it gives accuracy that is superior to that of HAAR classifier (this can be obvious by comparing Figure \ref{fig:dlib_example} with Figure \ref{fig:haar_example}), its execution time mainly depends on the size of input image, it can be even faster than LBP with small images, but even slower than HAAR for larger images.
+\paragraph{Performance}
+This is a pre-trained model within the Dlib library, it gives accuracy that is superior to that of HAAR classifier (this can be obvious by comparing Figure \ref{fig:dlib_example} with Figure \ref{fig:haar_example}), its execution time mainly depends on the size of input image, it can be even faster than LBP with small images, but even slower than HAAR for larger images.
 
 % faces of darbia 0.366657 secs
 % example1 3.045794
@@ -93,5 +93,5 @@ The PCN detector diagram in Figure \ref{fig:PCN_archOverview}, Given an image, a
 %	\caption{overview about PCN architecture \cite{PCN}}
 %	\label{fig:PCN_archOverview}
 %\end{figure}
-\paragraph{performance}
-this face detection method was by far the best, it was implemented in c++ using openCV and Caffe library, its performance in terms of efficiency and accuracy surpass the other methods we tried, it can detect small faces of with high accuracy, and is a rotation invariant method.
+\paragraph{Performance}
+This face detection method was by far the best, it was implemented in c++ using openCV and Caffe library, its performance in terms of efficiency and accuracy surpass the other methods we tried, it can detect small faces of with high accuracy, and is a rotation invariant method.
