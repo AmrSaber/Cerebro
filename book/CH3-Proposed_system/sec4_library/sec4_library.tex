@@ -16,11 +16,11 @@ As our project concluded we made a library that holds the functionality of the p
 \end{itemize}
 
 \subsection{Emotion Recognition Interface}
-this interface provides user with three modules, that allow them to directly use the model we tuned to recognize Facial expressions in a given image, video or real-time stream to the purpose that suits his application.\newline
-these function all go under \textbf{Cerebro.interface.video\_stream} module.
+This interface provides user with three modules, that allow them to directly use the model we tuned to recognize facial expressions in a given image, video or real-time stream to the purpose that suits his application.\newline
+These functions all go under \textbf{Cerebro.interface} module.
 
 \subsubsection{Real Time Streaming}
-The Real Time Stream interface was developed using multi-threading to run smoothly with without a noticed delay in processing the frames to recognize the Facial Expressions. 
+The Real Time Stream interface was developed using multi-threading to run smoothly without a noticed delay in processing the frames to recognize the facial expressions. 
 
 %\begin{addmargin}[1em]{2em}
 \paragraph{detect\_stream\_emotions}% \mbox{} \\
@@ -34,7 +34,7 @@ The Real Time Stream interface was developed using multi-threading to run smooth
 \subparagraph{Returns}:
 \begin{changemargin}{0.5cm}{0cm}
 \begin{itemize}[noitemsep,nolistsep]
-	\item none, no return value since this function works on the stream directly and shows the recognized faces labeled with their recognized Facial Expression on them.
+	\item None, no return value since this function works on the stream directly and shows the recognized faces labeled with their recognized Facial Expression on them.
 \end{itemize}
 \end{changemargin}
 	
@@ -62,20 +62,20 @@ The Real Time Stream interface was developed using multi-threading to run smooth
 	\begin{itemize}
 		\item  \textbf{video\_path}: [string] path to input video.
 		\item  \textbf{output\_path}: [string] path to output video, should contain output video name with its extension (must be mp4).
-		\item  \textbf{skip}: [int, default = 50] number of frames skipped without emotion recognition, be careful by increasing this parameter the output would be less accurate but the processing would be faster.
+		\item  \textbf{skip}: [int, default = 125] number of frames skipped without emotion recognition, be careful by increasing this parameter the output would be less accurate but the processing would be faster.
 		\item \textbf{detector\_type}: [string, default = "dlib"] "dlib" for face detector detector used by DLIB library, "haar" for HAAR claissifier, and "lbp" for LBP face dtector.
-		\item  \textbf{verbose}: that bool is set to True to give you information about processing operation, it defualts to False.
+		\item  \textbf{verbose}: this bool is set to True to give you information about processing operation, it defualts to False.
 	\end{itemize}
 \end{changemargin}
 
 \subparagraph{Returns:} 
 \begin{changemargin}{1cm}{0cm} 
-No return value
+No return value, its output is saved directly to the output path.
 \end{changemargin}
 
 \subparagraph{Rule:}
 \begin{changemargin}{1cm}{0cm} 
-it reads the video from given \textbf{input\_path}, divides it into frames and audio, then it operates on each frame marking the faces in it with the recognized Facial Expression they have, gathers frames and audio back again, then save the new video in the given output path.
+It reads the video from given \textbf{input\_path}, divides it into frames and audio, then it operates on each frame marking the faces in it with the recognized Facial Expression they have, gathers frames and audio back again, then save the new video in the given output path.
 \end{changemargin}
 
 \begin{comment}
@@ -107,7 +107,7 @@ it reads the video from given \textbf{input\_path}, divides it into frames and a
 \subparagraph{Returns:}
 \begin{changemargin}{0.5cm}{0cm}
 \begin{itemize}[noitemsep,nolistsep]
-	\item \textbf{image}: image[numpy.ndarray] with emotions recognized 
+	\item \textbf{image}: image[numpy.ndarray] with emotions recognized and marked on it.
 \end{itemize}
 \end{changemargin}
 
@@ -132,7 +132,7 @@ it reads the video from given \textbf{input\_path}, divides it into frames and a
 This is a more flexible option we provide to users of our library, by which you can use the core methods we rely upon for building our interface, these functionalities are divided into
 \begin{enumerate}
 	\item \textbf{model API}: provided by package \textbf{Cerebro.model}, it supplies the user with tools to train and build his own model, by selecting multiple variations of model, training data, and testing data user can make a new model of his own. 
-	\item \textbf{Feature Extraction API}: provided by module \textbf{Cerebro.image.feature\_extraction}, it provides modules for extracting features from the face like \textbf{HOG} and \textbf{Facial landmarks}.
+	\item \textbf{Feature Extraction API}: provided by module \textbf{Cerebro.image.feature\_extraction}, it provides modules for extracting features from the face like \textbf{HOG} and \textbf{Face landmarks}.
 	\item \textbf{Image Processing API}: it provides methods for \textbf{image enhancement}
 \end{enumerate}
 % \end{center}
@@ -140,8 +140,7 @@ This is a more flexible option we provide to users of our library, by which you 
 % \newpage 
 
 \subsubsection{Model API}
-It provide you two methods with more options than interface.\newline
-but first we need to create object of our model.
+It provides you two methods with more options than interface, but first we need to create object of our model.
 \bigbreak
 
 \paragraph{Model Constructor}
@@ -195,7 +194,7 @@ model = EmotionsModel(
 
 % \newpage
 % \noindent\textbf{1- predict(faces, prob\_emotion=False)}:
-\paragraph{predict}It can optimize the code by working on batches if your usage doesn't need to process image by image.
+\paragraph{predict}It can optimize the process by working on batches if your usage doesn't need to process image by image or work on single image as you prefer.
 
 \subparagraph{Parameters}:
 \begin{changemargin}{0.5cm}{0cm}
@@ -228,21 +227,21 @@ model = EmotionsModel(
 % \newpage
 
 \paragraph{predict\_with\_vote(faces)}:
-this method helps in recognizing the accurate emotion of one face by making a vote of ten sequential frames and get the most appearant emotion. \newline
+This method helps in recognizing the accurate emotion of one face by making a vote of several sequential images and get the most appearant emotion. \newline
 
 \subparagraph{Parameters:}
 \begin{changemargin}{0.5cm}{0cm}
 \begin{itemize}
 	\item \textbf{2D list }:\newline
-	each list in it is 1D list for each person. each element in that list is an image the method evaluate the image and votes for the most emotion appears in the array then return that emotion.
+	Each list in it is 1D list refers to a person, each element in this list is an image (Numpy array) and the method evaluates each image and votes for the most emotion appears in the array then return this emotion.
 \end{itemize}
 \end{changemargin}
 
-\subparagraph{Output:}
+\subparagraph{Returns:}
 \begin{changemargin}{0.5cm}{0cm}
 \begin{itemize}
 	\item \textbf{list}:\newline
-	will return 1D list with winner emotion in the index corresponding to the list it came from.
+	It will return 1D list with winner emotion in the index corresponding to the list it came from.
 \end{itemize}
 \end{changemargin}
 
