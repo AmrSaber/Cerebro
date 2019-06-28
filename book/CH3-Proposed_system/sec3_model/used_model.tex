@@ -1,4 +1,3 @@
-\paragraph{}
 In this section we will mention our final model and its performance, we have three combinations we will illustrate.
 
 \begin{enumerate}
@@ -13,9 +12,9 @@ See figure \ref{cnn_lm_hog} for full model architecture.
 	\caption{Diagram of CNN + HOG + LM structure}
 	\label{cnn_lm_hog}
 \end{figure}
-\paragraph{}
-Note that the model is configured in such a way that we can enable/disable any of the 3 paths (CNN, HOG, LM) easily, we finally choose the model with only Landmarks and HOG paths with final testing accuracy of 98\% on the combination of CK+ and RafD datasets.
 
+Note that the model is configured in such a way that we can enable/disable any of the 3 paths (CNN, HOG, LM) easily, we finally choose the model with only Landmarks and HOG paths with final testing accuracy of 98\% on the combination of CK+ and RafD datasets.
+\newline
 For the working model as we noticed that :
 \begin{enumerate}
 	\item Using landmarks and hog as a feature extraction then feed it to model layers gives a good accuracy with small model size (1M) and the training process itself is too fast compared to CNN.

@@ -1,11 +1,10 @@
-\paragraph{}
 In this section we will make a quick review of all the models we passed through trying to illustrate its architecture, performance and all the problems we faced in each one and how we adapted to it.
 \subsection{CNN Model}
 As we mentioned before in the review section, we follow \textbf{Facial Expression Recognition using Convolutional Neural Networks: State of the Art} Paper\cite{state_of_art} model number five,
 on \textbf{fer13} dataset, this model follows the paper \textbf{Learning Social Relation Traits from Face Images} with architecture \textbf{CPNCPNCPCFF} \footnote{ the operations C , P ,N ,F denote to covolutional ,Pooling ,Normalization,Fully Connected }, we get accuracy as mentioned in table \ref{tab:14model}
 \begin{table}[h!]
 	\begin{center}
-		\caption{Tabel of developing Accuracy throw  5 epoches with Batch size 128 and adeleta optimizer.}
+		\caption{Table of developing Accuracy throw 5 epochs with Batch size 128 and Adadelta optimizer.}
 		\label{tab:14model}
 		\begin{tabular}{l|c|l|c}
 			\textbf{Epoch Number} & \textbf{Training Accuracy} & \textbf{Testing Accuracy} &\textbf{Loss}\\ 
@@ -20,13 +19,13 @@ on \textbf{fer13} dataset, this model follows the paper \textbf{Learning Social 
 
 \end{table}
 \paragraph{Testing Across Multiple Optimizers}
-Over a thousand of both training and testing samples with six epoches we get this final values in table \ref{tab:optimizers}
+Over a thousand of both training and testing samples with six epochs we get this final values in table \ref{tab:optimizers}
 
 \paragraph{}
-We notice after training this model with more and more epoches that this model fall in \textbf{overfitting problem}, we found that no matter how many epoches we run the model at certain point the testing accuracy becomes constant and the training accuracy grows more and more without stopping. We notice also that the model is unstable, having unreasonable changes in accuracy. 
+We notice after training this model with more and more epochs that this model fall in \textbf{over-fitting problem}, we found that no matter how many epochs we run the model at certain point the testing accuracy becomes constant and the training accuracy grows more and more without stopping. We notice also that the model is unstable, having unreasonable changes in accuracy. 
 \begin{table}[h!]
 	\begin{center}
-		\caption{Tabel of developing Accuracy with respect to different Optimizers with learning rate 0.01 \newline}
+		\caption{Table of developing Accuracy with respect to different Optimizers with learning rate 0.01 \newline}
 		\label{tab:optimizers}
 		\begin{tabular}{l|c|l}
 			\textbf{Optimizer} & \textbf{Training Accuracy} & \textbf{Testing Accuracy}\\ 
@@ -39,8 +38,8 @@ We notice after training this model with more and more epoches that this model f
 	\end{center}
 \end{table}
 \paragraph{}
-Using the FER dataset with adadelta optimizer, we get a result of 95\% training accuracy and only 33\% testing accuracy.
-\subsubsection{Solving OverFitting Problem}
+Using the FER dataset with Adadelta optimizer, we get a result of 95\% training accuracy and only 33\% testing accuracy.
+\subsubsection{Solving Over-Fitting Problem}
 \paragraph{} Suggested solutions to solve this problem were:
 \begin{enumerate}
 	\item Update model layers.
@@ -63,17 +62,17 @@ with normalization we get \textbf{testing accuracy of 56.93\%} and \textbf{train
 \subsection{Dealing With Dataset Problems}
 One of the datasets we worked on "FER13" was imbalanced, which made the trained model more biased towards negative emotions (which were more presented in the dataset), the solution for this is to balance the data by :
 \begin{enumerate}
-	\item Undersampling.
+	\item Under-sampling.
 	\item Data Augmentation.
 \end{enumerate}
-\subsubsection{Undersampling}
+\subsubsection{Under-sampling}
 \paragraph{Results}
 Unfortunately this made things even worse, since the difference between the sizes of smallest class and other classes was significant (see Figure~\ref{fig:fer13}) so it resulted in a large decrease in data set size which lead to a large decrease in learning.\newline
 
-Table \ref{tab:table1} shows how prediction accuracy of the model changed during training epochs, as the table shows, by more training, the training accuracy increases, while testing accuracy actually decreases, so this technique couldn't help solve the overfitting problem we had with the previous model which stopped at about 50\% testing accuracy before overfitting, it even caused a decrease in the accuracy, so this technique wasn't a success in his case. 
+Table \ref{tab:table1} shows how prediction accuracy of the model changed during training epochs, as the table shows, by more training, the training accuracy increases, while testing accuracy actually decreases, so this technique couldn't help solve the over-fitting problem we had with the previous model which stopped at about 50\% testing accuracy before over-fitting, it even caused a decrease in the accuracy, so this technique wasn't a success in his case. 
 \begin{table}[h!]
 	\centering
-	\caption{This table shows learning progress for model after undersampling for dataset}
+	\caption{This table shows learning progress for model after under-sampling for dataset}
 	\label{tab:table1}
 	\begin{tabular}{c | c | c | c}
 		\textbf{Number of Epochs} & \textbf{Training accuracy} & \textbf{Testing accuracy} & \textbf{Error}\\ \hline 
@@ -98,14 +97,12 @@ figure \ref{tab:table12} after more training we find that testing accuracy stop 
 \end{table}
 
 \subsection{Transfer-learning}
-\paragraph{}
-Section \ref{sec:transferlearning} describes what transfer learning is, we choose vgg16 pre-trained model to apply.
+Section \ref{sec:transferlearning} describes what transfer learning is, we choose vgg16 pretrained model to apply.
 
 \paragraph{VGG16}
-is a convolutional neural network model built in keras with imagenet dataset, so we apply this method with simple dropout and dense layers and it gave testing accuracy of 27\%.
-we found that also vgg16 was not a solution because to use any pre-trained model we had to have at least 1000 samples for each class, which we didn't.
+is a convolutional neural network model built in keras with imageNet dataset, so we apply this method with simple dropout and dense layers and it gave testing accuracy of 27\%.
+we found that also vgg16 was not a solution because to use any pretrained model we had to have at least 1000 samples for each class, which we didn't.
 
 \subsection{Auto-Keras}
-\paragraph{}
 Auto-keras is a new built-in library in keras, that tries every possible CNN combination in a period chosen by the user to get the best model structure and configuration. It takes training time, training and testing samples as an input, its default training time is 24 hours and we can get the best model and save it from the program.
-After running the code, it stuck in the middle and with online searching about this problem, we found that this is a common problem with this library and it seems to be a bug in it.
+After running the code, it stuck in the middle and with online searching about this problem, we found that this is a common problem with this library and it seems to be a bug in it or an OS issue.

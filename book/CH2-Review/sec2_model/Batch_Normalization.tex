@@ -1,5 +1,5 @@
 
-\paragraph{Breif}
+\paragraph{Brief}
 As we Know we normalize the input layer by adjusting and scaling the Features. For example, when we have features from 0 to 1 and some from 1 to 1000, we should normalize them to speed up learning. If the input layer is benefiting from it, why not do the same thing also for the values in the hidden layers, that are changing all the time, and get 10 times or more improvement in the training speed.
 \paragraph{}
 Batch normalization reduces the amount by what the hidden unit values shift around (covariance shift).To explain covariance shift, let’s have a deep network on cat detection. We train our data on only black cats’ images. So, if we now try to apply this network to data with colored cats, it is obvious; we’re not going to do well. The training set and the prediction set are both cats’ images but they differ a little bit. In other words, if an algorithm learned some X to Y mapping, and if the distribution of X changes, then we might need to retrain the learning algorithm by trying to align the distribution of X with the distribution of Y. \newline
@@ -7,5 +7,5 @@ Also, batch normalization allows each layer of a network to learn by itself a li
 We can use higher learning rates because batch normalization makes sure that there’s no activation that’s gone really high or really low. And by that, things that previously couldn’t get to train, it will start to train.
 
 \paragraph{}
-\textbf{It reduces overfitting}
-because it has a slight regularization effects. Similar to dropout, it adds some noise to each hidden layer’s activations. Therefore, if we use batch normalization, we will use less dropout, which is a good thing because we are not going to lose a lot of information. However, we should not depend only on batch normalization for regularization; we should better use it together with dropout.
+\textbf{It reduces over-fitting}
+because it has a slight regularization effects. Similar to dropout, it adds some noise to each hidden layer’s activation. Therefore, if we use batch normalization, we will use less dropout, which is a good thing because we are not going to lose a lot of information. However, we should not depend only on batch normalization for regularization; we should better use it together with dropout.

@@ -1,11 +1,11 @@
-With the goal to recognize facial expressions in images, we need to detect faces within them then extract their features so we expect the input image to have \textbf{good quality, sharpness, clearness} as much as possible.\newline
+With the goal to recognize facial expressions in images, we need to detect faces within them then extract their features so we expect the input image to have \textbf{good quality, sharpness and clearness} as much as possible.\newline
 Fortunately nowadays cameras have higher quality so in this case there should be no problem, however in case of low quality input images we need to apply some enhancement techniques before we proceed to subsequent stages.
 
 \paragraph{Most common problems}
 \subparagraph{Salt and Pepper Noise}
-It is a form of noise sometimes seen on images. It is also known as impulse noise, this noise can be caused by sharp and sudden disturbances in the image signal, it presents itself as sparsely occurring white and black pixels.\newline
+It is a form of noise sometimes seen on images, it is also known as impulse noise, this noise can be caused by sharp and sudden disturbances in the image signal, it presents itself as sparsely occurring white and black pixels.\newline
 An effective noise reduction method for this type of noise is a \textbf{Median Filter}.\newline
-The main idea of the Median Filter is  replacing each pixel with the median of neighboring pixels, the pattern of neighbors is called the "window", which slides, entry by entry, over the entire photo.(see Figure~\ref{fig:median})
+The main idea of the Median Filter is replacing each pixel with the median of neighboring pixels, the pattern of neighbors is called the "window", which slides, entry by entry, over the entire photo.(see Figure~\ref{fig:median})
 
 
 \begin{figure}%[H]
@@ -16,8 +16,8 @@ The main idea of the Median Filter is  replacing each pixel with the median of
 \end{figure}
 
 \subparagraph{Gaussian Noise}
-It is a noise having a probability density function (PDF) that follows normal distribution, an effective noise reduction method for this type of noise is a \textbf{Non-local Means Denoising Algorithm}.\newline
-It works as we need a set of similar images to average out the noise, consider a small window (say 5x5 window) in the image. Chance is large that the same patch may be somewhere else in the image. Sometimes in a small neighborhood around it. What about using these similar patches together and find their average.\newline
+It is a type of noise that has a probability density function (PDF) that follows normal distribution, an effective noise reduction method for this type of noise is a \textbf{Non-local Means Denoising Algorithm}.\newline
+We need a set of similar images to average out the noise, consider a small window (say 5x5 window) in the image. Chance is large that the same patch may be somewhere else in the image. Sometimes in a small neighborhood around it. What about using these similar patches together and find their average.\newline
 The blue patches in the image looks the similar, green patches looks similar, so we take a pixel, take small window around it, search for similar windows in the image, average all the windows and replace the pixel with the result we got (see Figure~\ref{fig:Gnoise}).\newline 
 
 \begin{figure}[H]
@@ -33,7 +33,7 @@ The blue patches in the image looks the similar, green patches looks similar, so
 \end{figure}
 
 \subparagraph{Smoothed Images:}
-Some images can be blurred which hides small details within them, an effective noise reduction method for this type of noise is a \textbf{Laplacian Filter (Sharpening Spatial Filter)}.\newline
+Some images can be blurred which hides small details within them, an effective noise reduction method for this type of noise is a \textbf{Sharpening Spatial Filter}.\newline
 Sharpening spatial filters seek to \textbf{highlight small details by removing blur from images and Highlighting edges} within them.(see Figure~\ref{figure:laplacian})\newline
 Sharpening filters are based on spatial differentiation.\newline
 The Laplacian is defined as follows:
@@ -48,7 +48,7 @@ And in the y direction as follows:
 So, the Laplacian can be given as follows:
 \[\nabla^{2} f = f(x+1, y) + f(x-1, y) + f(x, y+1) + f(x, y-1) - 4f(x, y)\]
 
-We can easily build a filter based on this:
+We can build a filter based on this:
 \[
 \begin{bmatrix}
 0 & 1 & 0 \\
@@ -83,7 +83,7 @@ Sharpening filters has multiple similar variations we use the one below as it gi
 
 \subparagraph{Motion Blurred Images:}
 It is the apparent streaking of moving objects in an image or a sequence of frames, such as a film or animation, It results when the image being recorded changes during the recording of a single exposure, due to rapid movement or long exposure.\newline
-An effective noise reduction method for this type of noise is a trained library called \textbf{Keras Deblur GAN}.\newline
+An effective noise reduction method for this type of noise is a trained model called \textbf{Keras Deblur GAN}.\newline
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=\linewidth]{images/motion_blur.png}

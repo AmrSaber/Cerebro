@@ -1,24 +1,26 @@
-\paragraph{}
-In this section, we start making a review of the most common techniques usually used in Facial Expression Recognition, highlight methodological differences, discuss the reported performances and the dataset used. \newline
+In this section, we will review the most common techniques usually used in Facial Expression Recognition, highlighting methodological differences, discussing the reported performances and the dataset used. \newline
+
 \subsection{Batch Normalization}
 \import{CH2-Review/sec2_model/}{Batch_Normalization.tex}
+
 \subsection{Datasets}
-The most common datasets used in this area are Fer13 \label{fer_13} provided in kaggle and used in almost all challanges and Papers and Extended Cohen(ck+)\label{ck+} but it's not recommended in large projects as its small dataset as we illustrated before in datasets scetion.
+The most common datasets used in this area are Fer13 \label{fer_13} provided in kaggle and used in almost all challenges and Papers and Extended Cohen(ck+)\label{ck+} but it's not recommended in large projects as its small dataset.
 
 \subsection{Models}
-Generally Facial Expression Recognition is Classification Problem , we can handle it using any of classification techniques that can deal with images, we find that the most effective techniques are :
+Generally Facial Expression Recognition is Classification Problem, we can handle it using any of classification techniques that can deal with images, we find that the most effective techniques are :
 \begin{enumerate}
-	\item Convolutional Neural Network.
+	\item CNN.
 	\item SVM
 	\item Transfer-Learning
 \end{enumerate}
-\subsubsection{Convolutional Neural Networks "CNN"}
+\subsubsection{"CNN" Convolutional Neural Networks}
 there is a different models Build according To CNN Architecture, one of the most famous Papers in this Field is Facial Expression Recognition using Convolutional Neural Networks: State of the Art paper\cite{state_of_art} get with only CNN 75.2\% testing accuracy. In this Paper they claim that they test six models of CNN and make a comparison between those models. All State of art 's models are used fer13 dataset.
-\paragraph{State of Art} makes a review of six models we can examine there Architecture layers in the following Table (see Table \ref{models}).
+
+\paragraph{State of Art} makes a review of six models we can examine there Architecture layers in the following Table (see Table \ref{tab:CH2models}).\newline
 \begin{table}
 	\begin{center}
-		\label{models}
-		\caption{CNN ARCHITECTURES. C, P, N, I, AND F STANDS FOR CONVOLUTION, POOLING, NORMALIZATION, INCEPTION AND FULLY CONNECTED LAYERS RESPECTIVELY. \newline}
+		\caption{CNN ARCHITECTURES. C, P, N, I, AND F STANDS FOR CONVOLUTION, POOLING, NORMALIZATION, INCEPTION AND FULLY CONNECTED LAYERS RESPECTIVELY.}
+		\label{tab:CH2models}
 		\begin{tabular}{l|c}
 			\textbf{Method} & \textbf{Architecture} \\
 			\hline
@@ -34,12 +36,12 @@ there is a different models Build according To CNN Architecture, one of the most
 \begin{figure}
 	\centering
 	\includegraphics[width=0.5\textwidth]{images/stateoart_acc.png}
-	\caption{The Reported Accuracies of models according to state of art}
+	\caption{The Reported accuracy of models according to state of art}
 \end{figure}
+
+The biggest bottleneck here according to paper\cite{state_of_art} is the dataset as it has an only 35k image with a lot of noise and needs too much preprocessing the quick solution for it is applying data augmentation with different attributes but it doesn't always succeed it may make performance even worse.
 \paragraph{}
-The biggest bottleneck here according to paper is the dataset as it has an only 35k image with a lot of noise and needs too much preprocessing the quick solution for it is appling data augmentation with different attributes and it not always succeed it may be make things even worse, Read the Paper for more details\cite{state_of_art}.
-\paragraph{}
-Another model build over state of art try to overcome its discussed problem is applied the model on tensorflow and CNN also work on fer13, it defines a similar method to the final methods with some addition to help improve dataset performance adding Dropout and batch normalization Layers and it uses landmarks and a sliding window Hog as feature extraction(see Figure \ref{amine_arch} to check model architecture). \newline 
+Another model built over state of art tries to overcome this discussed problem is applied, the model built with tensorflow and CNN also work on fer13, it defines a similar method to the final methods with some additions to help improve performance on this dataset adding Dropout and batch normalization layers and it uses landmarks and a sliding window Hog as feature extraction(see Figure \ref{amine_arch} to check model architecture). \newline 
 \begin{figure}{l}
 	\centering
 	\includegraphics[width=1.\textwidth]{images/CNN_models_architecture.png}
@@ -66,13 +68,12 @@ Also we found an implementation using SVM, it depends actually on extraction fea
 	\end{center}
 \end{table}
 
-
-\paragraph{} We try this model with this architecture (model B), the same preprocessing and on the same dataset but we get only 50\% testing accuracy.
+We try this model with this architecture (model B), the same preprocessing and on the same dataset but we get only 50\% testing accuracy.
 
 \subsubsection{Transfer-Learning}
 \label{sec:transferlearning}
 Transfer learning is a machine learning method where a model developed for a task is reused as the starting point for a model on a second task.
-It is a popular approach in deep learning where pre-trained models are used as the starting point on computer vision and natural language processing tasks given the vast compute and time resources required to develop neural network models on these problems and from the huge jumps in skill that they provide on related problems.
+It is a popular approach in deep learning where pretrained models are used as the starting point on computer vision and natural language processing tasks given the vast compute and time resources required to develop neural network models on these problems and from the huge jumps in skill that they provide on related problems.
 
 In the state of art paper use VGG pretrained model with the architecture CCPCCPCCPCCPFF and get 72.7\% .
 

@@ -86,7 +86,8 @@ This is a pre-trained model within the Dlib library, it gives accuracy that is s
 \paragraph{Brief}
 it's a \textbf{rotation invariant face detector} made based on Progressive Calibration Networks \cite{PCN}, this approach is one of the most effective approaches to the problem of rotation invariant face detection, it was implemented in c++ using libraries like openCV and Caffe.
 \paragraph{theory}
-The PCN detector diagram in Figure \ref{fig:PCN_archOverview}, Given an image, all face candidates are obtained according to \textbf{the sliding window and image pyramid principle} ,each candidate window goes through the detector stage by stage, In each stage of PCN, the detector simultaneously rejects most candidates with low face confidences, regresses the bounding boxes of remaining face candidates, and calibrates the RIP orientations of the face candidates, After each stage, non-maximum suppression (NMS) is used to merge those highly overlapped candidates as most existing methods do.
+%The PCN detector diagram in Figure \ref{fig:PCN_archOverview}, 
+Given an image, all face candidates are obtained according to the sliding window and image pyramid principle ,each candidate window goes through the detector stage by stage, In each stage of PCN, the detector simultaneously rejects most candidates with low face confidences, regresses the bounding boxes of remaining face candidates, and calibrates the RIP orientations of the face candidates, After each stage, non-maximum suppression (NMS) is used to merge those highly overlapped candidates as most existing methods do.
 %\begin{figure}
 %	\centering
 %	\includegraphics[width=1\textwidth]{images/PCN_archOverview.png}

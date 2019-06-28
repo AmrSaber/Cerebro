@@ -1,5 +1,5 @@
 %\paragraph{brief}"Histogram of Oriented Gradients" is a popular technique to discover shapes within an image. How it work is by sampling subregions of the image using a kernel. It then checks the slope aka orientation gradient and puts it in a bin. Then it samples another region until entire image been sampled. It then looks in the bin and tries to determine a consensus of slopes to determine where the edges are.
-\paragraph{}It generalizes the object representation in a way that the output representation for the same object wouldn’t undergo much change under different conditions (like light or other noise), this is called \textbf{feature descriptor}.
+It generalizes the object representation in a way that the output representation for the same object wouldn’t undergo much change under different conditions (like light or other noise), this is called \textbf{feature descriptor}.
 It takes input image of object (face in our case) and produces Output vector representing histograms of gradients.\newline It calculates gradient vector for each pixel by measuring change in pixel value along x-direction and y-direction. \newline \newline \textbf{\textit{For example:}}\newline
 \begin{figure}
     \centering
@@ -7,7 +7,7 @@ It takes input image of object (face in our case) and produces Output vector rep
 	\caption{calculating gradient}
 	\label{fig:calculating gradient}
 \end{figure}
-In Figure ~\ref{fig:calculating gradient} this is a grayscale image, so the pixel values just range from 0 (black) : 255 (white), we compute the change in x-direction as the difference in colour values between pixels to left and right of current pixel, so in this case it would be 38 ($94 - 56$), note that the subtraction can be from left to right or from right to left but which ever order we take we must use it for the entire image, similarly the change along y-direction is computed as 38 ($93 - 55$), and Now we have our gradient vector:
+In Figure ~\ref{fig:calculating gradient} this is a grayscale image, so the pixel values just range from 0 (black) : 255 (white), we compute the change in x-direction as the difference in color values between pixels to left and right of current pixel, so in this case it would be 38 ($94 - 56$), note that the subtraction can be from left to right or from right to left but which ever order we take we must use it for the entire image, similarly the change along y-direction is computed as 38 ($93 - 55$), and Now we have our gradient vector:
 \[ \begin{bmatrix}
 38\\
 38\\
@@ -35,11 +35,11 @@ We distribute the gradient vectors on n bins to construct a histogram (n can be 
 \begin{math}
     \frac{1}{4}
 \end{math} 
-of its magnitude to the bin centred at 70 degrees, and 
+of its magnitude to the bin centered at 70 degrees, and 
 \begin{math}
     \frac{3}{4} 
 \end{math}
-of its magnitude to the bin centred at 90.
+of its magnitude to the bin centered at 90.
 \paragraph{How it’ll be applied on the image?}We divide the image into cells of (1X1, 4X4, …..) and we choose the number of pixels per cell according to which give us the best accuracy.\newline
 We use 12X12 pixels per cell.\newline Now we have multiple histogram for a single image we combine them sequentially in a vector. (see figure ~\ref{fig:hist representation})
 \begin{figure}
@@ -74,7 +74,7 @@ If you divide all three vectors by their respective magnitudes, you get the same
 \newline
 By dividing the gradient vectors by their magnitude, we can make them invariant (or at least more robust) to changes in contrast. (normalizing to unit length)
 \newline Normalizing a vector does not affect its orientation, only the magnitude.
-\paragraph{Histogram normalization} Rather than normalize each histogram individually, the cells are first grouped into blocks and normalized based on all histograms in the block, Each block consists of nXn (4X4 in our case) cells 50\% overlapping, the effect of the block overlap is that each cell will appear multiple times in the final descriptor but normalized by a different set of neighbouring cells.For more understanding of how the concept of block is applied, see figure ~\ref{fig:block normalization}
+\paragraph{Histogram normalization} Rather than normalize each histogram individually, the cells are first grouped into blocks and normalized based on all histograms in the block, Each block consists of nXn (4X4 in our case) cells 50\% overlapping, the effect of the block overlap is that each cell will appear multiple times in the final descriptor but normalized by a different set of neighboring cells.For more understanding of how the concept of block is applied, see figure ~\ref{fig:block normalization}
 \begin{figure}
 	\centering
 	\includegraphics[width=0.5\textwidth]{images/blocks.png}
