@@ -121,3 +121,65 @@ as obvious from the results \textbf{L1-sqrt} and \textbf{L2-Hys} methods tend to
     \item CNN, HOG and landmarks: training accuracy is 100\% and testing accuracy is 89.74\%.
 \end{itemize}
 \end{enumerate}
+%\newpage
+\paragraph{Confusion matrices}
+this section will include the confusion matrices on all data sets we tried using the model trained on HOG and landmarks only.
+\begin{itemize}
+	\item for FER data set:
+		\begin{itemize}
+			\item on 7 basic emotions\footnote{Happiness, Sadness, Anger, Disgust, Fear, Surprise, Neutral}.
+			\begin{figure}[H]
+				\centering
+				\includegraphics[width=0.75\textwidth]{images/fer_long.png}
+			\end{figure}
+		
+			\item on 3 emotions only\footnote{Satisfied, Unsatisfied, neural}.
+			\begin{figure}[H]
+				\centering
+				\includegraphics[width=0.75\textwidth]{images/fer_short.png}
+			\end{figure}
+		\end{itemize}
+		
+	\item for CK+ data set:
+		\begin{itemize}
+			\item on 8 basic emotions\footnote{Happiness, Sadness, Anger, Disgust, Fear, Surprise, Neutral, Contempt}.
+			\begin{figure}[H]
+				\centering
+				\includegraphics[width=0.75\textwidth]{images/ck_long.png}
+			\end{figure}
+			
+			\item on 3 emotions only.
+			\begin{figure}[H]
+				\centering
+				\includegraphics[width=0.75\textwidth]{images/ck_short.png}
+			\end{figure}
+		\end{itemize}
+	\item for RafD data set:
+		\begin{itemize}
+			\item on 8 basic emotions.
+			\begin{figure}[H]
+				\centering
+				\includegraphics[width=0.75\textwidth]{images/rafd_long.png}
+			\end{figure}
+			
+			\item on 3 emotions only.
+			\begin{figure}[H]
+				\centering
+				\includegraphics[width=0.75\textwidth]{images/rafd_short.png}
+			\end{figure}
+		\end{itemize}
+	\item for Combined data set:
+		\begin{itemize}
+			\item on 8 basic emotions.
+			\begin{figure}[H]
+				\centering
+				\includegraphics[width=0.75\textwidth]{images/combined_long.png}
+			\end{figure}
+			%\newpage
+			\item on 3 emotions only.
+			\begin{figure}[H]
+				\centering
+				\includegraphics[width=0.75\textwidth]{images/combined_short.png}
+			\end{figure}
+		\end{itemize}
+\end{itemize}

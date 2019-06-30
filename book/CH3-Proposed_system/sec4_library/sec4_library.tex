@@ -51,12 +51,11 @@ The Real Time Stream interface was developed using multi-threading to run smooth
 \end{itemize}
 \end{changemargin}
 \end{comment}
-
-% \hrulefill
-
+%\hrulefill
+\newpage
 
 \subsubsection{Facial Expression Recognition in a Video}
-\paragraph{detect\_video\_emotion}
+\paragraph{\underline{detect\_video\_emotion}}
 \subparagraph{Parameters}
 \begin{changemargin}{0.5cm}{0cm} 
 	\begin{itemize}
@@ -91,7 +90,7 @@ It reads the video from given \textbf{input\_path}, divides it into frames and a
 	\end{itemize}
 \end{changemargin}
 \end{comment}
-
+\hrulefill
 % \newpage
 \subsubsection{Facial Expression Recognition in a Single Image}
 \paragraph{mark\_faces\_emotions}
@@ -125,7 +124,8 @@ It reads the video from given \textbf{input\_path}, divides it into frames and a
 \end{itemize}
 \end{changemargin}
 \end{comment}
-% \newpage
+
+\newpage
 
 %\begin{center}
 \subsection{Lower Level APIs}
@@ -192,7 +192,7 @@ model = EmotionsModel(
 \end{changemargin}
 \end{comment}
 
-% \newpage
+\newpage
 % \noindent\textbf{1- predict(faces, prob\_emotion=False)}:
 \paragraph{predict}It can optimize the process by working on batches if your usage doesn't need to process image by image or work on single image as you prefer.
 
@@ -225,6 +225,7 @@ model = EmotionsModel(
 \end{itemize}
 \end{comment}
 % \newpage
+\hrulefill
 
 \paragraph{predict\_with\_vote(faces)}:
 This method helps in recognizing the accurate emotion of one face by making a vote of several sequential images and get the most appearant emotion. \newline
@@ -257,7 +258,7 @@ This method helps in recognizing the accurate emotion of one face by making a vo
 \end{itemize}
 \end{changemargin}
 \end{comment}
-
+\hrulefill
 \paragraph{detect\_video\_emotions\_with\_tracking}
 % It works by calling detect\_video\_emotions\_with\_tracking from process\_video.py
 \subparagraph{Parameters}
@@ -286,5 +287,5 @@ it works by dividing video into frames, processing a batch of frames together to
 \import{CH3-Proposed_system/sec4_library/}{hog_with_sliding_window.tex}
 
 \subsubsection{Image Processing API}
-all functions here go under \textbf{Cerebro.image} package, it supports multiple methods for noise removal, and image enhancement. 
+%all functions here go under \textbf{Cerebro.image} package, it supports multiple methods for noise removal, and image enhancement. 
 \import{CH3-Proposed_system/sec4_library/}{image_processing_api.tex}
