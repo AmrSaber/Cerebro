@@ -3,7 +3,7 @@ It generalizes the object representation in a way that the output representation
 It takes input image of object (face in our case) and produces Output vector representing histograms of gradients.\newline It calculates gradient vector for each pixel by measuring change in pixel value along x-direction and y-direction. \newline \newline \textbf{\textit{For example:}}\newline
 \begin{figure}
     \centering
-	\includegraphics[width=0.5\textwidth]{images/hog_pixel_ex.png}
+	\includegraphics[width=0.3\textwidth]{images/hog_pixel_ex.png}
 	\caption{calculating gradient}
 	\label{fig:calculating gradient}
 \end{figure}
@@ -44,7 +44,7 @@ of its magnitude to the bin centered at 90.
 We use 12X12 pixels per cell.\newline Now we have multiple histogram for a single image we combine them sequentially in a vector. (see figure ~\ref{fig:hist representation})
 \begin{figure}
 	\centering
-	\includegraphics[width=0.7\textwidth]{images/histogram_ex.png}
+	\includegraphics[width=0.5\textwidth]{images/histogram_ex.png}
 	\caption{image with part of its histogram}
 	\label{fig:hist representation}
 \end{figure}

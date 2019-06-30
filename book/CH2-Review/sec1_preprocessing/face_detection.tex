@@ -7,7 +7,7 @@ Then, it converts each block values into a histogram, so we get one histogram fo
 A classifier is then trained on those features with labeled images as faces or non-faces.
 \begin{figure}
 	\centering
-	\includegraphics{images/LBP_classifier.png}
+	\includegraphics[width=0.7\textwidth]{images/LBP_classifier.png}
 	\caption{Example of LBP calculation}
 	\label{fig:LBP_calculation}
 \end{figure}
@@ -17,7 +17,7 @@ We used the openCV implementation of the LBP classifier, it was by far the faste
 
 \begin{figure}
 	\centering
-	\includegraphics[width=0.75\textwidth]{images/lbp_example.jpg}
+	\includegraphics[width=0.7\textwidth]{images/lbp_example.jpg}
 	\caption{Example of LBP performance}
 	\label{fig:LBP_example}
 \end{figure}
@@ -44,7 +44,7 @@ but with too many features (up to 160000+) which is very time consuming, we need
 We used the openCV implementation of the HAAR classifier, it has higher accuracy than LBP as in Figure \ref{fig:haar_example} it can even detect most small faces without a problem, however it comes at the cost of execution time which greatly increased to 1.28 seconds, it's still possible to work with it for real time at soft constraints.
 \begin{figure}
 	\centering
-	\includegraphics[width=0.75\textwidth]{images/haar_example.jpg}
+	\includegraphics[width=0.7\textwidth]{images/haar_example.jpg}
 	\caption{example image displaying the accuracy of HAAR classifier}
 	\label{fig:haar_example}
 \end{figure}
@@ -64,7 +64,7 @@ Together those 4 techniques (sliding window algorithm, image pyramid, HOG, SVM) 
 
 \begin{figure}
 	\centering
-	\includegraphics[width=0.75\textwidth]{images/gaussian_pyramid.jpg}
+	\includegraphics[width=0.6\textwidth]{images/gaussian_pyramid.jpg}
 	\caption{Example on Gaussian image pyramid with 4 levels}
 	\label{fig:gaussian_pyramid}
 \end{figure}

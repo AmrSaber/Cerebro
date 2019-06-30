@@ -16,8 +16,7 @@ As our project concluded we made a library that holds the functionality of the p
 \end{itemize}
 
 \subsection{Emotion Recognition Interface}
-This interface provides user with three modules, that allow them to directly use the model we tuned to recognize facial expressions in a given image, video or real-time stream to the purpose that suits his application.\newline
-These functions all go under \textbf{Cerebro.interface} module.
+This interface provides user with three modules, that allow them to directly use the model we tuned to recognize facial expressions in a given image, video or real-time stream to the purpose that suits his application, These functions all go under \textbf{Cerebro.interface} module.
 
 \subsubsection{Real Time Streaming}
 The Real Time Stream interface was developed using multi-threading to run smoothly without a noticed delay in processing the frames to recognize the facial expressions. 
@@ -51,8 +50,8 @@ The Real Time Stream interface was developed using multi-threading to run smooth
 \end{itemize}
 \end{changemargin}
 \end{comment}
-%\hrulefill
-\newpage
+\hrulefill
+%\newpage
 
 \subsubsection{Facial Expression Recognition in a Video}
 \paragraph{\underline{detect\_video\_emotion}}
@@ -90,8 +89,8 @@ It reads the video from given \textbf{input\_path}, divides it into frames and a
 	\end{itemize}
 \end{changemargin}
 \end{comment}
-\hrulefill
-% \newpage
+%\hrulefill
+\newpage
 \subsubsection{Facial Expression Recognition in a Single Image}
 \paragraph{\underline{mark\_faces\_emotions}}
 
@@ -124,8 +123,8 @@ It reads the video from given \textbf{input\_path}, divides it into frames and a
 \end{itemize}
 \end{changemargin}
 \end{comment}
-
-\newpage
+\hrule\vspace{0.5mm}\hrule
+%\newpage
 
 %\begin{center}
 \subsection{Lower Level APIs}
@@ -137,12 +136,9 @@ This is a more flexible option we provide to users of our library, by which you 
 \end{enumerate}
 % \end{center}
 
-% \newpage 
-\hrule\vspace{0.5mm}\hrule
+\newpage 
+%\hrule
 \subsubsection{Model API}
-It provides you two methods with more options than interface, but first we need to create object of our model.
-\bigbreak
-
 \paragraph{\underline{Model Constructor}}
 
 \subparagraph{Parameters}
@@ -191,8 +187,8 @@ model = EmotionsModel(
 \end{itemize}
 \end{changemargin}
 \end{comment}
-
-\newpage
+\hrulefill
+%\newpage
 % \noindent\textbf{1- predict(faces, prob\_emotion=False)}:
 \paragraph{\underline{predict}} \mbox{} \\
 It can optimize the process by working on batches if your usage doesn't need to process image by image or work on single image as you prefer.
