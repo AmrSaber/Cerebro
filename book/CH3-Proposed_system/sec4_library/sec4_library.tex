@@ -23,7 +23,7 @@ These functions all go under \textbf{Cerebro.interface} module.
 The Real Time Stream interface was developed using multi-threading to run smoothly without a noticed delay in processing the frames to recognize the facial expressions. 
 
 %\begin{addmargin}[1em]{2em}
-\paragraph{detect\_stream\_emotions}% \mbox{} \\
+\paragraph{\underline{detect\_stream\_emotions}}% \mbox{} \\
 \subparagraph{Parameters}
 \begin{changemargin}{0.5cm}{0cm}
 	\begin{itemize}[noitemsep,nolistsep]
@@ -93,7 +93,7 @@ It reads the video from given \textbf{input\_path}, divides it into frames and a
 \hrulefill
 % \newpage
 \subsubsection{Facial Expression Recognition in a Single Image}
-\paragraph{mark\_faces\_emotions}
+\paragraph{\underline{mark\_faces\_emotions}}
 
 \subparagraph{Parameters}
 \begin{changemargin}{0.5cm}{0cm}
@@ -138,12 +138,12 @@ This is a more flexible option we provide to users of our library, by which you 
 % \end{center}
 
 % \newpage 
-
+\hrule\vspace{0.5mm}\hrule
 \subsubsection{Model API}
 It provides you two methods with more options than interface, but first we need to create object of our model.
 \bigbreak
 
-\paragraph{Model Constructor}
+\paragraph{\underline{Model Constructor}}
 
 \subparagraph{Parameters}
 \begin{changemargin}{0.5cm}{0cm}
@@ -194,7 +194,8 @@ model = EmotionsModel(
 
 \newpage
 % \noindent\textbf{1- predict(faces, prob\_emotion=False)}:
-\paragraph{predict}It can optimize the process by working on batches if your usage doesn't need to process image by image or work on single image as you prefer.
+\paragraph{\underline{predict}} \mbox{} \\
+It can optimize the process by working on batches if your usage doesn't need to process image by image or work on single image as you prefer.
 
 \subparagraph{Parameters}
 \begin{changemargin}{0.5cm}{0cm}
@@ -227,7 +228,7 @@ model = EmotionsModel(
 % \newpage
 \hrulefill
 
-\paragraph{predict\_with\_vote(faces)}:
+\paragraph{\underline{predict\_with\_vote}}:
 This method helps in recognizing the accurate emotion of one face by making a vote of several sequential images and get the most appearant emotion. \newline
 
 \subparagraph{Parameters}
@@ -259,7 +260,7 @@ This method helps in recognizing the accurate emotion of one face by making a vo
 \end{changemargin}
 \end{comment}
 \hrulefill
-\paragraph{detect\_video\_emotions\_with\_tracking}
+\paragraph{\underline{detect\_video\_emotions\_with\_tracking:}}
 % It works by calling detect\_video\_emotions\_with\_tracking from process\_video.py
 \subparagraph{Parameters}
 \begin{changemargin}{0.5cm}{0cm} 
@@ -283,9 +284,11 @@ This method helps in recognizing the accurate emotion of one face by making a vo
 it works by dividing video into frames, processing a batch of frames together to track people in them batch by batch till the frames end then gathering them together with the audio.
 \end{changemargin}
 
+\hrule\vspace{0.5mm}\hrule
 \subsubsection{Feature Extracion API}
 \import{CH3-Proposed_system/sec4_library/}{hog_with_sliding_window.tex}
 
+\hrule\vspace{0.5mm}\hrule
 \subsubsection{Image Processing API}
 %all functions here go under \textbf{Cerebro.image} package, it supports multiple methods for noise removal, and image enhancement. 
 \import{CH3-Proposed_system/sec4_library/}{image_processing_api.tex}
