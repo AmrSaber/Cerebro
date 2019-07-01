@@ -19,17 +19,18 @@ def check_rotation(path_video_file):
 
     # this returns meta-data of the video file in form of a dictionary
     meta_dict = ffmpeg.probe(path_video_file)
-    print(meta_dict['streams'][0]['tags'])
+    #print(meta_dict['streams'][0]['tags'])
 
     # from the dictionary, meta_dict['streams'][0]['tags']['rotate'] is the key
     # we are looking for
     rotateCode = None
-    if int(meta_dict['streams'][0]['tags']['rotate']) == 90:
-        rotateCode = cv2.ROTATE_90_CLOCKWISE
-    elif int(meta_dict['streams'][0]['tags']['rotate']) == 180:
-        rotateCode = cv2.ROTATE_180
-    elif int(meta_dict['streams'][0]['tags']['rotate']) == 270:
-        rotateCode = cv2.ROTATE_90_COUNTERCLOCKWISE
+    if 'rotate' in meta_dict['streams'][0]['tags']:
+        if int(meta_dict['streams'][0]['tags']['rotate']) == 90:
+            rotateCode = cv2.ROTATE_90_CLOCKWISE
+        elif int(meta_dict['streams'][0]['tags']['rotate']) == 180:
+            rotateCode = cv2.ROTATE_180
+        elif int(meta_dict['streams'][0]['tags']['rotate']) == 270:
+            rotateCode = cv2.ROTATE_90_COUNTERCLOCKWISE
 
     return rotateCode
 
@@ -70,12 +71,13 @@ def detect_video_emotions_with_tracking (video_path, output_path, batch_size=125
         if it == batch_size :
             returned_faces, returned_cords = tracker.faceTracking(to_be_tracked, batch_size)
             
-            print(len(returned_faces))
+            #print(len(returned_faces))
 
             emotions = model.predict_with_vote(returned_faces)
             
             if len(returned_cords) == 0:
-                for i in range(125):
+                for i in range(batch_size):
+                    tmp = to_be_tracked[i][0]
                     tmp = cv2.cvtColor(tmp,cv2.COLOR_BGR2RGB)
                     img_frames.append(tmp)
             else:

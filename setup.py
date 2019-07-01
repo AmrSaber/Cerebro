@@ -1,11 +1,17 @@
 from distutils.core import setup
 import setuptools
+
+with open("README.md", "r") as fh:
+    long_description = fh.read()
+
 setup(
     name = 'CEREBRO1',
-    version = '1.13',
+    version = '1.14',
     license='gpl-3.0',
-    description = 'recognizing facial expressions from images, videos and real-time stream',
-    author = 'AmrSaber, WafaaIsmail, MohamedAhmed, SalmaSayed, MohamedAref, ManarArabi',
+    description = 'Recognizing facial expressions from images, videos and real-time stream',
+    long_description=long_description,
+    long_description_content_type='text/markdown',
+    author = 'AmrSaber, WafaaIsmail, MohamedAhmed, SalmaSayed, MuhammadAref, ManarArabi',
     author_email = 'amr.m.saber.mail@gmail.com, wafaaismail595@gmail.com, mohamedmaim97@gmail.com, Salmasayed797@gmail.com, muhammad.aref224@gmail.com, manar.araby.ma@gmail.com',
     url = 'https://github.com/AmrSaber/Cerebro',
     download_url = 'https://github.com/AmrSaber/Cerebro/archive/v1.0.tar.gz',
