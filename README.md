@@ -33,15 +33,13 @@ for ***FFmpeg*** use this [link](https://github.com/adaptlearning/adapt_authorin
 ***Installation with pip***: if you have pip installed, just type this in a terminal:
 
 ```$ (sudo) pip install Cerebro```
-***Using Model*** : once You install Cerebro You have to dowenload our trained model from this [link](https://github.com/AmrSaber/Cerebro/blob/master/Cerebro/saved-models/emotions_model_specs.bin) and full model [link](https://github.com/AmrSaber/Cerebro/blob/master/Cerebro/saved-models/emotions_model.f5) then add them to this path ```Cerebro/saved-models```
+***Using Model*** : once You install Cerebro You have to dowenload our trained model from this [link](https://github.com/AmrSaber/Cerebro/blob/master/Cerebro/saved-models/emotions_model_specs.bin) and full model [link](https://github.com/AmrSaber/Cerebro/blob/master/Cerebro/saved-models/emotions_model.f5) then add them to new foldercalled ```saved-models```
 ***Using Landmark*** : if you want to use Landmark feature extractor you have to dowenload this file landmarks with 68 point using this [link](https://github.com/AmrSaber/Cerebro/tree/master/Cerebro/saved-models/face-landmarks) in this path
-```Cerebro/saved-models/face-landmarks```
+```saved-models/face-landmarks``` "create new folder called landmarks in saved-models" 
 
 **Video demo**
 
 **Real Time demo**
-
-**testing files**
 
 **Maintainers** 
 
