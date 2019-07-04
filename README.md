@@ -33,13 +33,18 @@ for ***FFmpeg*** use this [link](https://github.com/adaptlearning/adapt_authorin
 ***Installation with pip***: if you have pip installed, just type this in a terminal:
 
 ```$ (sudo) pip install Cerebro```
+
+
 ***Using Model*** : once You install Cerebro You have to dowenload our trained model from this [link](https://github.com/AmrSaber/Cerebro/blob/master/Cerebro/saved-models/emotions_model_specs.bin) and full model [link](https://github.com/AmrSaber/Cerebro/blob/master/Cerebro/saved-models/emotions_model.f5) then add them to new foldercalled ```saved-models```
+
 ***Using Landmark*** : if you want to use Landmark feature extractor you have to dowenload this file landmarks with 68 point using this [link](https://github.com/AmrSaber/Cerebro/tree/master/Cerebro/saved-models/face-landmarks) in this path
 ```saved-models/face-landmarks``` "create new folder called landmarks in saved-models" 
 
 **Video demo**
+see testing our interface on video :[link](https://www.youtube.com/watch?v=eKg1SgrRHbI&feature=youtu.be)
 
-**Real Time demo**
+**Documentation**
+You can find a Documentation about the work process (here)[https://drive.google.com/drive/folders/1w2Oz5UiLKixlcBvhcztqDcT_ZUPmwZd-]
 
 **Maintainers** 
 
@@ -48,6 +53,5 @@ for ***FFmpeg*** use this [link](https://github.com/adaptlearning/adapt_authorin
 * [aim97](https://github.com/aim97)
 * [ManarArabi](https://github.com/ManarArabi)
 * [SalmaSayed](https://github.com/SalmaSayed)
-* [MuhammeaAef](https://github.com/MuhammadAref)
-
+* [MuhammeaAref](https://github.com/MuhammadAref)
 
