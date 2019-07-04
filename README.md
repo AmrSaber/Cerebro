@@ -44,7 +44,7 @@ for ***FFmpeg*** use this [link](https://github.com/adaptlearning/adapt_authorin
 see testing our interface on video :[link](https://www.youtube.com/watch?v=eKg1SgrRHbI&feature=youtu.be)
 
 **Documentation**
-You can find a Documentation about the work process (here)[https://drive.google.com/drive/folders/1w2Oz5UiLKixlcBvhcztqDcT_ZUPmwZd-]
+You can find a Documentation about the work process [here](https://drive.google.com/file/d/1R_d2JSA50N0ARA9d4HNqaW_4uSF64jNh/view?usp=sharing)
 
 **Maintainers** 
 
