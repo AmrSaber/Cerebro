@@ -32,8 +32,8 @@ for ***FFmpeg*** use this [link](https://github.com/adaptlearning/adapt_authorin
 
 ***Installation with pip***: if you have pip installed, just type this in a terminal:
 
-```$ (sudo) pip install Cerebro```
 
+```$ (sudo) pip install Cerebro```
 
 ***Using Model*** : once You install Cerebro You have to dowenload our trained model from this [link](https://github.com/AmrSaber/Cerebro/blob/master/Cerebro/saved-models/emotions_model_specs.bin) and full model [link](https://github.com/AmrSaber/Cerebro/blob/master/Cerebro/saved-models/emotions_model.f5) then add them to new foldercalled ```saved-models```
 
