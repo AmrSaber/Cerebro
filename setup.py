@@ -5,8 +5,8 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setup(
-    name = 'CEREBRO1',
-    version = '1.14',
+    name = 'CEREBRO8',
+    version = '0.0.1',
     license='gpl-3.0',
     description = 'Recognizing facial expressions from images, videos and real-time stream',
     long_description=long_description,
