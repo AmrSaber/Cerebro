@@ -26,7 +26,7 @@ if __name__ == '__main__': main()
 Cerebro depends on some python packages, once you install Cerebro any missing Module will be automatically installed, 
 for ***FFmpeg*** use this [link](https://github.com/adaptlearning/adapt_authoring/wiki/Installing-FFmpeg).
 
-***Installation by hand***: download the sources, either from [PyPI](https://test.pypi.org/project/CEREBRO1/#description) or, if you want the development version, from GitHub, clone the project then use this command in terminal to setup.
+***Installation by hand***: download the sources, either from [PyPI](https://pypi.org/project/CEREBRO8/) or, if you want the development version, from GitHub, clone the project then use this command in terminal to setup.
 
 ```$ (sudo) python setup.py install```
 
