@@ -29,7 +29,7 @@ setup(
         ],
     install_requires=[
 #            'opencv-python',
-            'opencv-contrib-python==3.4.4.19',
+            'opencv-contrib-python==4.2.0.32',
             'numpy',
             'moviepy',
             'ffmpeg-python',
